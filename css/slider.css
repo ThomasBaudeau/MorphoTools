@@ -1,0 +1,110 @@
+/* 
+SAUVESTRE Clément / JACQUES PAtrick / GOMEZ Enzo 
+Styles du slider d'information
+*/
+
+
+
+.display-toolbox h1{
+    margin-left: 20px;
+}
+
+
+.display-tools {
+    box-sizing: border-box;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-slider{
+    position: absolute;
+    width:800px;
+    height: 500px;
+    margin: 10px;
+    background:#091112;
+    border-radius: 10px;
+}
+
+.img-slider .slide{
+    z-index:1;
+    position: absolute;
+    width: 100%;
+    clip-path: circle(0% at 0 50%);
+}
+
+.img-slider .slide.active{
+    clip-path: circle(150% at 0 50%);
+    transition: 1.5s;
+    transition-property: clip-path;
+}
+
+.img-slider .slide img{
+    z-index: 1;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.img-slider .slide .info{
+    position: absolute;
+    top: 0;
+    padding: 15px 30px;
+}
+
+.img-slider .slide .info h2{
+    color: #fff;
+    font-size: 45px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+}
+
+.img-slider .slide .info p{
+    color: #fff;
+    background: rgba(0,0,0,0.1);
+    font-size: 20px;
+    width: 60%;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: justify;
+    align-items: center;
+    
+}
+
+.img-slider .navigation{
+    z-index:4;
+    position: absolute;
+    display: flex;
+    bottom: 20px;
+    left: 400px;
+    transform: translateX(-50%);
+}
+
+.img-slider .navigation .nav-btn{
+    background: rgba(255,255,255,0.5);
+    width: 12px;
+    height: 12px;
+    margin: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+
+
+}
+
+.img-slider .navigation .nav-btn.active{
+    background: #2696e9;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+img {
+    height: 500px;
+    opacity: 0.6;
+}
+
+@media (max-width: 900px){
+    .display-toolbox {
+        display : none;
+    }
+}

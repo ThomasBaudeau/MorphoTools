@@ -1,0 +1,22 @@
+/* 
+SAUVESTRE Clément / JACQUES PAtrick / GOMEZ Enzo 
+Styles du formulaire d'importation de fichier
+*/
+
+
+.import-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#import-mc {
+    width: 650px;
+    height: 350px;
+}

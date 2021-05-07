@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorphoTools</title>
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/project.css">
+    <link rel="stylesheet" href="css/canvas.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/slider.css">
+    <link rel="stylesheet" href="css/import.css">
+</head>
+
+<body>
+    
+
+    <div class="header">
+        <div class="container">
+            <div class="header_navbar">
+                <div class="header_navbar-logo">
+                    <h1 class="header_navbar-logo-title">MorphoTools</h1>
+                </div>
+                <div class="header_navbar-menu">
+                    <button class="btn" id="create">New Project</button>
+                    <button class="btn" id="import">Import</button>
+                    <button class="btn" id="visugraph">Visugraph</button>
+                </div>
+                <div class="header_navbar-toggle">
+                    <span class="header_navbar-toggle-icons"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=application id=main>
+
+        <div class=app id=app>
+
+            <section class="display_projects" id="dp">
+                <h1>Mes projets</h1>
+                <ul id=projects></ul>
+            </section>
+
+            <section class="display-toolbox">
+                <h1>Informations sur les différents outils</h1>
+                <div class="display-tools">
+                    
+                    <div class="img-slider">
+                        <div class="slide active">
+                            <img src="images/vietnam_ancien.jpg">
+                            <div class="info">
+                                <h2>Visugraph</h2>
+                                <p>VisuGraph is an interactive user interface to visualize reconstruction proposals, as assembly graphs predicted by our AssemblyGraphNet model (from our paper Ostertag, Cecilia, and Marie Beurton-Aimar. "Using Graph Neural Networks to Reconstruct Ancient Documents." arXiv preprint arXiv:2011.07048 (2020).).</p>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <img src="images/vietnam_ancien.jpg">
+                            <div class="info">
+                                <h2>Display images</h2>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                        </div>
+                        <div class="navigation">
+                            <div class="nav-btn active"></div>
+                            <div class="nav-btn"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            
+        </div>
+
+        <div class=export_canvas id="export_canvas"></div>
+
+        
+        <div class="visu" style="display: none;">
+            <div id="cy" class="cy">
+                <button id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
+                <button id="btn-vg" onclick="initGraph(cy)">Load images </button>
+                <button id="btn-vg" onclick="expandGraph(cy)">Expand edges </button>
+                <button id="btn-vg" onclick="retractGraph(cy)">Retract edges </button>
+                <button id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
+                <button id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
+                <button id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+                <button id="btn-vg" onclick="shortSave(cy)">Quick save</button>
+                <button id="btn-vg" onclick="loadShortSave(cy,input)">Load quick save</button>
+                <button id="btn-vg" onclick="exportJPG(cy)">Export JPG</button>
+                <button id="btn-vg" onclick="exportGraphJSON(cy)">Export JSON</button>                
+            </div>
+        </div>
+    
+
+    </div>
+
+    <div class="bg-modal">
+        <div class="modal-content">
+            <div class="close">+</div>
+            <h2>Création d'un nouveau projet</h2>
+            <form>
+                <div>
+                    <label for="name"></label>
+                    <input type="text" id="name" placeholder="Name">
+                </div>
+                <div>
+                    <label for="abstract"></label>
+                    <textarea id="abstract" placeholder="Description"></textarea>
+                </div>
+                <div>
+                    <button class="button">Créer le projet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="import-modal">
+        <div class="modal-content" id="import-mc">
+            <div class="close" id="import-close">+</div>
+            <h2>Importation des fichiers pour le projet sélectionné</h2>
+            <form>
+                <div id="upload" class="upload">
+                    <h3>Import images</h3>
+                    <input type="file" multiple onchange= addImport() accept="image/*" id=ii>
+                    <h3>Import json</h3>
+                    <input type="file"  accept=".json" id=ij>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/features.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/formulaire.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/cytoscape.min.js"></script>
+    <script src="js/importExport.js"></script>
+    <script src="js/shortsave.js"></script>
+    <script src="js/superposition.js"></script>
+    <script src="js/visugraph.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+/* 
+SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
+Définit le style général du site ainsi que celui de chaque plugin
+*/
+
+body, html { 
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+}
+
+
+/*Style de visugraph*/
+#cy {
+  height: 98%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+  z-index: 5;
+}
+/*
+.cy {
+  background-color: #fff;
+  z-index: 5;
+  position: absolute;
+  height: 30px;
+  text-align: center;
+  align-items: center;
+  display: block;
+}*/
+
+.visu {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  top:0;
+  display: none;
+}
+
+
+#btn-vg {
+  margin-left: 5px;
+  cursor: pointer;
+  background-color: #1c9099;
+  border: none;
+  color: white;
+  padding: 14px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+}

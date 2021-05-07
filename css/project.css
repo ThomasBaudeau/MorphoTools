@@ -1,0 +1,101 @@
+/* SAUVESTRE Clément / JACQUES PAtrick / GOMEZ Enzo */
+
+
+/*Affichage des projets*/
+
+.display_projects {
+  padding: 10px 20px;
+  background:#ebf3f4;
+}
+
+h1 {
+  color: #4A342C;
+  font-weight: bold;
+}
+
+ul {
+  list-style-type: none;
+  display: inline-block;
+  padding:0;
+  margin:0;
+}
+
+li {
+  margin-left:4px;
+  margin-bottom: 5px;
+}
+
+ul li {
+  display:block;
+  float:left;   
+  width:220px;
+  height: 170px;
+  background-color:#286d72;
+  color:white;
+  text-decoration:none;
+  text-align:center;
+  padding:5px;
+  border:2px solid;
+  border-color:#DCDCDC #696969 #696969 #DCDCDC;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background:#46bec7
+}
+
+
+/*Création de projet - Affichage du formulaire*/
+
+input, textarea {
+  font: 1em sans-serif;
+  width: 60%;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  margin: 15px auto;
+}
+
+input:focus, textarea:focus {
+  border-color: #000;
+}
+
+textarea {
+  vertical-align: top;
+  height: 5em;
+}
+
+.button {
+  margin-left: .5em;
+}
+
+.bg-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.modal-content {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 16px;
+  font-size: 42px;
+  transform: rotate(45deg);
+  cursor: pointer;
+}

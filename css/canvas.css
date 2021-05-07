@@ -1,0 +1,27 @@
+/* 
+SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
+Définit le style général du site ainsi que celui de chaque plugin
+*/
+
+.application {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 255, 255);
+}
+
+.cy {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 1;
+    z-index: 1;
+}
+
+.export_canvas {
+    position: absolute;
+    background-color: yellow;
+    overflow: hidden;
+    z-index: -1;
+}
