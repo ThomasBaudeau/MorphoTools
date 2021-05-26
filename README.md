@@ -7,3 +7,5 @@ Fonctionnement de la boite à outils :
   4. Lancer une application. Pour l'instant la boite à outils permet de lancer uniquement le plugin nommé Visugraph
 test VAL
 test Thomas
+test Greg
+
