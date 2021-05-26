@@ -69,6 +69,8 @@ window.onload = function() {
       //Vide le formulaire, pour qu'il soit prêt pour un nouvel ajout
       nameInput.value = '';
       abstractInput.value = '';
+      // On ferme la fenetre qui a été ouverte
+      document.querySelector('.bg-modal').style.display = 'none';
     };
 
     //Attente de la fin de la transaction
