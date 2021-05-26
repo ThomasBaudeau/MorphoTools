@@ -70,7 +70,7 @@ window.onload = function() {
       nameInput.value = '';
       abstractInput.value = '';
       // On ferme la fenetre qui a été ouverte
-      document.querySelector('.import-modal').style.display = 'none';
+      document.querySelector('.bg-modal').style.display = 'none';
     };
 
     //Attente de la fin de la transaction
