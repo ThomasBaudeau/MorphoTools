@@ -3,19 +3,31 @@ SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
 Importation et exportation du graphe sous format JSON
 */
 
+function checkimport(fileName){
+  console.log("TEST VAL JSON : " + fileName.includes(".json"))
+  return fileName.includes(".json")
+  
+}
+
+
 function singleImportJSON(cy){
   const fileInput = $('#ij')[0].files[0];
   console.log(fileInput);
   var reader = new FileReader();
   reader.fileName = fileInput.name;
-  console.log(reader);
-  reader.onload = function(readerEvent){
-      console.log(readerEvent.target.result);
-      var data = JSON.parse(readerEvent.target.result);
-      console.log(data);
-      cy.json(data)
-  };
-  reader.readAsText(fileInput);
+  if (checkimport(reader.fileName)){ // TRUE si JSON
+    console.log(reader);
+    reader.onload = function(readerEvent){
+        console.log(readerEvent.target.result);
+        var data = JSON.parse(readerEvent.target.result);
+        console.log(data);
+        cy.json(data)
+    };
+    reader.readAsText(fileInput);
+  }
+  else {
+    // TODO conversion csv -> JSON
+  }
 }
 
 function exportGraphJSON(cy){
