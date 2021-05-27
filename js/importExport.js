@@ -20,27 +20,55 @@ function singleImportJSON(cy){
         console.log(readerEvent.target.result);
         var data = JSON.parse(readerEvent.target.result); //parsing du json
         console.log(data);
-        cy.json(data)
+        cy.json(data);
     };
     reader.readAsText(fileInput);
   }
   else {
-    console.log("dans le else")
-    console.log(reader)
-    // TODO conversion csv -> JSON
+    console.log("dans le else");
+    console.log(reader);
     var obj_csv = {
       size:0,
       dataFile:[]
     };
     reader.readAsBinaryString(fileInput);
     reader.onload = function (readerEvent) {
-      console.log("dans le onload")
+      console.log("dans le onload");
       console.log(readerEvent);
       obj_csv.size = readerEvent.total;
-      obj_csv.dataFile = readerEvent.target.result
-      console.log(obj_csv.dataFile)
-      //parseData(obj_csv.dataFile)   
+      obj_csv.dataFile = readerEvent.target.result;
+      console.log(obj_csv.dataFile);
+      parseData(obj_csv.dataFile);
     }
+  }
+}
+
+//FROM imported csv to JSON
+function parseData(csv_data){
+  let word = "";
+  let char = 0;
+  let array = [];
+  let line = []
+  let line_nb = 1
+  console.log("test du csv" + csv_data[1]);
+  while (char < csv_data.length){
+    if (csv_data[char] == ',' || csv_data[char] == ' '){
+      line.push(word);
+      word = "";
+    }
+    else if (csv_data[char] == "\n"){
+      line.push(word)
+      array.push(line);
+      console.log("new line " + line_nb + "\n" + line)
+      word = "";
+      line = [];
+      line_nb ++;
+      
+    }
+    else{
+      word += csv_data[char];
+    }
+    char ++;
   }
 }
 
