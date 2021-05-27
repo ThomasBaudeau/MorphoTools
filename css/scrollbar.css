@@ -16,7 +16,7 @@
     position: absolute;
     top:70px;
     left:0;
-    z-index: 10;
+    z-index: 2;
     padding-top: 60px
 }
 
@@ -27,6 +27,26 @@
     
 
 }
+
+
+
+
+.infobulle{
+    background:#139ee0;
+    display: none;
+    color:#fff;
+    padding:7px 15px; 
+    border-radius:53px; 
+    width:250px;}
+
+.infobulle::after{
+content:""; 
+border-left:-20px solid transparent;
+border-right:-20px solid transparent;
+border-top: 20px solid #139ee0;
+position: absolute;
+}
+
 .text-side{
 
 }
