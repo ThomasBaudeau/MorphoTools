@@ -73,3 +73,49 @@
 .text-side{
 
 }
+
+.btn2 {
+
+    font-size: 17px;
+    height: 35px;
+    padding-top: 0;
+    margin: 0px;
+    width: 250px;
+    font-family: Roboto;
+    background: #1c4c50;
+    border: 2px solid;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.btn2::after,
+.btn2::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: #1c4c50;
+    transform: skewX(50deg);
+    transition: .2s linear;
+}
+
+.btn2::before {
+    top: -2px;
+    left: 10px;
+}
+
+.btn2::after {
+    bottom: -2px;
+    right: 10%;
+}
+
+.btn2:hover::before {
+    left: 80%;
+}
+
+.btn2:hover::after {
+    right: 80%;
+}

@@ -30,7 +30,20 @@
         </div>
     </div>
 
-   
+    <div class="import-modal">
+        <div class="modal-content" id="import-mc">
+            <div class="close" id="import-close">+</div>
+            <h2>Importation des fichiers pour le projet sélectionné</h2>
+            <form>
+                <div id="upload" class="upload">
+                    <h3>Import images</h3>
+                    <input type="file" multiple onchange=//addImport() accept="image/*" id=ii>
+                    <h3>Import json/csv</h3>
+                    <input type="file" accept=".json,.csv" id=ij>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class=sidebar id=sidebar>
 
@@ -55,7 +68,7 @@
 
                 </div>
             </div>
-            
+            <button class="btn2" id="import">Tool</button>
         </section>
         
 
@@ -65,5 +78,12 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+    <script src="js/canvas.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/importExport.js"></script>
+    <script src="js/shortsave.js"></script>
+    <script src="js/superposition.js"></script>
     <script src="js/scrollbar.js"></script>
+</body>
+
+</html>
