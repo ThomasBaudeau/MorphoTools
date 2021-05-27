@@ -38,7 +38,8 @@ function singleImportJSON(cy){
       obj_csv.size = readerEvent.total;
       obj_csv.dataFile = readerEvent.target.result;
       console.log(obj_csv.dataFile);
-      parseData(obj_csv.dataFile);
+      let array = parseData(obj_csv.dataFile);
+      let json = CSV_to_JSON(array);
     }
   }
 }
@@ -48,28 +49,57 @@ function parseData(csv_data){
   let word = "";
   let char = 0;
   let array = [];
-  let line = []
-  let line_nb = 1
+  let line = [];
+  let line_nb = 1;
   console.log("test du csv" + csv_data[1]);
   while (char < csv_data.length){
-    if (csv_data[char] == ',' || csv_data[char] == ' '){
+    if (csv_data[char] == ','){
       line.push(word);
       word = "";
     }
     else if (csv_data[char] == "\n"){
-      line.push(word)
+      line.push(word);
       array.push(line);
-      console.log("new line " + line_nb + "\n" + line)
       word = "";
       line = [];
       line_nb ++;
-      
     }
     else{
       word += csv_data[char];
     }
     char ++;
   }
+  console.log("1er element " + array[0][0])
+  console.log("2eme element " + array[0][1])
+  return array;
+}
+
+function CSV_to_JSON(array){
+  let json = 
+    {"elements": {
+      "nodes" : [],
+      "edges" : []
+    },
+    "style": [
+      {"selector":"node","style":{"height":"10px","width":"10px","shape":"rectangle","background-fit":"cover","border-color":"rgb(0,0,0)","border-width":"0px","border-opacity":"0.5"}},
+      {"selector":"edge","style":{"width":"0.1px","target-arrow-shape":"triangle","arrow-scale":"0.1","line-color":"rgb(0,0,0)","target-arrow-color":"rgb(0,0,0)"}}
+    ],
+    "data":{},
+    "zoomingEnabled":true,
+    "userZoomingEnabled":true,
+    "zoom":6.009433962264151,
+    "minZoom":1e-50,
+    "maxZoom":1e+50,
+    "panningEnabled":true,
+    "userPanningEnabled":true,
+    "pan":{"x":-2357.7169811320755,"y":255},
+    "boxSelectionEnabled":false,
+    "renderer":{"name":"canvas"}
+  };
+
+  //remplissage nodes
+  //for()
+
 }
 
 function exportGraphJSON(cy){
