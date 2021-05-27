@@ -17,16 +17,14 @@
     top:70px;
     left:0;
     z-index: 2;
-    padding-top: 25px
+    padding-top: 3px
 }
 
 .text-side-project{
+    padding-top: 15px;
     text-align: center;
     color: #ebf3f4;
     font-size: large;
-    
-    
-
 }
 
 
@@ -52,11 +50,12 @@
 
 
 .import-side{
-
+    text-align: center;
+    border-bottom: 3px solid #1c4c50d7;
 }
 
 .tool-side{
-    
+
 }
 .text-side{
 
