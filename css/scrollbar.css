@@ -17,13 +17,14 @@
     top:70px;
     left:0;
     z-index: 2;
-    padding-top: 60px
+    padding-top: 25px
 }
 
 .text-side-project{
     text-align: center;
     color: #ebf3f4;
     font-size: large;
+    
     
 
 }
@@ -37,14 +38,16 @@
     color:#fff;
     padding:7px 15px; 
     border-radius:53px; 
-    width:250px;}
+    width:250px;
+    font-size: small;
+}
 
 .infobulle::after{
-content:""; 
-border-left:-20px solid transparent;
-border-right:-20px solid transparent;
-border-top: 20px solid #139ee0;
-position: absolute;
+    content:""; 
+    border-left:-20px solid transparent;
+    border-right:-20px solid transparent;
+    border-top: 20px solid #139ee0;
+    position: absolute;
 }
 
 
