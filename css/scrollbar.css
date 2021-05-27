@@ -55,6 +55,18 @@
 
 }
 
+.imported-files{
+    color: #fff;
+    text-align: center;
+    font-size: large;
+}
+
+.files-list{
+    color: #fff;
+    text-align: center;
+    font-size: small;
+}
+
 .tool-side{
     
 }
