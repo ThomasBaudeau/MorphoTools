@@ -98,8 +98,24 @@ function CSV_to_JSON(array){
   };
 
   //remplissage nodes
-  //for()
+  for(let node = 1 ; node < array[0].length ; node++){
+    let data = {
+      "data":{
+        "id": array[0][node],
+        "label": node-1
+      },
+      "position":{"x":500,"y":0},
+      "group":"nodes",
+      "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+    };
+    json.elements.nodes.push(data);
+  }
+  console.log("le json : " + json.elements.nodes[0].data.id)
 
+  //remplissage edges
+  for(let col = 1 ; col < array[0][0] ; col++){
+
+  }
 }
 
 function exportGraphJSON(cy){
