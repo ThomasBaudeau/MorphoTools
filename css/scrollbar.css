@@ -119,8 +119,19 @@
     right: 80%;
 }
 
+/* Bouton de retour a l'index */
+#back_to_index {
+    color: #fff;
+    font-size: 34px;
+    font-weight: bold;
+    font-family: Satisfy, cursive;
+    background: #1c4c50;
+    border: none;
+    cursor: pointer;
+}
 
-/*selection de l'outil*/
+/*  selection de l'outil  */
+
 #tool_list{
     display:block;
     float:left;   
