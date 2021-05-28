@@ -21,7 +21,7 @@
         <div class="container">
             <div class="header_navbar">
                 <div class="header_navbar-logo">
-                    <h1 class="header_navbar-logo-title">MorphoTools</h1>
+                    <button class="header_navbar-logo-title" id="back_to_index" onclick= "window.location.href='index.html'">MorphoTools</button>
                 </div>
                 <div class="header_navbar-toggle">
                     <span class="header_navbar-toggle-icons"></span>
@@ -54,7 +54,8 @@
             </div>
             <div class= "text-side-project" id=titre> Titre
                 <div class='infobulle' id= bulle>
-                    <div class="infobulle::after" id=ok>Ceci est une description plutot longue histoire de voir si ça fait de la merde</div>
+                    <div class="infobulle::after" id=ok>Vous savez, moi je ne crois pas qu'il y ait de bonne ou de mauvaise situation. Moi, si je devais résumer ma vie aujourd'hui avec vous, je dirais que c'est d'abord des rencontres. Des gens qui m'ont tendu la main, peut-être à un moment où je ne pouvais pas, où j'étais seul chez moi. Et c'est assez curieux de se dire que les hasards, les rencontres forgent une destinée...
+                    </div>
                 </div>   
             </div>
 
@@ -69,7 +70,24 @@
 
                 </div>
             </div>
-            <button class="btn2" id="import">Tool</button>
+            <div class="select-box">
+                <div class="select-box__current" tabindex="0">
+                    <div class="select-box__value"><input class="select-box__input" id="tool" type="radio" value=" " name="tools" checked="checked" />
+                        <p class="select-box__input-text">Select a Tool...</p>
+                    </div>
+                    <div class="select-box__value"><input class="select-box__input" id="Visu" type="radio" value="VISU" name="tools" />
+                        <p class="select-box__input-text">Visugraph</p>
+                    </div>
+                    <div class="select-box__value"><input class="select-box__input" id="Other" type="radio" value="OTHER" name="tools" />
+                        <p class="select-box__input-text">Other tools</p>
+                    </div>
+                </div>
+                <ul class="select-box__list">
+                        <li id = "tool_list" ><label class="select-box__option" for="Visu" aria-hidden="aria-hidden">Visugraph</label></li>
+                        <li id = "tool_list" ><label class="select-box__option" for="Other" aria-hidden="aria-hidden">Other tools</label></li>
+                </ul>
+            </div>
+
         </section>
         
 
