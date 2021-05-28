@@ -16,17 +16,106 @@
     position: absolute;
     top:70px;
     left:0;
-    z-index: 10;
-    padding-top: 60px
+    z-index: 2;
+    padding-top: 3px
 }
 
 .text-side-project{
+    padding-top: 15px;
     text-align: center;
     color: #ebf3f4;
     font-size: large;
-    
+}
+
+
+
+
+.infobulle{
+    background:#139ee0;
+    display: none;
+    color:#fff;
+    padding:7px 15px; 
+    border-radius:53px; 
+    width:250px;
+    font-size: small;
+}
+
+.infobulle::after{
+    content:""; 
+    border-left:-20px solid transparent;
+    border-right:-20px solid transparent;
+    border-top: 20px solid #139ee0;
+    position: absolute;
+}
+
+
+.import-side{
+    text-align: center;
+    border-bottom: 3px solid #1c4c50d7;
+}
+
+.imported-files{
+    color: #fff;
+    text-align: center;
+    font-size: large;
+    padding-top: 30px;
+}
+
+.files-list{
+    color: #fff;
+    text-align: center;
+    font-size: small;
+}
+
+.tool-side{
 
 }
 .text-side{
 
+}
+
+.btn2 {
+
+    font-size: 17px;
+    height: 35px;
+    padding-top: 0;
+    margin: 0px;
+    width: 250px;
+    font-family: Roboto;
+    background: #1c4c50;
+    border: 2px solid;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.btn2::after,
+.btn2::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: #1c4c50;
+    transform: skewX(50deg);
+    transition: .2s linear;
+}
+
+.btn2::before {
+    top: -2px;
+    left: 10px;
+}
+
+.btn2::after {
+    bottom: -2px;
+    right: 10%;
+}
+
+.btn2:hover::before {
+    left: 80%;
+}
+
+.btn2:hover::after {
+    right: 80%;
 }

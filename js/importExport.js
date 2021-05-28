@@ -14,7 +14,8 @@ function singleImportJSON(cy){
   console.log(fileInput);
   var reader = new FileReader();
   reader.fileName = fileInput.name;
-  if (checkimport(reader.fileName)){ // TRUE si JSON
+  // JSON
+  if (checkimport(reader.fileName)){ 
     console.log(reader);
     reader.onload = function(readerEvent){
         console.log(readerEvent.target.result);
@@ -22,26 +23,22 @@ function singleImportJSON(cy){
         console.log(data);
         cy.json(data);
     };
-    reader.readAsText(fileInput);
   }
+  // CSV
   else {
     console.log("dans le else");
     console.log(reader);
-    var obj_csv = {
-      size:0,
-      dataFile:[]
-    };
+    var obj_csv = []
     reader.readAsBinaryString(fileInput);
-    reader.onload = function (readerEvent) {
-      console.log("dans le onload");
+    reader.onload = function (readerEvent){
       console.log(readerEvent);
-      obj_csv.size = readerEvent.total;
-      obj_csv.dataFile = readerEvent.target.result;
-      console.log(obj_csv.dataFile);
-      let array = parseData(obj_csv.dataFile);
-      let json = CSV_to_JSON(array);
+      obj_csv = readerEvent.target.result;
+      let array = parseData(obj_csv);
+      let data = CSV_to_JSON(array);
+      cy.json(data);
     }
   }
+  reader.readAsText(fileInput);
 }
 
 //FROM imported csv to JSON
@@ -51,7 +48,6 @@ function parseData(csv_data){
   let array = [];
   let line = [];
   let line_nb = 1;
-  console.log("test du csv" + csv_data[1]);
   while (char < csv_data.length){
     if (csv_data[char] == ','){
       line.push(word);
@@ -69,12 +65,12 @@ function parseData(csv_data){
     }
     char ++;
   }
-  console.log("1er element " + array[0][0])
-  console.log("2eme element " + array[0][1])
   return array;
 }
 
 function CSV_to_JSON(array){
+  let cpt = 0;
+  
   let json = 
     {"elements": {
       "nodes" : [],
@@ -98,8 +94,43 @@ function CSV_to_JSON(array){
   };
 
   //remplissage nodes
-  //for()
-
+  for(let node = 1 ; node < array[0].length ; node++){
+    let data = {
+      "data":{
+        "id": array[0][node],
+        "label": node-1
+      },
+      "position":{"x":500,"y":0},
+      "group":"nodes",
+      "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+    };
+    json.elements.nodes.push(data);
+  }
+  //remplissage edges
+  for(let line = 1 ; line < array.length ; line++){
+    for(let col = line ; col < array[line].length ; col++){
+      //console.log("line :" + line + "col :" + col);
+      if (array[line][col] !== '1'){  
+        let id = 'E' + cpt;
+        cpt++;
+        let data = {
+          "data":{
+            "id": id,
+            "label":"",
+            "proba":array[line][col],
+            "source":array[line][0],
+            "target":array[0][col]
+          },
+          "position":{"x":0,"y":0},
+          "group":"edges",
+          "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
+        };
+        json.elements.edges.push(data);
+      }
+    }
+  }
+  console.log(JSON.stringify(json.elements.edges));
+  return JSON.stringify(json)
 }
 
 function exportGraphJSON(cy){

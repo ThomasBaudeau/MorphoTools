@@ -30,15 +30,62 @@
         </div>
     </div>
 
-   
+    <div class="import-modal">
+        <div class="modal-content" id="import-mc">
+            <div class="close" id="import-close">+</div>
+            <h2>Importation des fichiers pour le projet sélectionné</h2>
+            <form>
+                <div id="upload" class="upload">
+                    <h3>Import images</h3>
+                    <input type="file" multiple onchange=//addImport() accept="image/*" id=ii>
+                    <h3>Import json/csv</h3>
+                    <input type="file" accept=".json,.csv" id=ij>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class=sidebar id=sidebar>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="js/features.js"></script>
 
         <section class= "left-container">
-            <div class= "text-side-project" id=titre>Le Titre</div>
+            <div class="import-side">
+                <button class="btn" id="import">Import</button>
+            </div>
+            <div class= "text-side-project" id=titre> Titre
+                <div class='infobulle' id= bulle>
+                    <div class="infobulle::after" id=ok>Ceci est une description plutot longue histoire de voir si ça fait de la merde</div>
+                </div>   
+            </div>
+
+            <div class= "imported-files"> Fichiers Importés
+                <div class= "files-list"> 
+                    <p id="nb_photo">
+                        Nombre de photo importées : 
+                    </p>
+                    <p id="nb_matrice">
+                        Nombre de matrice importées : 
+                    </p>
+
+                </div>
+            </div>
+            <button class="btn2" id="import">Tool</button>
         </section>
-    
+        
 
     </div>
+
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/importExport.js"></script>
+    <script src="js/shortsave.js"></script>
+    <script src="js/superposition.js"></script>
+    <script src="js/scrollbar.js"></script>
+</body>
+
+</html>

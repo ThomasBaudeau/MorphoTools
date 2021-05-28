@@ -23,16 +23,7 @@ function() {
 });
 
 
-//Fenêtre d'importation de fichiers
-document.getElementById('import').addEventListener('click',
-function() {
-  document.querySelector('.import-modal').style.display = 'flex';
-});
 
-document.getElementById('import-close').addEventListener('click',
-function() {
-  document.querySelector('.import-modal').style.display = 'none';
-});
 
 
 //Lancement de Visugraph
