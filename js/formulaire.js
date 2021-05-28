@@ -150,7 +150,7 @@ window.onload = function() {
       
       if(!list.firstChild) {
         let listItem = document.createElement('li');
-        listItem.textContent = 'Aucun projet enregistré.';in localhost
+        listItem.textContent = 'Aucun projet enregistré.';
         list.appendChild(listItem);
       };
     };
