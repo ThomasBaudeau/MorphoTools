@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         console.log(projectId);
         sessionStorage.setItem('selected_project',projectId);
+        obtainValues(projectId);
+        window.location.href="projet.html";
     };
 });
 
@@ -105,7 +107,33 @@ function addImport(){
     };
 };
 
+function obtainValues(key){
+    let db;
+    let request = window.indexedDB.open('morphotools', 3);
 
+    //La base de données n'a pas pu être ouverte avec succès
+    request.onerror = function(event) {
+      console.log('Database error : ' + event.target.errorCode);
+    };
+  
+    //La base de données a été ouverte avec succès
+    request.onsuccess = function() {
+        console.log('Database opened successfully');
+        //Stocke la base de données ouverte dans la variable db.
+        db = request.result;
+        console.log(db);
+        
+        var transaction = db.transaction(["projects"]);
+        var objectStore = transaction.objectStore("projects");
+        var request = objectStore.get(key);
+        request.onerror = function(event){
+            console.log("big mistake");
+        }
+        request.onsuccess = function(event){
+            console.log(request.result);
+        }
+    }
+  }
 
 
 //Ajouter une fonction delete + ecraser données existants lorsque on réimport des données
