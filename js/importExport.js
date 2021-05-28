@@ -14,7 +14,7 @@ function singleImportJSON(cy){
   console.log(fileInput);
   var reader = new FileReader();
   reader.fileName = fileInput.name;
-  // JSON
+  // le fichier importé est un JSON
   if (checkimport(reader.fileName)){ 
     console.log(reader);
     reader.onload = function(readerEvent){
@@ -24,7 +24,7 @@ function singleImportJSON(cy){
         cy.json(data);
     };
   }
-  // CSV
+  // le fichier importé est un CSV
   else {
     console.log("dans le else");
     console.log(reader);
@@ -41,7 +41,7 @@ function singleImportJSON(cy){
   reader.readAsText(fileInput);
 }
 
-//FROM imported csv to JSON
+// convertir le fichier csv (string) en array
 function parseData(csv_data){
   let word = "";
   let char = 0;
@@ -68,6 +68,7 @@ function parseData(csv_data){
   return array;
 }
 
+// convertir le fichier csv (array) en json (cytoscape)
 function CSV_to_JSON(array){
   let cpt = 0;
   
