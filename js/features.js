@@ -97,36 +97,30 @@ function addImport(){
         };
     };
 };
-
-function obtainValues(key){
-    let db;
-    let request = window.indexedDB.open('morphotools', 3);
-
-    //La base de données n'a pas pu être ouverte avec succès
-    request.onerror = function(event) {
-      console.log('Database error : ' + event.target.errorCode);
-    };
-  
+function obtainValues(key) {
     //La base de données a été ouverte avec succès
-    request.onsuccess = function() {
-        console.log('Database opened successfully');
-        //Stocke la base de données ouverte dans la variable db.
-        db = request.result;
-        console.log(db);
-        
-        var transaction = db.transaction(["projects"]);
-        var objectStore = transaction.objectStore("projects");
-        var request = objectStore.get(key);
-        request.onerror = function(event){
-            console.log("big mistake");
+    let objectStore = db.transaction(['projects'], 'readwrite').objectStore('projects');
+    objectStore.openCursor().onsuccess = function (e) {
+        //Récupère une référence au curseur
+        let cursor = e.target.result;
+        if (cursor){
+            let thename = cursor.value.name;
+            let abstract = cursor.value.abstract;
+            let id_ = cursor.key;
+            console.log(thename,abstract ,id_);
+            if (id_ == key) {
+                sessionStorage.setItem('name_project', thename);
+                sessionStorage.setItem('abstract_project', abstract);
+            }
+            cursor.continue();
         }
-        request.onsuccess = function(event){
-            console.log(request.result);
+        else{
+            console.log("No more key")
+            
         }
+       
     }
-  }
-
-
+}
 //Ajouter une fonction delete + ecraser données existants lorsque on réimport des données
 
 
