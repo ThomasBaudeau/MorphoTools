@@ -114,6 +114,7 @@ window.onload = function() {
         listItem.setAttribute('data-project-id', cursor.value.id);
         //Crée un bouton et le place dans le li
         let deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute("id","deletion")
         listItem.appendChild(deleteBtn);
         deleteBtn.textContent = 'Delete';
         //Définit un gestionnaire d'événement pour appeler deleteItem()
