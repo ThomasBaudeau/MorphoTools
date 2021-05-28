@@ -39,18 +39,23 @@ function() {
 //Sélection et stockage du project sur lequel l'utilisateur va travailler
 document.addEventListener("DOMContentLoaded", () => {
     var ul = document.querySelector('ul');
+    
+   
     ul.onclick = function(event) {
+        var under = document.querySelectorAll( ":hover" );
         var projectId;
-        if (event.target.nodeName == "LI"){
-            projectId = event.target.attributes["data-project-id"].value;
+        if(under[under.length-1].id !== "deletion"){
+            if (event.target.nodeName == "LI"){
+                projectId = event.target.attributes["data-project-id"].value;
+            }
+            else {
+                projectId = event.target.parentNode.attributes["data-project-id"].value;
+            }
+            console.log(projectId);
+            sessionStorage.setItem('selected_project',projectId);
+            obtainValues(projectId);
+            window.location.href="projet.html";
         }
-        else {
-            projectId = event.target.parentNode.attributes["data-project-id"].value;
-        }
-        console.log(projectId);
-        sessionStorage.setItem('selected_project',projectId);
-        obtainValues(projectId);
-        window.location.href="projet.html";
     };
 });
 

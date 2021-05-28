@@ -103,6 +103,7 @@ window.onload = function() {
         let listItem = document.createElement('li');
         let h3 = document.createElement('h3');
         let para = document.createElement('p');
+        para.setAttribute("id","description")
         listItem.appendChild(h3);
         listItem.appendChild(para);
         list.appendChild(listItem);
@@ -114,6 +115,7 @@ window.onload = function() {
         listItem.setAttribute('data-project-id', cursor.value.id);
         //Crée un bouton et le place dans le li
         let deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute("id","deletion")
         listItem.appendChild(deleteBtn);
         deleteBtn.textContent = 'Delete';
         //Définit un gestionnaire d'événement pour appeler deleteItem()
