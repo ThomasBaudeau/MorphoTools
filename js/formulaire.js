@@ -103,6 +103,7 @@ window.onload = function() {
         let listItem = document.createElement('li');
         let h3 = document.createElement('h3');
         let para = document.createElement('p');
+        para.setAttribute("id","description")
         listItem.appendChild(h3);
         listItem.appendChild(para);
         list.appendChild(listItem);
