@@ -31,9 +31,9 @@
 
 
 .infobulle{
-    background:#139ee0;
+    background:rgba(255, 255, 255, 0.651);
     display: none;
-    color:#fff;
+    color: black;
     padding:7px 15px; 
     border-radius:53px; 
     width:250px;
