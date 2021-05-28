@@ -38,6 +38,7 @@
     border-radius:53px; 
     width:250px;
     font-size: small;
+    word-break: break-all
 }
 
 .infobulle::after{
@@ -46,6 +47,7 @@
     border-right:-20px solid transparent;
     border-top: 20px solid #139ee0;
     position: absolute;
+    word-break: break-all
 }
 
 
