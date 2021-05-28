@@ -211,8 +211,8 @@
 }
 .select-box__list {
     position: absolute;
-    left:310px;
-    top:-17px;
+    top: -7px;
+    left:255px;
     width: 290px;
     height: 90px;
     padding: 0;

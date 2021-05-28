@@ -5,7 +5,7 @@ Création de projet via un formulaire et initialisation de notre base de donnée
 
 'use strict'
 
-const list = document.querySelector('#test_ul');
+const list = document.querySelector('ul');
 const nameInput = document.querySelector('#name');
 const abstractInput = document.querySelector('#abstract');
 const form = document.querySelector('form');
