@@ -130,6 +130,8 @@
     right: 80%;
 }
 
+
+
 /* Bouton de retour a l'index */
 #back_to_index {
     color: #fff;
@@ -141,8 +143,14 @@
     cursor: pointer;
 }
 
-/*  selection de l'outil  */
+/* Bouton validation */
+#Validation{
+    width: 100px;
+    height: 30px;
+    font-size: large;
+}
 
+/*  Selection de l'outil  */
 #tool_list{
     display:block;
     float:left;   
