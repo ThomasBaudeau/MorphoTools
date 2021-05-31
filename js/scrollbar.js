@@ -44,7 +44,9 @@ document.getElementById('Validation').addEventListener('click',
             document.querySelector('.import-modal').style.display = 'none';
             document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + document.getElementById('ii').files.length;
             document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + document.getElementById('ij').files.length;
+            deleteImport();
             addImport();
+            
         }
     });
 
