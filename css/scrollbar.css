@@ -150,6 +150,11 @@
     font-size: large;
 }
 
+#error_message{
+    color: red;
+    font-size: small;
+}
+
 /*  Selection de l'outil  */
 #tool_list{
     display:block;

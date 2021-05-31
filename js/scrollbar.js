@@ -22,10 +22,27 @@ document.getElementById('import-close').addEventListener('click',
         document.querySelector('.import-modal').style.display = 'none';
     });
 
-    //Bouton de validation => ajouter vérification de nombre d'import
+
 document.getElementById('Validation').addEventListener('click',
     function(){
-        document.querySelector('.import-modal').style.display = 'none';
+        //suppression des ancients messages
+        if(document.getElementById("error_message") !== null){
+            var error = document.getElementById("error_message");
+            error.parentNode.removeChild(error);
+        }
+
+        //vérif de presence des fichiers
+        if (document.getElementById('ii').files.length == 0 || document.getElementById('ij').files.length == 0){
+            let window = document.getElementById('import-mc');
+            let error = document.createElement('p');
+            error.setAttribute('id',"error_message");
+            error.innerHTML = "Erreur, vous devez importer des images et une matrice";
+            window.appendChild(error);
+        }
+        // fermeture de la fenetre
+        else{
+            document.querySelector('.import-modal').style.display = 'none';
+        }
     });
 
 document.addEventListener("DOMContentLoaded",function(){
