@@ -63,11 +63,15 @@
     border-bottom: 3px solid #1c4c50d7;
 }
 
+.run-side{
+    text-align: center;
+}
+
 .imported-files{
     color: #fff;
     text-align: center;
     font-size: large;
-    padding-top: 30px;
+    padding-top: 25px;
 
     font-family: 'Fjalla One', sans-serif;
 }
@@ -76,6 +80,7 @@
     color: #fff;
     text-align: center;
     font-size: small;
+    padding-bottom: 10px;
 }
 
 .tool-side{
