@@ -244,8 +244,8 @@
     background-color: #56c49344;
 }
 .select-box__option:hover, .select-box__option:focus {
-    color: #003288;
-    background-color: #fbfbfb;
+    color: #000000;
+    background-color: #fbfbfb8c;
 }
 @keyframes HideList {
     from {
