@@ -100,7 +100,6 @@ Styles de notre barre de menu
     padding-top: 0;
     margin: 10px;
     width: 120px;
-    font-family: Roboto;
     background: #1c4c50;
     border: 2px solid;
     color: #fff;
@@ -108,6 +107,8 @@ Styles de notre barre de menu
     cursor: pointer;
     position: relative;
     text-align: center;
+
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .btn::after,

@@ -59,6 +59,7 @@ Styles du slider d'information
     font-weight: 800;
     letter-spacing: 2px;
 
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .img-slider .slide .info p{
@@ -68,9 +69,11 @@ Styles du slider d'information
     width: 60%;
     padding: 10px;
     border-radius: 4px;
-    text-align: justify;
+    /*text-align: justify;*/
     align-items: center;
-    
+    line-height : 150%;
+
+    font-family: 'Ubuntu', sans-serif;
 }
 
 .img-slider .navigation{
