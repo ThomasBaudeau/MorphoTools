@@ -62,7 +62,7 @@ function obtainValues(key) {
             cursor.continue();
         }
         else{
-            console.log("No more key")
+            console.log("No more key");
             
         }
        
