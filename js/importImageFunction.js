@@ -2,7 +2,7 @@
 
 //Stockage temporaire de l'url d'une image dans session storage
 function transformImport(file) {
-    if (/\.(jpe?g|png|gif|json)$/i.test(file.name)) {
+    if (/\.(jpe?g|png|gif|json|csv)$/i.test(file.name)) {
         var reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function (e) {
