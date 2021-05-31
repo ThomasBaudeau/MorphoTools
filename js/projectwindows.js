@@ -119,8 +119,6 @@ function deleteImport(project_id)
         if (cursor) {
             let id = cursor.value.project_id;
             let key = cursor.key;
-            console.log(id);
-            console.log(key);
             if (id == project_id) {
                 cursor.delete(key);
             }
