@@ -114,7 +114,6 @@ function deleteItem(e) {
 function deleteImport(project_id)
 {
     let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-    let test = objectStore.openCursor();
     objectStore.openCursor().onsuccess =function(e){
         let cursor = e.target.result;
         if (cursor) {
