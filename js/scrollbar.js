@@ -39,9 +39,11 @@ document.getElementById('Validation').addEventListener('click',
             error.innerHTML = "Erreur, vous devez importer des images et une matrice";
             window.appendChild(error);
         }
-        // fermeture de la fenetre
+        // fermeture de la fenetre et ajout info a gauche
         else{
             document.querySelector('.import-modal').style.display = 'none';
+            document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + document.getElementById('ii').files.length;
+            document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + document.getElementById('ij').files.length;
         }
     });
 
