@@ -41,7 +41,7 @@
             <form>
                 <div id="upload" class="upload">
                     <h3>Import images</h3>
-                    <input type="file" multiple onchange=//addImport() accept="image/*" id=ii>
+                    <input type="file" multiple onchange=addImport() accept="image/*" id=ii>
                     <h3>Import json/csv</h3>
                     <input type="file" accept=".json,.csv" id=ij>
                     
@@ -104,7 +104,21 @@
 
     </div>
 
-    
+    <div class="visu" style="display: none;">
+        <div id="cy" class="cy">
+            <button id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
+            <button id="btn-vg" onclick="initGraph(cy)">Load images </button>
+            <button id="btn-vg" onclick="expandGraph(cy)">Expand edges </button>
+            <button id="btn-vg" onclick="retractGraph(cy)">Retract edges </button>
+            <button id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
+            <button id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
+            <button id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+            <button id="btn-vg" onclick="shortSave(cy)">Quick save</button>
+            <button id="btn-vg" onclick="loadShortSave(cy,input)">Load quick save</button>
+            <button id="btn-vg" onclick="exportJPG(cy)">Export JPG</button>
+            <button id="btn-vg" onclick="exportGraphJSON(cy)">Export JSON</button>
+        </div>
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -114,6 +128,7 @@
     <script src="js/superposition.js"></script>
     <script src="js/scrollbar.js"></script>
     <script src="js/forProjectPage.js"></script>
+    <script src="js/importImageFunction.js"></script>
 </body>
 
 </html>
