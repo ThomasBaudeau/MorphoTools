@@ -91,6 +91,7 @@ function displayData() {
 function deleteItem(e) {
     //Récupère l'id de l'entrée que l'on veut supprimer
     let projectId = Number(e.target.parentNode.getAttribute('data-project-id'));
+    deleteImport(projectId);
     //Ouvre une transaction et supprime la projet ayant l'id récupéré ci-dessus
     let transaction = db.transaction(['projects'], 'readwrite');
     let objectStore = transaction.objectStore('projects');
@@ -110,4 +111,26 @@ function deleteItem(e) {
     };
 };
   
+function deleteImport(project_id)
+{
+    console.log('id');
+    let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+    let test = objectStore.openCursor();
+    objectStore.openCursor().onsuccess =function(e){
+        let cursor = e.target.result;
+        if (cursor) {
+            let id = cursor.value.project_id;
+            let key = cursor.key;
+            console.log(id);
+            console.log(key);
+            if (id == project_id) {
+                cursor.delete(key);
+            }
 
+            cursor.continue();
+        }
+        else {
+            console.log("No more key");
+        }
+    }
+}
