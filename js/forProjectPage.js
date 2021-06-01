@@ -13,5 +13,12 @@ document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();
     if (tl == "VISU"){
         document.querySelector('.visu').style.display ='flex';
+        document.querySelector('#menu_general').style.display = 'none';
+        document.querySelector('#menu_visu').style.display = 'block';
     }
+})
+
+document.getElementById('back_visu').addEventListener('click',function(){
+    document.querySelector('#menu_general').style.display = 'block';
+    document.querySelector('#menu_visu').style.display = 'none';
 })
