@@ -1,11 +1,3 @@
-
-function replaceTtitle(){
-    let name_project = sessionStorage.getItem('name_project');
-    let abstract_project = sessionStorage.getItem('abstract_project');
-    document.getElementById('titre').innerHTML = name_project;
-    document.getElementById('ok').innerHTML = abstract_project;
-}
-
 function check_tool(){
     let tl = document.getElementsByName("tools");
     for (let i = 0; i<tl.length; i++){
@@ -16,7 +8,6 @@ function check_tool(){
     }   
     return null;
 }
-
 
 document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();

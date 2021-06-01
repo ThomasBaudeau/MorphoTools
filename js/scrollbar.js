@@ -44,6 +44,7 @@ document.getElementById('Validation').addEventListener('click',
             document.querySelector('.import-modal').style.display = 'none';
             document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + document.getElementById('ii').files.length;
             document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + document.getElementById('ij').files.length;
+            deleteImport();
             addImport();
         }
     });
@@ -52,3 +53,54 @@ document.addEventListener("DOMContentLoaded",function(){
     document.getElementById("titre").textContent = sessionStorage.getItem('name_project');
     document.getElementById("ok").textContent = sessionStorage.getItem('abstract_project');
 });
+
+
+document.addEventListener("DOMContentLoaded",function(){
+    NumberImage()
+    document.getElementById("titre").textContent = sessionStorage.getItem('name_project');
+    document.getElementById("ok").textContent = sessionStorage.getItem('abstract_project');
+});
+
+
+
+function NumberImage()
+{
+    let numberJson=0;
+    let numberImage=0;
+    let connection = window.indexedDB.open('morphotools', 3);
+    connection.onerror = function (e) {
+        console.error('Unable to open database.');
+    }
+    connection.onsuccess = (e) => {
+        let db = e.target.result;
+        console.log('DB opened');
+        let project_id = sessionStorage.getItem('selected_project');
+        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+        
+        objectStore.openCursor().onsuccess =function(e){
+            let cursor = e.target.result;
+            if (cursor) {
+                let id = cursor.value.project_id;
+                let key = cursor.key;
+                let name= cursor.value.data;
+                if (id == project_id) {
+                    if (name.search('application/json') !=-1 ){
+                        numberJson++;
+                    }
+                    else if (name.search('image/') !=-1){
+                        numberImage++;
+                    }
+                }
+
+                cursor.continue();
+            }
+            else {
+                console.log("No more key");
+                document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + numberImage;
+                document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + numberJson;
+            }
+        }
+    
+    }
+    
+} 
