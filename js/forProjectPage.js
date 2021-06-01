@@ -15,6 +15,7 @@ document.getElementById('btn_run').addEventListener('click',function(){
         document.querySelector('.visu').style.display ='flex';
         document.querySelector('#menu_general').style.display = 'none';
         document.querySelector('#menu_visu').style.display = 'block';
+        document.getElementById("visu_titre").textContent = sessionStorage.getItem('name_project');
     }
 })
 
