@@ -42,7 +42,6 @@ function addImport() {
                 objectStore.add(newItem);
             }
         }
-
         transaction.oncomplete = function () {
             console.log('Transaction completed !');
         };
@@ -51,3 +50,33 @@ function addImport() {
         };
     };
 };
+
+function deleteImport()
+{
+    let connection = window.indexedDB.open('morphotools', 3);
+    connection.onerror = function (e) {
+        console.error('Unable to open database.');
+    }
+    connection.onsuccess = (e) => {
+        let db = e.target.result;
+        console.log('DB opened');
+        let project_id = sessionStorage.getItem('selected_project');
+
+        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+        objectStore.openCursor().onsuccess =function(e){
+            let cursor = e.target.result;
+            if (cursor) {
+                let id = cursor.value.project_id;
+                let key = cursor.key;
+                if (id == project_id) {
+                    cursor.delete(key);
+                }
+
+                cursor.continue();
+            }
+            else {
+                console.log("No more key");
+            }
+        }
+    }
+} 
