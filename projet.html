@@ -53,9 +53,7 @@
     </div>
 
     <div class=sidebar id=sidebar>
-
-
-        <section class= "left-container">
+        <section class= "left-container" id="menu_general">
             <div class="import-side">
                 <button class="btn" id="import">Import</button>
             </div>
@@ -100,6 +98,36 @@
                     <button class="btn2" id="btn_run">Run</button>
                 </div>
             </div>
+        </section>
+
+        <section class= "left-container" id='menu_visu' style="display: none;">
+            <div class="import-side">
+                <button class="btn" id="back_visu">Back</button>
+            </div>
+            <div class= "text-side-project">
+                <div class="title-project" id=titre>Titre</div>
+                <div class='infobulle' id= bulle>
+                    <div class="infobulle::after" id=ok>Vous savez, moi je ne crois pas qu'il y ait de bonne ou de mauvaise situation. Moi, si je devais résumer ma vie aujourd'hui avec vous, je dirais que c'est d'abord des rencontres. Des gens qui m'ont tendu la main, peut-être à un moment où je ne pouvais pas, où j'étais seul chez moi. Et c'est assez curieux de se dire que les hasards, les rencontres forgent une destinée...
+                    </div>
+                </div>
+            </div>
+
+            <div class="visu" style="display: none;">
+                <div id="cy" class="cy">
+                    <button id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
+                    <button id="btn-vg" onclick="initGraph(cy)">Load images </button>
+                    <button id="btn-vg" onclick="expandGraph(cy)">Expand edges </button>
+                    <button id="btn-vg" onclick="retractGraph(cy)">Retract edges </button>
+                    <button id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
+                    <button id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
+                    <button id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+                    <button id="btn-vg" onclick="shortSave(cy)">Quick save</button>
+                    <button id="btn-vg" onclick="loadShortSave(cy,input)">Load quick save</button>
+                    <button id="btn-vg" onclick="exportJPG(cy)">Export JPG</button>
+                    <button id="btn-vg" onclick="exportGraphJSON(cy)">Export JSON</button>
+                </div>
+            </div>
+
         </section>
 
 
