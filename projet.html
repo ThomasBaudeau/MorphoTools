@@ -114,17 +114,51 @@
 
             <div class="visu" style="display: none;">
                 <div id="cy" class="cy">
-                    <button id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
-                    <button id="btn-vg" onclick="initGraph(cy)">Load images </button>
-                    <button id="btn-vg" onclick="expandGraph(cy)">Expand edges </button>
-                    <button id="btn-vg" onclick="retractGraph(cy)">Retract edges </button>
-                    <button id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
-                    <button id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
-                    <button id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
-                    <button id="btn-vg" onclick="shortSave(cy)">Quick save</button>
-                    <button id="btn-vg" onclick="loadShortSave(cy,input)">Load quick save</button>
-                    <button id="btn-vg" onclick="exportJPG(cy)">Export JPG</button>
-                    <button id="btn-vg" onclick="exportGraphJSON(cy)">Export JSON</button>
+                    <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
+                    <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Load images </button>
+                    <!-- Sous menu edge -->
+                    <div class="btn3">
+                        <div class="select-box__current" tabindex="0">
+                            <div class="select-box__value"><input class="select-box__input" id="edge" type="radio" value=" " name="edge" checked="checked" />
+                                <p class="select-box__input-text">Expand/Retract Edge</p>
+                            </div>
+                        </div>
+                        <ul class="select-box__list">
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="expandGraph(cy)">Expand edges</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="retractGraph(cy)">Retract edges</label></li>
+                        </ul>
+                    </div>
+                    <!-- Fin sous menu edge -->
+                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
+                    <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
+                    <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+                    <!-- Sous menu load-->
+                    <div class="btn3">
+                        <div class="select-box__current" tabindex="0">
+                            <div class="select-box__value"><input class="select-box__input" id="save" type="radio" value=" " name="save" checked="checked" />
+                                <p class="select-box__input-text">Save and Load</p>
+                            </div>
+                        </div>
+                        <ul class="select-box__list">
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="shortSave(cy)">Quick save</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="loadShortSave(cy,input)">Load quick save</label></li>
+                        </ul>
+                    </div>
+                    <!-- Fin sous menu load -->
+                    
+                    <!-- Sous menu export-->
+                    <div class="btn3">
+                        <div class="select-box__current" tabindex="0">
+                            <div class="select-box__value"><input class="select-box__input" id="export" type="radio" value=" " name="export" checked="checked" />
+                                <p class="select-box__input-text">Export</p>
+                            </div>
+                        </div>
+                        <ul class="select-box__list">
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="exportJPG(cy)">Export JPG</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="exportGraphJSON(cy)">Export JSON</label></li>
+                        </ul>
+                    </div>
+                    <!-- Fin sous menu export -->
                 </div>
             </div>
 

@@ -14,10 +14,9 @@ body, html {
 
 /*Style de visugraph*/
 #cy {
-  top: 70px;
-  left: 250px;
+  top: 210px;
   height: 100%;
-  width: 700px;
+  width: 250px;
   position: absolute;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.349);
@@ -43,14 +42,5 @@ body, html {
 
 
 #btn-vg {
-  margin-left: 5px;
-  cursor: pointer;
-  background-color: #1c9099;
-  border: none;
-  color: white;
-  padding: 14px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
+  margin-top: 5px;
 }

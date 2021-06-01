@@ -95,6 +95,7 @@
 
 }
 
+/* Bouton selection outils */
 .btn2 {
     font-size: 17px;
     height: 35px;
@@ -142,7 +143,58 @@
     right: 80%;
 }
 
+/* Bouton selection de l'action */
+.btn3 {
+    font-size: 14px;
+    height: 35px;
+    padding-top: 0;
+    margin-top: 5px;
+    width: 250px;
+    font-family: Roboto;
+    background: #1c4c507c;
+    border: 1px solid;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
 
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.btn3:hover{
+    color: #000000;
+    background-color: #fbfbfb8c;
+}
+
+.btn3::after,
+.btn3::before {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: #1c4c50;
+    transform: skewX(50deg);
+    transition: .2s linear;
+}
+
+.btn3::before {
+    top: -2px;
+    left: 10px;
+}
+
+.btn3::after {
+    bottom: -2px;
+    right: 10%;
+}
+
+.btn3:hover::before {
+    left: 80%;
+}
+
+.btn3:hover::after {
+    right: 80%;
+}
 
 /* Bouton de retour a l'index */
 #back_to_index {
@@ -281,6 +333,7 @@
     padding: 5px 15px;
     background-color: #56c49344;
 }
+
 .select-box__option:hover, .select-box__option:focus {
     color: #000000;
     background-color: #fbfbfb8c;
