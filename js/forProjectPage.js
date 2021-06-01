@@ -16,11 +16,10 @@ function check_tool(){
     return null;
 }
 
-function run_tool(){
+
+document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();
     if (tl == "VISU"){
         document.querySelector('.visu').style.display ='flex';
     }
-}
-
-document.getElementById('btn_run').addEventListener('click',run_tool())
+})
