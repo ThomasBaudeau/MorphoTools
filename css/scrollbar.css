@@ -97,7 +97,7 @@
 
 /* Bouton selection outils */
 .btn2 {
-    font-size: 17px;
+    font-size: 14px;
     height: 35px;
     padding-top: 0;
     margin: 0px;
@@ -224,7 +224,7 @@
     display:block;
     float:left;   
     width:220px;
-    height: 43px;
+    height: 40px;
     background-color:#286d72;
     color:white;
     text-decoration:none;
@@ -244,6 +244,7 @@
     margin: 0px;
     width: 250px;
     font-family: Roboto;
+    font-size: 14px;
     background: #1c4c50;
     border: 2px solid;
     color: #fff;
@@ -311,6 +312,7 @@
     width: 100%;
     margin: 0;
     padding: 5px 15px;
+    padding-top: 7px;
 }
 .select-box__list {
     position: absolute;

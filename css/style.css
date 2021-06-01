@@ -13,13 +13,24 @@ body, html {
 
 
 /*Style de visugraph*/
+#bouton_visu{
+  top: 250px;
+  height: 100%;
+  width: 250px;
+  position: absolute;
+  bottom: 0;
+  /* background-color: rgba(255, 255, 255, 0.349); */
+  z-index: 5;
+}
+
+
 #cy {
   top: 210px;
   height: 100%;
   width: 250px;
   position: absolute;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.349);
+  background-color: rgba(177, 15, 15, 0.712);
   z-index: 5;
 }
 /*
@@ -36,7 +47,7 @@ body, html {
 .visu {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.281);
-  top:0;
+  top:0px;
   display: none;
 }
 

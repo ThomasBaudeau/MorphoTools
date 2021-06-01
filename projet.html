@@ -113,9 +113,10 @@
             </div>
 
             <div class="visu" style="display: none;">
-                <div id="cy" class="cy">
+                <div id="bouton_visu" class="cy">
                     <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
                     <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Load images </button>
+                    
                     <!-- Sous menu edge -->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
@@ -129,9 +130,11 @@
                         </ul>
                     </div>
                     <!-- Fin sous menu edge -->
+
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
                     <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+                    
                     <!-- Sous menu load-->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
@@ -159,6 +162,11 @@
                         </ul>
                     </div>
                     <!-- Fin sous menu export -->
+                </div>
+                <!-- Display visugraph -->
+                <div id="cy" class="cy">
+
+
                 </div>
             </div>
 
@@ -188,7 +196,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="js/cytoscape.min.js"></script>
-    <script src="js/canvas.js"></script>
     <script src="js/importExport.js"></script>
     <script src="js/shortsave.js"></script>
     <script src="js/superposition.js"></script>
