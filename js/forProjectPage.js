@@ -11,6 +11,7 @@ function checkClassValue(){
     console.log(value);
 }
 
+<<<<<<< HEAD
 //Lancement de Visugraph
 function visuLaunch(){
     var element = getElementsByClassName("select-box");
@@ -21,3 +22,12 @@ function visuLaunch(){
         });
     }
 }
+=======
+
+document.getElementById('btn_run').addEventListener('click',function(){
+    let tl = check_tool();
+    if (tl == "VISU"){
+        document.querySelector('.visu').style.display ='flex';
+    }
+})
+>>>>>>> c884432310182bf555873ded2b06b1d8a47e0c82
