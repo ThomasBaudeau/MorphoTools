@@ -5,15 +5,10 @@ function replaceTtitle(){
     document.getElementById('ok').innerHTML = abstract_project;
 }
 
-function check_tool(){
-    let tl = document.getElementsByName("tools");
-    for (let i = 0; i<tl.length; i++){
-        if (tl[i].checked){
-            let tlc = tl[i].attributes[3].value;
-            return tlc;
-        }
-    }   
-    return null;
+function checkClassValue(){
+    var elements = document.getElementsByClassName("select-box");
+    var value = elements[0].value;
+    console.log(value);
 }
 
 
