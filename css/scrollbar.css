@@ -221,6 +221,7 @@
 
 /*  Selection de l'outil  */
 #tool_list{
+    z-index: 6;
     display:block;
     float:left;   
     width:220px;
@@ -238,6 +239,7 @@
 }
 
 .select-box {
+    z-index: 6;
     font-size: 17px;
     height: 35px;
     padding-top: 0;
@@ -308,6 +310,7 @@
     display: block;
 }
 .select-box__input-text {
+    z-index: 6;
     display: none;
     width: 100%;
     margin: 0;
@@ -315,6 +318,7 @@
     padding-top: 7px;
 }
 .select-box__list {
+    z-index: 6;
     position: absolute;
     top: -7px;
     left:255px;
@@ -331,6 +335,7 @@
 }
 
 .select-box__option {
+    z-index: 6;
     display: block;
     padding: 5px 15px;
     background-color: #56c49344;

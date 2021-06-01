@@ -25,14 +25,25 @@ body, html {
 
 
 #cy {
-  top: 210px;
+  top:0px;
+  left: 250px;
   height: 100%;
-  width: 250px;
+  width: 100%;
   position: absolute;
-  bottom: 0;
   background-color: rgba(177, 15, 15, 0.712);
   z-index: 5;
 }
+
+#display_window{
+  top: 0px;
+  left: 250px;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(177, 15, 15, 0.712);
+  z-index: 0;
+}
+
 /*
 .cy {
   background-color: #fff;
