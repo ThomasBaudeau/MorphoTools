@@ -24,12 +24,12 @@ body, html {
 
 
 #cy {
-  top:0px;
+  top: 70px;
   left: 250px;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 250px);
   position: absolute;
-  background-color: rgba(253, 252, 252, 0.712);
+  background-color: rgb(255, 255, 255);
   z-index: 5;
 }
 
@@ -37,16 +37,6 @@ body, html {
   z-index: 0;
 } 
 
-/*
-.cy {
-  background-color: #fff;
-  z-index: 5;
-  position: absolute;
-  height: 30px;
-  text-align: center;
-  align-items: center;
-  display: block;
-}*/
 
 .visu {
   position: absolute;
