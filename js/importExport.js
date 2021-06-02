@@ -11,7 +11,7 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   const fileInput = $('#ij')[0].files[0];
-  console.log(fileInput);
+  console.log("FILE INPUT" + fileInput);
   var reader = new FileReader();
   reader.fileName = fileInput.name;
   // le fichier importé est un JSON
@@ -20,7 +20,6 @@ function singleImportJSON(cy){
     reader.onload = function(readerEvent){
         console.log(readerEvent.target.result);
         var data = JSON.parse(readerEvent.target.result); //parsing du json
-        console.log(data);
         cy.json(data);
     };
   }
@@ -35,6 +34,7 @@ function singleImportJSON(cy){
       obj_csv = readerEvent.target.result;
       let array = parseData(obj_csv);
       let data = CSV_to_JSON(array);
+      data = JSON.parse(data);
       cy.json(data);
     }
   }
@@ -141,6 +141,7 @@ function exportGraphJSON(cy){
         [JSON.stringify(cy.json())], 
         { type: 'application/json' }
       );
+    console.log("FILE :" + file);
     const fileURL = window.URL.createObjectURL(file);
     a.href = fileURL;
     a.download = "papyrusGraph.json";
