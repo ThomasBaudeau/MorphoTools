@@ -37,16 +37,6 @@ body, html {
   z-index: 0;
 } 
 
-/*
-.cy {
-  background-color: #fff;
-  z-index: 5;
-  position: absolute;
-  height: 30px;
-  text-align: center;
-  align-items: center;
-  display: block;
-}*/
 
 .visu {
   position: absolute;
