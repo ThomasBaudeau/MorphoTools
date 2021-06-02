@@ -93,6 +93,7 @@ function sortLeftRight(line){
 }
 
 function exportJPG2(cy) {
+    dismiss_borderColor(cy);
     let blob = cy.jpg({output: 'blob', bg: 'transparent', 
       full: true, scale: 4, quality: 1});
     let aLink = document.createElement('a');
