@@ -65,6 +65,7 @@ function initGraph(cy){
 }
 
 function expandGraph(cy) {
+    dismiss_borderColor(cy);
     nodes = cy.nodes();
     nodes.style('height', 5);
     nodes.style('width', 5);
@@ -156,6 +157,7 @@ function viewProbs(cy){
 
 
 function retractGraph(cy) {
+    dismiss_borderColor(cy);
     nodes = cy.nodes();
     nodes.style('height', 10);
     nodes.style('width', 10);
@@ -239,6 +241,7 @@ function nodePositions(cy) {
 
     //layout = cy.layout({name: 'preset', directed: true, padding: 10});
     //layout.run();
+    dismiss_borderColor(cy);
     show_superposition(cy);
     cy.center();
     console.log("positions recomputed");
