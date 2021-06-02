@@ -32,7 +32,7 @@ function exportJPG(cy){
     }
     var dataURL = racine.toDataURL('image/jpeg', 1.0);
     a.href = dataURL;
-    a.download = "papyrus.jpg";
+    a.download = `${new Date().getTime()}.jpg`;;
     a.click();
     window.URL.revokeObjectURL(dataURL);
     console.log("image placée");
@@ -41,7 +41,7 @@ function exportJPG(cy){
 
 function max(nodes){
     let max = 0;
-    let nodeMax;
+    let nodeMax = nodes[0];
     for (var j = 0; j < nodes.length; j++) {
         let position = nodes[j].relativePosition();
         let y = position.y;
