@@ -19,7 +19,6 @@ body, html {
   width: 250px;
   position: absolute;
   bottom: 0;
-  /* background-color: rgba(255, 255, 255, 0.349); */
   z-index: 5;
 }
 
@@ -30,19 +29,13 @@ body, html {
   height: 100%;
   width: 100%;
   position: absolute;
-  background-color: rgba(177, 15, 15, 0.712);
+  background-color: rgba(253, 252, 252, 0.712);
   z-index: 5;
 }
 
 #display_window{
-  top: 0px;
-  left: 250px;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  background-color: rgba(177, 15, 15, 0.712);
   z-index: 0;
-}
+} 
 
 /*
 .cy {
