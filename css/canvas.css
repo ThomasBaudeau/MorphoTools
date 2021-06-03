@@ -23,5 +23,6 @@ Définit le style général du site ainsi que celui de chaque plugin
     position: absolute;
     background-color: yellow;
     overflow: hidden;
+    opacity: 0;
     z-index: -1;
 }
