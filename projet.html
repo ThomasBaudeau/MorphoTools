@@ -114,9 +114,9 @@
 
             <div class="visu" style="display: none;">
                 <div id="bouton_visu" class="cy">
-                    <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Import JSON</button>
-                    <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Load images </button>
-                    
+                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Import</button>
+                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
+                   
                     <!-- Sous menu edge -->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
@@ -131,7 +131,6 @@
                     </div>
                     <!-- Fin sous menu edge -->
 
-                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
                     <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
                     
