@@ -88,12 +88,6 @@
     padding-bottom: 10px;
 }
 
-.tool-side{
-
-}
-.text-side{
-
-}
 
 /* Bouton selection outils */
 .btn2 {
@@ -119,7 +113,7 @@
     content: "";
     position: absolute;
     width: 14px;
-    height: 2px;
+    height: 1px;
     background: #1c4c50;
     transform: skewX(50deg);
     transition: .2s linear;

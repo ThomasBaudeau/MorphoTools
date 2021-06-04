@@ -50,18 +50,21 @@ function showFile() {
 
 function initGraph(cy){
     showFile();
-    nodes = cy.nodes();
-    for (var j = 0; j < nodes.length; j++) {
-        id = nodes[j].data("id");
-        nodes[j].style("background-image", fileURIs.get(id));
-    }
+    setTimeout(function(){ 
+        nodes = cy.nodes();
+        for (var j = 0; j < nodes.length; j++) {
+            id = nodes[j].data("id");
+            nodes[j].style("background-image", fileURIs.get(id));
+        }
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
-    layout.run();
-    cy.minZoom(4);
-    cy.maxZoom(1e-50);
-    cy.center();
-    console.log("init ok");
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        layout.run();
+        cy.minZoom(4);
+        cy.maxZoom(1e-50);
+        cy.center();
+        console.log("init ok");
+     }, 100);
+    
 }
 
 function expandGraph(cy) {
