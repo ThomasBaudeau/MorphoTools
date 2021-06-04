@@ -47,10 +47,13 @@ function singleImportJSON(cy){
   else{
     console.log("autre else")
     LoadJson();
-    data=sessionStorage.getItem('Json');
-    data=JSON.parse(data)
-    console.log(data)
-    cy.json(data);
+    setTimeout(function(){
+      data = sessionStorage.getItem('Json');
+      data = JSON.parse(data)
+      console.log(data)
+      cy.json(data);
+    },150)
+    
   }
   
 }
