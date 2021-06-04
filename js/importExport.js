@@ -108,14 +108,19 @@ function CSV_to_JSON(array){
     "renderer":{"name":"canvas"}
   };
 
+  //console.log("Width :" + window.screen.width);
+  //console.log("Height :" + window.screen.height);
+
   //remplissage nodes
   for(let node = 1 ; node < array[0].length ; node++){
+    let val_x = getRandomArbitrary(0, window.screen.width);
+    let val_y = getRandomArbitrary(0, window.screen.height);
     let data = {
       "data":{
         "id": array[0][node],
         "label": node-1
       },
-      "position":{"x":500,"y":0},
+      "position":{"x":val_x,"y":val_y},
       "group":"nodes",
       "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
     };
@@ -190,4 +195,8 @@ function LoadJson(){
       }
     }
   }
+}
+  
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
 }
