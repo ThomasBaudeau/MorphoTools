@@ -11,34 +11,48 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   const fileInput = $('#ij')[0].files[0];
-  console.log("FILE INPUT" + fileInput);
-  var reader = new FileReader();
-  reader.fileName = fileInput.name;
-  // le fichier importé est un JSON
-  if (checkimport(reader.fileName)){ 
-    console.log(reader);
-    reader.onload = function(readerEvent){
+  var data;
+  if (fileInput!=undefined){
+    console.log("FILE INPUT" + fileInput);
+    var reader = new FileReader();
+    reader.fileName = fileInput.name;
+    // le fichier importé est un JSON
+    if (checkimport(reader.fileName)) {
+      console.log(reader);
+      reader.onload = function (readerEvent) {
         console.log(readerEvent.target.result);
-        var data = JSON.parse(readerEvent.target.result); //parsing du json
+        data= JSON.parse(readerEvent.target.result); //parsing du json
+        console.log('expected: ',data)
         cy.json(data);
-    };
-  }
-  // le fichier importé est un CSV
-  else {
-    console.log("dans le else");
-    console.log(reader);
-    var obj_csv = []
-    reader.readAsBinaryString(fileInput);
-    reader.onload = function (readerEvent){
-      console.log(readerEvent);
-      obj_csv = readerEvent.target.result;
-      let array = parseData(obj_csv);
-      let data = CSV_to_JSON(array);
-      data = JSON.parse(data);
-      cy.json(data);
+      };
     }
+    // le fichier importé est un CSV
+    else {
+      console.log("dans le else");
+      console.log(reader);
+      var obj_csv = []
+      reader.readAsBinaryString(fileInput);
+      reader.onload = function (readerEvent) {
+        console.log(readerEvent);
+        obj_csv = readerEvent.target.result;
+        let array = parseData(obj_csv);
+        let data = CSV_to_JSON(array);
+        data = JSON.parse(data);
+        cy.json(data);
+      }
+    }
+    reader.readAsText(fileInput);
+
   }
-  reader.readAsText(fileInput);
+  else{
+    console.log("autre else")
+    LoadJson();
+    data=sessionStorage.getItem('Json');
+    data=JSON.parse(data)
+    console.log(data)
+    cy.json(data);
+  }
+  
 }
 
 // convertir le fichier csv (string) en array
@@ -94,14 +108,19 @@ function CSV_to_JSON(array){
     "renderer":{"name":"canvas"}
   };
 
+  //console.log("Width :" + window.screen.width);
+  //console.log("Height :" + window.screen.height);
+
   //remplissage nodes
   for(let node = 1 ; node < array[0].length ; node++){
+    let val_x = getRandomArbitrary(0, window.screen.width);
+    let val_y = getRandomArbitrary(0, window.screen.height);
     let data = {
       "data":{
         "id": array[0][node],
         "label": node-1
       },
-      "position":{"x":500,"y":0},
+      "position":{"x":val_x,"y":val_y},
       "group":"nodes",
       "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
     };
@@ -148,4 +167,36 @@ function exportGraphJSON(cy){
     a.click();
     window.URL.revokeObjectURL(fileURL);
     console.log("save json ok");
+}
+
+
+function LoadJson(){
+  let project_id = sessionStorage.getItem('selected_project');
+  let connection = window.indexedDB.open('morphotools', 3);
+  connection.onerror = function (e) {
+    console.error('Unable to open database.');
+  }
+  connection.onsuccess = (e) => {
+    let db = e.target.result;
+    console.log('DB opened');
+    let project_id = sessionStorage.getItem('selected_project');
+    let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+    objectStore.openCursor().onsuccess = function (e) {
+      let cursor = e.target.result;
+      if (cursor) {
+        let id = cursor.value.project_id;
+        let name= cursor.value.type_file;
+        if (id == project_id && name.search('json')) {
+          var file = JSON.parse(cursor.value.data);
+          sessionStorage.setItem('Json',file)
+          return
+        }
+        cursor.continue();
+      }
+    }
+  }
+}
+  
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
 }
