@@ -4,6 +4,7 @@ Amélioration des principales fonctionnalités de Visugraph
 fournit par notre client
 */
 
+var deleted_nodes = [];
 var constante = 0;
 var fileURIs = new Map();
 var cy = cytoscape({
@@ -176,17 +177,22 @@ function retractGraph(cy) {
     console.log("retracted");
 }
 
-function filterEdges(cy) {
+async function filterEdges(cy) {
     var thr = prompt("Threshold for edge filtering?");
-    cy.remove('edge[proba < ' + thr + ']');
-    nodes = cy.nodes();
-    for (var j = 0; j < nodes.length; j++) {
-        if (nodes[j].connectedEdges().length == 0) {
-            cy.remove(nodes[j])
+    //recharge du json et réimportation des images
+    singleImportJSON(cy);
+    initGraph(cy);
+    setTimeout(function(){ 
+        cy.remove('edge[proba < ' + thr + ']');
+        nodes = cy.nodes();
+        for (var j = 0; j < nodes.length; j++) {
+            if (nodes[j].connectedEdges().length == 0) {
+                cy.remove(nodes[j]);
+            }
         }
-    }
-    console.log("filtered")
-
+        console.log("filtered");
+     }, 100);
+    
 }
 
 function nodePositions(cy) {
