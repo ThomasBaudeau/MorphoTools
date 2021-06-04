@@ -178,7 +178,7 @@ function retractGraph(cy) {
 }
 
 async function filterEdges(cy) {
-    var thr = prompt("Threshold for edge filtering?");
+    var thr = prompt("Threshold for edge filtering? (0 to 1)");
     //recharge du json et réimportation des images
     singleImportJSON(cy);
     initGraph(cy);
