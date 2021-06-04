@@ -182,6 +182,7 @@ async function filterEdges(cy) {
     //recharge du json et réimportation des images
     singleImportJSON(cy);
     initGraph(cy);
+    //timeout car le chargement a tendance a se faire après la definition du threshold
     setTimeout(function(){ 
         cy.remove('edge[proba < ' + thr + ']');
         nodes = cy.nodes();
