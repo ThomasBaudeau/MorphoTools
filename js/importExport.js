@@ -116,8 +116,8 @@ function CSV_to_JSON(array){
 
   //remplissage nodes
   for(let node = 1 ; node < array[0].length ; node++){
-    let val_x = getRandomArbitrary(0, window.screen.width);
-    let val_y = getRandomArbitrary(0, window.screen.height);
+    let val_x = getRandomArbitrary(0, window.screen.width) - 250;
+    let val_y = getRandomArbitrary(0, window.screen.height) - 70;
     let data = {
       "data":{
         "id": array[0][node],

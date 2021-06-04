@@ -50,6 +50,9 @@ function showFile() {
 };
 
 function initGraph(cy){
+// center() ne fonctionne pas avec les fichiers csv pour le moment, mais c'est
+// parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
+// devrait se corriger de lui même.
     showFile();
     setTimeout(function(){ 
         nodes = cy.nodes();
