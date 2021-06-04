@@ -82,12 +82,12 @@ function NumberImage()
             if (cursor) {
                 let id = cursor.value.project_id;
                 let key = cursor.key;
-                let name= cursor.value.data;
+                let name= cursor.value.type_file;
                 if (id == project_id) {
-                    if (name.search('application/json') !=-1 ){
+                    if (name.search('json') !=-1 ){
                         numberJson++;
                     }
-                    else if (name.search('image/') !=-1){
+                    else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
                         numberImage++;
                     }
                 }
