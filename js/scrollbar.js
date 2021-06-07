@@ -36,14 +36,14 @@ document.getElementById('Validation').addEventListener('click',
             let window = document.getElementById('import-mc');
             let error = document.createElement('p');
             error.setAttribute('id',"error_message");
-            error.innerHTML = "Erreur, vous devez importer des images et une matrice";
+            error.innerHTML = "Error, you must import images and a matrix.";
             window.appendChild(error);
         }
         // fermeture de la fenetre et ajout info a gauche
         else{
             document.querySelector('.import-modal').style.display = 'none';
-            document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + document.getElementById('ii').files.length;
-            document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + document.getElementById('ij').files.length;
+            document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + document.getElementById('ii').files.length;
+            document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + document.getElementById('ij').files.length;
             deleteImport();
             addImport();
         }

@@ -1,25 +1,89 @@
 #help_content {
     top: 70px;
     left: 250px;
-    height: 100%;
+    height: calc(100% - 70px);
     width: calc(100% - 250px);
     position: absolute;
-    background-color: rgb(255, 255, 255);
+    overflow-y: scroll;
+}
+#help_content::-webkit-scrollbar {
+    width: 14px;
+    height: 18px;
+}
+
+
+
+#help_content::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 3px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 7px;
+    background-color: #00000086;
+}
+
+#help_content::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+#help_content::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 #title_summary{
-    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
     text-align: center;
+    color: #ebf3f4;
+    font-size: 30px;
+    font-family: 'Cantora One', sans-serif;
 }
 
-#help_title{
-
+.help_title{
+    font-size: 20px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 #help_text{
-
+    margin-left: 10px;
+    margin-right: 40px;
 }
 
 #help{
-    
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+}
+
+#help_img{
+    opacity: 1;
+    border: thin #c0c0c0 solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+figcaption {
+    font: italic smaller sans-serif;
+    padding: 3px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.btn-smr {
+    font-size: 14px;
+    height: 35px;
+    margin-top: 10px;
+    width: 250px;
+    background: #1c4c50;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+    border: none;
+
+    font-family: 'Ubuntu', sans-serif;
 }

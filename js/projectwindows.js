@@ -6,35 +6,52 @@ form.onsubmit = addData;
 
 //Définit la fonction addData()
 function addData(e) {
+    console.log(nameInput.value)
     e.preventDefault();
-    //Récupérent les valeurs entrées dans les champs du formulaire
-    //et les stockent dans un objet qui sera inséré en BDD 
-    let newItem = { name: nameInput.value, abstract: abstractInput.value };
-    //Ouvre une transaction en lecture/écriture sur notre table projects
-    let transaction = db.transaction(['projects'], 'readwrite');
-    //Récupére la table de la base de données qui a été ouvert avec la transaction
-    let objectStore = transaction.objectStore('projects');
-    //Demande l'ajout de notre nouvel objet à la table
-    var request = objectStore.add(newItem);
+    if (document.getElementById("error_message") !== null) {
+        var error = document.getElementById("error_message");
+        error.parentNode.removeChild(error);
+    }
 
-    request.onsuccess = function () {
-        //Vide le formulaire, pour qu'il soit prêt pour un nouvel ajout
-        nameInput.value = '';
-        abstractInput.value = '';
-        // On ferme la fenetre qui a été ouverte
-        document.querySelector('.bg-modal').style.display = 'none';
-    };
+    //vérif de presence des fichiers
+    if (nameInput.value.length == 0) {
+        let window = document.querySelector('form');;
+        let error = document.createElement('p');
+        error.setAttribute('id', "error_message");
+        error.innerHTML = "Project should have a name";
+        window.appendChild(error);
+    }
+    
+    else {
+        //Récupérent les valeurs entrées dans les champs du formulaire
+        //et les stockent dans un objet qui sera inséré en BDD 
+        let newItem = { name: nameInput.value, abstract: abstractInput.value };
+        //Ouvre une transaction en lecture/écriture sur notre table projects
+        let transaction = db.transaction(['projects'], 'readwrite');
+        //Récupére la table de la base de données qui a été ouvert avec la transaction
+        let objectStore = transaction.objectStore('projects');
+        //Demande l'ajout de notre nouvel objet à la table
+        var request = objectStore.add(newItem);
+
+        request.onsuccess = function () {
+            //Vide le formulaire, pour qu'il soit prêt pour un nouvel ajout
+            nameInput.value = '';
+            abstractInput.value = '';
+            // On ferme la fenetre qui a été ouverte
+            document.querySelector('.bg-modal').style.display = 'none';
+        };
+        transaction.oncomplete = function () {
+            console.log('Transaction completed.');
+            //Met à jour l'affichage pour montrer le nouvel item en exécutant displayData()
+            displayData();
+        };
+
+        transaction.onerror = function () {
+            console.log('Transaction not opened due to error');
+        };
+    }
 
     //Attente de la fin de la transaction
-    transaction.oncomplete = function () {
-        console.log('Transaction completed.');
-        //Met à jour l'affichage pour montrer le nouvel item en exécutant displayData()
-        displayData();
-    };
-
-    transaction.onerror = function () {
-        console.log('Transaction not opened due to error');
-    };
 };
 
 //Définit la fonction displayData()
@@ -79,7 +96,7 @@ function displayData() {
             //Si la liste est vide, affiche un message "Aucun projet n'existe"
             if (!list.firstChild) {
                 let listItem = document.createElement('li');
-                listItem.textContent = 'Aucun projet enregistré.';
+                listItem.textContent = 'No registered projects';
                 list.appendChild(listItem);
             }
             console.log('Projects all displayed');
@@ -105,7 +122,7 @@ function deleteItem(e) {
 
         if (!list.firstChild) {
             let listItem = document.createElement('li');
-            listItem.textContent = 'Aucun projet enregistré.';
+            listItem.textContent = 'No registered projects';
             list.appendChild(listItem);
         };
     };

@@ -10,7 +10,7 @@
 }
 
 .left-container{
-    height: 100%;
+    height: calc(100% - 70px);
     width: 250px;
     background: #1c4c50d7;
     position: absolute;
@@ -96,7 +96,6 @@
     padding-top: 0;
     margin: 0px;
     width: 250px;
-    font-family: Roboto;
     background: #1c4c50;
     border: 2px solid;
     color: #fff;

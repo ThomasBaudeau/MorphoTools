@@ -43,6 +43,10 @@
                 Summary
             </div>
             <!-- Sommaire -->
+                <a href="#help"><button class="btn-smr" id="btn_help_content" >How to MorphoTools</button></a>
+                <a href="#help_project"><button class="btn-smr" id="btn_help_project" >I. Project Management</button></a>
+                <a href="#help_import"><button class="btn-smr" id="btn_help_import">II. Files importation / Tool selection</button></a>
+                <a href= "#help_visugraph"><button class="btn-smr" id="btn_help_visugraph">III. Visugraph tools</button></a>
             <div>
 
             </div>
@@ -54,8 +58,66 @@
         <div id = help>
             How To Morphotools
         </div>
-        <div id = help_title>
-            Project Creation :
+        <div id = help_text>
+            Welcome in the Morphotools help page. You will find here all the information about how to use MorphoTools and its several functionnalities.
+        </div>
+
+        <!-- I. PROJECT MANAGEMENT -->
+        <div class = help_title id = help_project>
+            I. Project Management :
+        </div>
+        <div id = help_text>
+            In order to create your first project, you need to click "New Project". Then enter your project name (witch is mandatory) and your project description. 
+            You can now manage your projects just by clicking on them.
+            <figure id = img_frame>
+                <img id = help_img src="images/help_new-project_1.png" height="500px">
+                <figcaption>Entering in the project creation menu</figcaption>
+            </figure>
+
+            <figure id = img_frame>
+                <img id = help_img src="images/help_new-project_2.png" height="300px">
+                <figcaption>Project validation</figcaption>
+            </figure>   
+        </div>
+
+        <!-- II. IMPORTATION -->
+        <div class = help_title id = help_import>
+            II. Files importation and Tool selection :
+        </div>
+        <div id = help_text>
+            When you select a project (here My project name), you will have a new page. On this new page you will first find a button "Import" (1). 
+            Then you will have to select your images (png, jpg, ...) and your matrice (json or csv) (2).
+            Once all your files are selected, you can send them by clicking the "Send" button (3).
+        </div>
+        <figure id = img_frame>
+            <img id = help_img src="images/help_import-file_1.png" height="500px">
+            <figcaption>Files importation</figcaption>
+        </figure>
+        <div id = help_text>
+            With your files selected, you can choose the tool you want to use and click run.
+        </div>
+        <figure id = img_frame>
+            <img id = help_img src="images/help_import-file_2.png" height="300px">
+            <figcaption>Tool selection</figcaption>
+        </figure>
+
+        <!-- III. VISUGRAPH -->
+        <div class = help_title id = help_visugraph>
+            III. Visugraph tools :
+        </div>
+        <figure id = img_frame>
+            <img id = help_img src="images/help_visu_tools.png" height="600px">
+            <figcaption>Visugraph options</figcaption>
+        </figure>
+        <div id = help_text>
+            (1) Import : Load the matrix and the images after setting a edge threshold. <br>
+            (2) Filter edges : Refresh the loaded matrix with a new edge threshold. <br>
+            (3) Expand / Retract Edge : Default setting = retracted. When Expanded, show edges and its legend. <br>
+            (4) Show / hide labels :  If edges are expanded, show edges label. <br>
+            (5) Refresh position : Compute and refresh the position for each nodes. <br>
+            (6) Save / Load : Quick save of the actual nodes position. Or quick load of the latest saved nodes position. <br>
+            (7) Export : Export JPG for exporting the jpg without cytoscape (edges and labels are not displayed). Export JPG with cy for a jpg image including edges and labels. 
+            Export JSON to download a json with the actual position for each nodes (can be load as a matrix during the importaion json/csv step). <br>
         </div>
     </div>
 
