@@ -1,0 +1,25 @@
+#help_content {
+    top: 70px;
+    left: 250px;
+    height: 100%;
+    width: calc(100% - 250px);
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+}
+
+#title_summary{
+    color: #fff;
+    text-align: center;
+}
+
+#help_title{
+
+}
+
+#help_text{
+
+}
+
+#help{
+    
+}
