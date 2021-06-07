@@ -4,22 +4,47 @@
     height: 100%;
     width: calc(100% - 250px);
     position: absolute;
-    background-color: rgb(255, 255, 255);
 }
 
 #title_summary{
-    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 5px;
     text-align: center;
+    color: #ebf3f4;
+    font-size: 30px;
+    font-family: 'Cantora One', sans-serif;
 }
 
 #help_title{
-
+    font-size: 20px;
+    padding: 10px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 #help_text{
-
+    margin-left: 10px;
+    margin-right: 40px;
 }
 
 #help{
-    
+    text-align: center;
+    font-size: 30px;
+    padding: 20px;
+}
+
+#help_img{
+    opacity: 1;
+    border: thin #c0c0c0 solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+figcaption {
+    font: italic smaller sans-serif;
+    padding: 3px;
+    text-align: center;
+    text-decoration: underline;
 }
