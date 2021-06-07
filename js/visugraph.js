@@ -138,6 +138,8 @@ function expandGraph(cy) {
             edges[j].style('color', 'red')
         }
         edges[j].style('label', edges[j].data('label'));
+
+        document.querySelector('#legend').style.display = 'block';
     }
 
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
@@ -187,6 +189,8 @@ function retractGraph(cy) {
 
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
+
+    document.querySelector('#legend').style.display = 'none';
     console.log("retracted");
 }
 
