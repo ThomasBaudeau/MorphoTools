@@ -34,18 +34,39 @@ var cy = cytoscape({
 
 function showFile() {
     var fileInput = document.getElementById('ii');
-
-    for (var i = 0; i < fileInput.files.length; i++) {
-        var reader = new FileReader();
-        reader.fileName = fileInput.files[i].name;
-        reader.onload = function(readerEvent) {
-            var url = readerEvent.target.result;
-            var name = readerEvent.target.fileName;
-            console.log(name.slice(0, -4));
-            fileURIs.set(name.slice(0, -4), url);
+    if (fileInput.files.length!=0)
+    {
+        console.log("je suis ici")
+        for (var i = 0; i < fileInput.files.length; i++) {
+            var reader = new FileReader();
+            reader.fileName = fileInput.files[i].name;
+            reader.onload = function (readerEvent) {
+                var url = readerEvent.target.result;
+                var name = readerEvent.target.fileName;
+                console.log(name.slice(0, -4));
+                console.log(typeof (url))
+                fileURIs.set(name.slice(0, -4), url);
+            }
+            reader.readAsDataURL(fileInput.files[i]);
         }
-        reader.readAsDataURL(fileInput.files[i]);
     }
+    else {
+    console.log("je suis dans le else")
+    Loadfile();
+    setTimeout(function(){
+        let count=sessionStorage.getItem('count')
+        
+        for (let i=0; i<count;i++){
+            let image=sessionStorage.getItem('images'+i)
+            let pos=image.search(',')
+            a=image.slice(0,pos)
+            pos++
+            image=image.slice(pos)
+            fileURIs.set(a.slice(0, -4), image);
+        }
+    }, 300);
+    }
+    console.log(fileURIs)
     console.log("loading ok")
 };
 
@@ -60,6 +81,7 @@ function initGraph(cy){
         for (var j = 0; j < nodes.length; j++) {
             id = nodes[j].data("id");
             nodes[j].style("background-image", fileURIs.get(id));
+            console.log('a',fileURIs.get(id))
         }
 
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
@@ -69,7 +91,7 @@ function initGraph(cy){
         //cy.center(window); 
         cy.center();
         console.log("init ok");
-     }, 100);
+     }, 400);
     
 }
 
