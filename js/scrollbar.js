@@ -96,8 +96,8 @@ function NumberImage()
             }
             else {
                 console.log("No more key");
-                document.getElementById("nb_photo").innerHTML = "Nombre de photos importées : " + numberImage;
-                document.getElementById("nb_matrice").innerHTML = "Nombre de matrices importées : " + numberJson;
+                document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + numberImage;
+                document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + numberJson;
             }
         }
     
