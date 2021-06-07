@@ -31,7 +31,7 @@
 
 #title_summary{
     padding-top: 15px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     text-align: center;
     color: #ebf3f4;
     font-size: 30px;
@@ -70,4 +70,18 @@ figcaption {
     padding: 3px;
     text-align: center;
     text-decoration: underline;
+}
+
+.btn-smr {
+    font-size: 14px;
+    height: 35px;
+    margin: 0px;
+    width: 250px;
+    background: #1c4c50;
+    color: #fff;
+    cursor: pointer;
+    text-align: left;
+    border: none;
+
+    font-family: 'Ubuntu', sans-serif;
 }
