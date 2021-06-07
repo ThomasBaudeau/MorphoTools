@@ -75,6 +75,7 @@ function initGraph(cy){
 // parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
 // devrait se corriger de lui même.
     showFile();
+    var window = cy.$('#cy')
     setTimeout(function(){ 
         nodes = cy.nodes();
         for (var j = 0; j < nodes.length; j++) {
@@ -87,7 +88,7 @@ function initGraph(cy){
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
-        cy.center();
+        cy.center(window);
         console.log("init ok");
      }, 400);
     
@@ -144,14 +145,25 @@ function expandGraph(cy) {
     edges.style('control-point-step-size', 4);
     for (var j = 0; j < edges.length; j++) {
         if (edges[j].data('proba') > 0.9){
-            edges[j].data('line-color','red'),
-            edges[j].style('target-arrow-color','red')
+            edges[j].data('line-color','green'),
+            edges[j].style('target-arrow-color','green'),
+            edges[j].style('color', 'green')
+        }
+        else if (edges[j].data('proba') < 0.8 && edges[j].data('proba') > 0.6){
+            edges[j].data('line-color','yellow'),
+            edges[j].style('target-arrow-color','yellow'),
+            edges[j].style('color', 'yellow')
         }
         else{
-            edges[j].data('line-color','yellow'),
-            edges[j].style('target-arrow-color','yellow')}
+            edges[j].data('line-color','red'),
+            edges[j].style('target-arrow-color','red'),
+            edges[j].style('color', 'red')
+        }
         edges[j].style('label', edges[j].data('label'));
+
+        document.querySelector('#legend').style.display = 'block';
     }
+
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
     shift_superposition(cy);
@@ -199,11 +211,13 @@ function retractGraph(cy) {
 
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
+
+    document.querySelector('#legend').style.display = 'none';
     console.log("retracted");
 }
 
 async function filterEdges(cy) {
-    var thr = prompt("Threshold for edge filtering?");
+    var thr = prompt("Threshold for edge filtering? (0 to 1)");
     //recharge du json et réimportation des images
     singleImportJSON(cy);
     initGraph(cy);

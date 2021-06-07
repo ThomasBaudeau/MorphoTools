@@ -49,3 +49,9 @@ body, html {
 #btn-vg {
   margin-top: 5px;
 }
+
+#espace {
+  height: 20px;
+  width: 250px;
+  opacity: 0;
+}

@@ -166,7 +166,7 @@ function exportGraphJSON(cy){
     console.log("FILE :" + file);
     const fileURL = window.URL.createObjectURL(file);
     a.href = fileURL;
-    a.download = "papyrusGraph.json";
+    a.download = "Graph.json";
     a.click();
     window.URL.revokeObjectURL(fileURL);
     console.log("save json ok");
