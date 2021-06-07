@@ -40,11 +40,16 @@ function addJSONtoDB(cy) {
             }
         }
         console.log(cy.json());
-        
+/*
+data :  JSON.stringify(cy.json()) ne marche pas lorsqu'il faut recharger le json (ImportExport.js)
+        JSON.parse(cy.json()) ne marche pas lorsqu'il faut remplacer le json (bug dès le début)
+        JSON.stringify(JSON.parse(cy.json())) ne marche pas non plus au moment du remplaçement
+        JSON.parse(JSON.stringify(cy.json())) provoque une erreur de syntaxe à ImportExport.js
+*/
         let ob = {
             project_id : sessionStorage.getItem('selected_project'),
             type_file : 'json',
-            data : JSON.parse(JSON.stringify(cy.json()))
+            data : JSON.stringify(cy.json())
         };
         let addJSON = store.add(ob);
         
