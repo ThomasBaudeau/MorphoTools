@@ -94,7 +94,6 @@ Styles de notre barre de menu
 }
 
 .btn {
-
     font-size: 17px;
     height: 35px;
     padding-top: 0;
@@ -170,4 +169,23 @@ Styles de notre barre de menu
         width: 160px;
         height: 50px;
     }
+
+
+}
+
+.help_btn {
+    font-size: 17px;
+    height: 35px;
+    padding-top: 0;
+    margin: 5px;
+    width: 35px;
+    background: #1c4c50;
+    border: 2px solid;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+
+    font-family: 'Ubuntu', sans-serif;
 }
