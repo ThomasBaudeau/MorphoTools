@@ -196,3 +196,13 @@ Styles de notre barre de menu
     }
 
 }
+
+.save-msg {
+    font-size: 25px;
+    text-align: center;
+    text-decoration: underline;
+    /*border:1px groove white;*/
+    color: #fff;
+
+    font-family: 'Ubuntu', sans-serif;
+}
