@@ -122,14 +122,23 @@ function expandGraph(cy) {
     edges.style('control-point-step-size', 4);
     for (var j = 0; j < edges.length; j++) {
         if (edges[j].data('proba') > 0.9){
-            edges[j].data('line-color','red'),
-            edges[j].style('target-arrow-color','red')
+            edges[j].data('line-color','green'),
+            edges[j].style('target-arrow-color','green'),
+            edges[j].style('color', 'green')
+        }
+        else if (edges[j].data('proba') < 0.8 && edges[j].data('proba') > 0.6){
+            edges[j].data('line-color','yellow'),
+            edges[j].style('target-arrow-color','yellow'),
+            edges[j].style('color', 'yellow')
         }
         else{
-            edges[j].data('line-color','yellow'),
-            edges[j].style('target-arrow-color','yellow')}
+            edges[j].data('line-color','red'),
+            edges[j].style('target-arrow-color','red'),
+            edges[j].style('color', 'red')
+        }
         edges[j].style('label', edges[j].data('label'));
     }
+
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
     shift_superposition(cy);
