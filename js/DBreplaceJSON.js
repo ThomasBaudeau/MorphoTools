@@ -44,7 +44,7 @@ function addJSONtoDB(cy) {
         let ob = {
             project_id : sessionStorage.getItem('selected_project'),
             type_file : 'json',
-            data : JSON.stringify(cy.json())
+            data : JSON.parse(JSON.stringify(cy.json()))
         };
         let addJSON = store.add(ob);
         
