@@ -6,6 +6,7 @@ Exportation du graphe sous forme d'image
 'use strict'
 
 function exportJPG(cy){
+    // dessine physiquement  l'image jpg puis l'export 
     const canvas = document.getElementById("export_canvas");
     const racine = document.createElement('canvas');
     const ctx = racine.getContext('2d');

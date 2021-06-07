@@ -54,6 +54,7 @@ function initGraph(cy){
 // parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
 // devrait se corriger de lui même.
     showFile();
+    var window = cy.$('#cy')
     setTimeout(function(){ 
         nodes = cy.nodes();
         for (var j = 0; j < nodes.length; j++) {
@@ -65,7 +66,7 @@ function initGraph(cy){
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
-        cy.center();
+        cy.center(window);
         console.log("init ok");
      }, 100);
     
