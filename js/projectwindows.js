@@ -79,7 +79,7 @@ function displayData() {
             //Si la liste est vide, affiche un message "Aucun projet n'existe"
             if (!list.firstChild) {
                 let listItem = document.createElement('li');
-                listItem.textContent = 'Aucun projet enregistré.';
+                listItem.textContent = 'No registered projects';
                 list.appendChild(listItem);
             }
             console.log('Projects all displayed');
@@ -105,7 +105,7 @@ function deleteItem(e) {
 
         if (!list.firstChild) {
             let listItem = document.createElement('li');
-            listItem.textContent = 'Aucun projet enregistré.';
+            listItem.textContent = 'No registered projects';
             list.appendChild(listItem);
         };
     };
