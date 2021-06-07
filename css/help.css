@@ -11,6 +11,8 @@
     height: 18px;
 }
 
+
+
 #help_content::-webkit-scrollbar-thumb {
     height: 6px;
     border: 3px solid rgba(0, 0, 0, 0);
@@ -75,7 +77,7 @@ figcaption {
 .btn-smr {
     font-size: 14px;
     height: 35px;
-    margin: 0px;
+    margin-top: 10px;
     width: 250px;
     background: #1c4c50;
     color: #fff;
