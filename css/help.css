@@ -1,9 +1,32 @@
 #help_content {
     top: 70px;
     left: 250px;
-    height: 100%;
+    height: calc(100% - 70px);
     width: calc(100% - 250px);
     position: absolute;
+    overflow-y: scroll;
+}
+#help_content::-webkit-scrollbar {
+    width: 14px;
+    height: 18px;
+}
+
+#help_content::-webkit-scrollbar-thumb {
+    height: 6px;
+    border: 3px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 7px;
+    background-color: #00000086;
+}
+
+#help_content::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+#help_content::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 #title_summary{

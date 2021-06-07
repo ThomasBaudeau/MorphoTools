@@ -10,7 +10,7 @@
 }
 
 .left-container{
-    height: 100%;
+    height: calc(100% - 70px);
     width: 250px;
     background: #1c4c50d7;
     position: absolute;
