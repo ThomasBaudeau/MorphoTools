@@ -60,4 +60,10 @@ data :  JSON.stringify(cy.json()) ne marche pas lorsqu'il faut recharger le json
             console.log('new json saved');
         } 
     }
+
+    document.querySelector('#save_msg').style.display = 'block';
+    setTimeout(function (){
+        document.querySelector('#save_msg').style.display = 'none';
+    }, 3000);
+    
 }
