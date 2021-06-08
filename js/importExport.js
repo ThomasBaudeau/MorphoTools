@@ -50,8 +50,10 @@ function singleImportJSON(cy){
     setTimeout(function(){
       data = sessionStorage.getItem('Json');
       data = JSON.parse(data)
-      console.log(data)
+      console.log('cest oim:',data)
       cy.json(data);
+      
+      
     },150)
     
   }
@@ -174,7 +176,6 @@ function exportGraphJSON(cy){
 
 
 function LoadJson(){
-  let project_id = sessionStorage.getItem('selected_project');
   let connection = window.indexedDB.open('morphotools', 3);
   connection.onerror = function (e) {
     console.error('Unable to open database.');
@@ -189,9 +190,13 @@ function LoadJson(){
       if (cursor) {
         let id = cursor.value.project_id;
         let name= cursor.value.type_file;
-        if (id == project_id && name.search('json')) {
-          var file = JSON.parse(cursor.value.data);
+        if (id == project_id && name.search('json')!=-1) {
+          let file =JSON.parse(cursor.value.data);
           sessionStorage.setItem('Json',file)
+          let test=sessionStorage.getItem('Json')
+          if (test.length<16){
+            sessionStorage.setItem('Json',cursor.value.data)
+          }
           return
         }
         cursor.continue();
