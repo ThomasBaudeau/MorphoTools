@@ -32,7 +32,7 @@ function addJSONtoDB(cy) {
                 let name = cursor.value.type_file;
                 console.log("name ",name);
                 let key = cursor.key;
-                if ((id == project_id) && (name.search('json'))) {
+                if ((id == project_id) && (name.search('json')!=-1)) {
                     cursor.delete(key);
                     return;
                 }
@@ -45,18 +45,20 @@ data :  JSON.stringify(cy.json()) ne marche pas lorsqu'il faut recharger le json
         JSON.parse(cy.json()) ne marche pas lorsqu'il faut remplacer le json (bug dès le début)
         JSON.stringify(JSON.parse(cy.json())) ne marche pas non plus au moment du remplaçement
         JSON.parse(JSON.stringify(cy.json())) provoque une erreur de syntaxe à ImportExport.js
-*/
+*/      let thedata=JSON.stringify(cy.json());
         let ob = {
             project_id : sessionStorage.getItem('selected_project'),
             type_file : 'json',
-            data : JSON.stringify(cy.json())
+            data : thedata
         };
-        let addJSON = store.add(ob);
+        let trans2 = db.transaction(['imports'], 'readwrite');
+        // ref for the store
+        let store2 = trans2.objectStore('imports').add(ob);
         
-        addJSON.onerror = function(e) {
+        store2.onerror = function(e) {
             console.log('error new json didnt save');
         }
-        addJSON.oncomplete = function(e) {
+        store2.oncomplete = function(e) {
             console.log('new json saved');
         } 
     }
