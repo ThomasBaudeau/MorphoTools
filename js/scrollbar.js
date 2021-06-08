@@ -22,6 +22,16 @@ document.getElementById('import-close').addEventListener('click',
         document.querySelector('.import-modal').style.display = 'none';
     });
 
+document.getElementById('choose').addEventListener('click',
+function () {
+    document.querySelector('.choose-modal').style.display = 'flex';
+});
+
+document.getElementById('choose-close').addEventListener('click',
+    function () {
+        document.querySelector('.choose-modal').style.display = 'none';
+    });
+
 
 document.getElementById('Validation').addEventListener('click',
     function(){
@@ -104,3 +114,14 @@ function NumberImage()
     }
     
 } 
+
+
+
+
+function selectAll(ch) {
+	var tab = document.getElementsByTagName("input"); 
+	for (var i = 0; i < tab.length; i++) { 
+		if (tab[i].type == "checkbox")
+			tab[i].checked = ch.checked;
+	}
+}

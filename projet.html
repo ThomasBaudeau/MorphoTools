@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/slider.css">
     <link rel="stylesheet" href="css/import.css">
     <link rel="stylesheet" href="css/scrollbar.css">
+    <link rel="stylesheet" href="css/checkbox.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -51,6 +52,43 @@
 
                 </div>
             </form>
+            <button id="Validation">Send</button>
+        </div>
+    </div>
+
+    <div class="choose-modal">
+        <div class="modal-choose" id="choose-mc">
+            <div class="close" id="choose-close">+</div>
+            <h2>Choose image</h2>
+                <div class = "boxes">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-1"  name="select[]" value="all_check" onclick="selectAll(this)"> 
+                                <label for = "box-1">All</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-2"  name="select[]" value="Image 1"> 
+                                <label for = "box-2">Description</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-3"  name="select[]" value="Image 2"> 
+                                <label for = "box-3">Reference</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-4" name="select[]" value="Image 3"> 
+                                <label for = "box-4">Overall design</label>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
             <button id="Validation">Send</button>
         </div>
     </div>
@@ -115,8 +153,8 @@
                 <div id="bouton_visu" class="cy">
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Import</button>
                     <button class="btn3" id="btn-vg" onclick="addJSONtoDB(cy)">Save project</button>
-                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges </button>
-                   
+                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
+                    <button class="btn3" id="choose">Choose image</button>
                     <!-- Sous menu edge -->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">

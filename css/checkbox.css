@@ -1,0 +1,81 @@
+.choose-modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  z-index: 50;
+}
+
+#choose-mc {
+  width: 650px;
+  height: 350px;
+}
+
+.modal-choose {
+  width: 600px;
+  height: auto;
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+}
+
+h2 {
+  text-align: center;
+}
+
+
+
+.boxes {
+	margin: auto;
+	margin-left: 50px;
+}
+
+table {
+	border-spacing: 20px 10px;
+}
+
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  font: 14px/20px 'Ubuntu', sans-serif;
+  cursor: pointer;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #1c4c50;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border: 2px solid #256474;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
