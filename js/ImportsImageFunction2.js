@@ -18,43 +18,33 @@ function initDb() {
 }
 
 function ImportImage(file) {
-    console.log('change event fired for input field');
-    var reader = new FileReader();
-    //				reader.readAsDataURL(file);
-    reader.readAsBinaryString(file);
 
-    reader.onload = function (e) {
-        //alert(e.target.result);
-        let bits = e.target.result;
-        let ob = {
-            project_id: sessionStorage.getItem('selected_project'),
-            type_file: file.name,
-            data: bits
-        };
+    let request = indexedDB.open('morphotools', 3);
 
-        let trans = db.transaction(['imports'], 'readwrite');
-        let addReq = trans.objectStore('imports').add(ob);
-
-        addReq.onerror = function (e) {
-            console.log('error storing data');
-            console.error(e);
-        }
-
-        trans.oncomplete = function (e) {
-            console.log('data stored');
-        }
+    request.onerror = function (e) {
+        console.error('Unable to open database.');
     }
-}
 
-function ImportJson(arr,name){
-    console.log(arr)
+    request.onsuccess = function (e) {
+        db = e.target.result;
+        console.log('db opened');
+        console.log('change event fired for input field');
+        var reader = new FileReader();
+        //				reader.readAsDataURL(file);
+        reader.readAsBinaryString(file);
+
+        reader.onload = function (e) {
+            //alert(e.target.result);
+            let bits = e.target.result;
             let ob = {
                 project_id: sessionStorage.getItem('selected_project'),
-                type_file: name,
-                data: arr
+                type_file: file.name,
+                data: bits
             };
+
             let trans = db.transaction(['imports'], 'readwrite');
             let addReq = trans.objectStore('imports').add(ob);
+
             addReq.onerror = function (e) {
                 console.log('error storing data');
                 console.error(e);
@@ -63,6 +53,42 @@ function ImportJson(arr,name){
             trans.oncomplete = function (e) {
                 console.log('data stored');
             }
+        }
+    }
+
+    
+}
+
+function ImportJson(arr,name){
+    console.log(arr)
+    
+    let request = indexedDB.open('morphotools', 3);
+
+    request.onerror = function (e) {
+        console.error('Unable to open database.');
+    }
+
+    request.onsuccess = function (e) {
+        db = e.target.result;
+        console.log('db opened');
+        let ob = {
+            project_id: sessionStorage.getItem('selected_project'),
+            type_file: name,
+            data: arr
+        };
+        let trans = db.transaction(['imports'], 'readwrite');
+        let addReq = trans.objectStore('imports').add(ob);
+        addReq.onerror = function (e) {
+            console.log('error storing data');
+            console.error(e);
+        }
+    
+        trans.oncomplete = function (e) {
+            console.log('data stored');
+        }
+    }
+
+    
 }
     
 
