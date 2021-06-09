@@ -90,45 +90,6 @@ function ImportJson(arr,name){
 
     
 }
-    
-
-
-function Loadfile() {
-    console.log('loading files')
-    let connection = window.indexedDB.open('morphotools', 3);
-    let image=[];
-    let images=[];
-    let count=0;
-    connection.onerror = function (e) {
-        console.error('Unable to open database.');
-    }
-    connection.onsuccess = (e) => {
-        let db = e.target.result;
-        console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
-        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-        objectStore.openCursor().onsuccess = function (e) {
-            let cursor = e.target.result;
-            if (cursor) {
-                image=[]
-                let id = cursor.value.project_id;
-                let name = cursor.value.type_file;
-                if (id == project_id && /\.(jpe?g|png|gif)$/i.test(name)) {
-                    image.push(name)
-                    image.push('data:image/jpeg;base64,' + btoa(cursor.value.data));
-                    //image.push(cursor.value.data)
-                    sessionStorage.setItem('images'+count, image)
-                    count++
-                }
-                cursor.continue();
-            }
-            else{
-                sessionStorage.setItem('count',count)
-                
-            }
-        }
-    }
-}
         
 
 function addImport() {

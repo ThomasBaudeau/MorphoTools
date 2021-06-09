@@ -4,7 +4,6 @@ Importation et exportation du graphe sous format JSON
 */
 
 function checkimport(fileName){
-  console.log("TEST VAL JSON : " + fileName.includes(".json"))
   return fileName.includes(".json")
 }
 
@@ -13,7 +12,6 @@ function singleImportJSON(cy){
   const fileInput = $('#ij')[0].files[0];
   var data;
   if (fileInput!=undefined){
-    console.log("FILE INPUT" + fileInput);
     var reader = new FileReader();
     reader.fileName = fileInput.name;
     // le fichier importé est un JSON
@@ -22,7 +20,8 @@ function singleImportJSON(cy){
       reader.onload = function (readerEvent) {
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
-        console.log('expected: ',data)
+
+        document.getElementById('cy').style.visibility = 'hidden';
         cy.json(data);
       };
     }
@@ -37,6 +36,7 @@ function singleImportJSON(cy){
         obj_csv = readerEvent.target.result;
         let array = parseData(obj_csv);
         let data = CSV_to_JSON(array);
+
         data = JSON.parse(data);
         cy.json(data);
       }
@@ -50,7 +50,6 @@ function singleImportJSON(cy){
     setTimeout(function(){
       data = sessionStorage.getItem('Json');
       data = JSON.parse(data)
-      console.log('cest oim:',data)
       cy.json(data);
       
       
@@ -72,7 +71,7 @@ function parseData(csv_data){
       line.push(word);
       word = "";
     }
-    else if (csv_data[char] == "\n"){
+    else if (csv_data[char] == "\n" || csv_data[char] == "\r"){
       line.push(word);
       array.push(line);
       word = "";
@@ -154,7 +153,6 @@ function CSV_to_JSON(array){
       }
     }
   }
-  console.log(JSON.stringify(json.elements.edges));
   return JSON.stringify(json)
 }
 
