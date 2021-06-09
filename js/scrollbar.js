@@ -24,7 +24,10 @@ document.getElementById('import-close').addEventListener('click',
 
 document.getElementById('choose').addEventListener('click',
 function () {
-    document.querySelector('.choose-modal').style.display = 'flex';
+    chooseImage();
+    setTimeout(function(){
+        document.querySelector('.choose-modal').style.display = 'flex';
+    },500)
 });
 
 document.getElementById('choose-close').addEventListener('click',
@@ -124,4 +127,69 @@ function selectAll(ch) {
 		if (tab[i].type == "checkbox")
 			tab[i].checked = ch.checked;
 	}
+}
+
+function chooseImage() {
+
+    // Open the DB
+    let request = indexedDB.open('morphotools', 3);
+    
+    // if an error occur :
+    request.onerror = function (e) {
+        console.error('Unable to open database.');
+    }
+    // if nothing happen : start interacting with the DB
+    request.onsuccess = function (e) {
+        let db = e.target.result;
+        console.log('db opened');
+
+        //the request to read and write within the DB
+        let trans = db.transaction(['imports'], 'readwrite');
+        // ref for the store
+        let store = trans.objectStore('imports');
+
+        // if another error occur :
+        db.onerror = function(e) {
+            console.log("ERROR" + e.target.errorCode);
+        }
+        //cursor
+        store.openCursor().onsuccess = function(e){
+            let project_id = sessionStorage.getItem("selected_project");
+            let cursor = e.target.result;
+            if (cursor) {
+                let id = cursor.value.project_id;
+                console.log("id ", id);
+                let name = cursor.value.type_file;
+                console.log("name ",name);
+                if ((id == project_id) &&  /\.(jpe?g|png|gif)$/i.test(name)) {
+                    let data = cursor.value.data;
+                    let table=document.getElementById('choose_image');
+                    let line=document.createElement('tr');
+                    let column=document.createElement('td');
+                    let checkbox=document.createElement('input');
+                    checkbox.setAttribute('type','checkbox');
+                    checkbox.setAttribute('id',name);
+                    checkbox.setAttribute('name','select[]');
+                    checkbox.setAttribute('value','image_'+name);
+                    let label=document.createElement('label');
+                    label.setAttribute('for',name);
+                    label.textContent=name;
+                    let column2=document.createElement('td');
+                    let image=document.createElement('img');
+                    image.setAttribute('src','data:image/jpeg;base64,' + btoa(data));
+                    image.setAttribute('style','opacity:1')
+                    image.setAttribute('width','100px')
+                    image.setAttribute('height','100px')
+                    column.appendChild(checkbox);
+                    column.appendChild(label)
+                    column2.appendChild(image)
+                    line.appendChild(column);
+                    line.appendChild(column2)
+                    table.appendChild(line);
+                }
+                cursor.continue();
+            }
+        }
+        console.log(cy.json());
+    }
 }

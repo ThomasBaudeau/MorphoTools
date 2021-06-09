@@ -69,3 +69,5 @@ data :  JSON.stringify(cy.json()) ne marche pas lorsqu'il faut recharger le json
     }, 3000);
     
 }
+
+
