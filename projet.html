@@ -89,10 +89,34 @@
                                 <label for = "box-4">Overall design</label>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-5"  name="select[]" value="Image 1"> 
+                                <label for = "box-5">Description</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-6"  name="select[]" value="Image 1"> 
+                                <label for = "box-6">Description</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-7"  name="select[]" value="Image 1"> 
+                                <label for = "box-7">Description</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-8"  name="select[]" value="Image 1"> 
+                                <label for = "box-8">Description</label>
+                            </td>
+                        </tr>
                     </table>
 
                 </div>
-                <div id = send_btn>
+                <div id = send_div>
                     <button id="send_img">Send</button>
                 </div>
         </div>
@@ -156,7 +180,8 @@
 
             <div class="visu" style="display: none;">
                 <div id="bouton_visu" class="cy">
-                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Import</button>
+                    <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Import</button>
+                    <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Display</button>
                     <button class="btn3" id="btn-vg" onclick="addJSONtoDB(cy)">Save project</button>
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
                     <button class="btn3" id="choose">Choose image</button>
