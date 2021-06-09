@@ -84,7 +84,7 @@ function initGraph(cy){
             console.log('a',fileURIs.get(id))
         }
 
-        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
@@ -92,7 +92,7 @@ function initGraph(cy){
         cy.center();
         console.log("init ok");
      }, 400);
-    
+
 }
 
 function expandGraph(cy) {
@@ -165,7 +165,7 @@ function expandGraph(cy) {
         document.querySelector('#legend').style.display = 'block';
     }
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
     layout.run();
     shift_superposition(cy);
     console.log("expanded");
@@ -210,7 +210,7 @@ function retractGraph(cy) {
     edges.style('width', 0);
     edges.style('arrow-scale', 0);
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
     layout.run();
 
     document.querySelector('#legend').style.display = 'none';
@@ -295,4 +295,21 @@ function nodePositions(cy) {
     show_superposition(cy);
     cy.center();
     console.log("positions recomputed");
+}
+
+
+function zm_in() {
+    let zm= cy.zoom();
+    console.log("Avant :"+ zm)
+    cy.zoom(zm + 1);
+    console.log("Apres :"+ zm)
+    cy.center();
+}
+
+function zm_out() {
+    let zm= cy.zoom();
+    console.log("Avant :"+ zm)
+    cy.zoom(zm - 1);
+    console.log("Apres :"+ zm)
+    cy.center();
 }

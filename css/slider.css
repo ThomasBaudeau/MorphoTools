@@ -101,10 +101,6 @@ Styles du slider d'information
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-img {
-    opacity: 0.6;
-}
-
 @media (max-width: 900px){
     .display-toolbox {
         display : none;

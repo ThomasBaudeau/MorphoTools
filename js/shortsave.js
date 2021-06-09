@@ -14,7 +14,7 @@ function loadShortSave(cy){
 //Permet de réaliser un équivalent d'UNDO à la précédente sauvegarde
 //load the graph kept in the sessionStorage
     cy.elements().remove();
-    cy.json({ elements: JSON.parse( window.sessionStorage.getItem("elements") ).elements }).layout({ name: 'preset' }).run();
+    cy.json({ elements: JSON.parse( window.sessionStorage.getItem("elements") ).elements }).layout({ name: 'circle' }).run();
     nodes = cy.nodes();
     for (var j = 0; j < nodes.length; j++){
         id = nodes[j].data("id");
