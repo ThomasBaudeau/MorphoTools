@@ -39,7 +39,9 @@ h2 {
   text-align: center;
 }
 
-
+td { text-align: center; /* center checkbox horizontally */ 
+     vertical-align: middle; /* center checkbox vertically */ 
+}
 
 .boxes {
 	margin: auto;
@@ -48,6 +50,8 @@ h2 {
 
 table {
 	border-spacing: 20px 10px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 input[type="checkbox"] { display: none; }
