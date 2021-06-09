@@ -98,13 +98,8 @@ function initGraph(cy){
             nodes[j].style("background-image", fileURIs.get(id));
             console.log('a',fileURIs.get(id))
         }
-<<<<<<< HEAD
-
-        layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
-=======
         document.getElementById('cy').style.visibility = 'visible';
-        layout = cy.layout({ name: 'cise', directed: true, padding: 10 });
->>>>>>> f001fd039cc5710875860bdfaad8063257d976ec
+        layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
