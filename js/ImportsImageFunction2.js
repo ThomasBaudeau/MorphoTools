@@ -1,4 +1,4 @@
-function initDb() {
+function initDb(){
     let request = indexedDB.open('morphotools', 3);
 
     request.onerror = function (e) {
@@ -30,7 +30,7 @@ function ImportImage(file) {
         console.log('db opened');
         console.log('change event fired for input field');
         var reader = new FileReader();
-        //				reader.readAsDataURL(file);
+        //reader.readAsDataURL(file);
         reader.readAsBinaryString(file);
 
         reader.onload = function (e) {
