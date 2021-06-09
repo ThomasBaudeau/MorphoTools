@@ -52,23 +52,38 @@ function showFile() {
     }
     else {
     console.log("je suis dans le else")
-    Loadfile();
     setTimeout(function(){
-        let count=sessionStorage.getItem('count')
-        
-        for (let i=0; i<count;i++){
-            let image=sessionStorage.getItem('images'+i)
-            let pos=image.search(',')
-            a=image.slice(0,pos)
-            pos++
-            image=image.slice(pos)
-            fileURIs.set(a.slice(0, -4), image);
-        }
-    }, 300);
+    console.log('loading files')
+    let connection = window.indexedDB.open('morphotools', 3);
+    connection.onerror = function (e) {
+        console.error('Unable to open database.');
     }
+    connection.onsuccess = (e) => {
+        let db = e.target.result;
+        console.log('DB opened');
+        let project_id = sessionStorage.getItem('selected_project');
+        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+        objectStore.openCursor().onsuccess = function (e) {
+            let cursor = e.target.result;
+            if (cursor) {
+                image=[]
+                let id = cursor.value.project_id;
+                let name = cursor.value.type_file;
+                if (id == project_id && /\.(jpe?g|png|gif)$/i.test(name)) {
+                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,' + btoa(cursor.value.data) )
+                }
+                cursor.continue();
+            }
+            else{
+                console.log('end')
+                
+            }
+        }
+    }
+    },300)}
     console.log(fileURIs)
     console.log("loading ok")
-};
+}
 
 function initGraph(cy){
 // center() ne fonctionne pas avec les fichiers csv pour le moment, mais c'est
@@ -84,7 +99,7 @@ function initGraph(cy){
             console.log('a',fileURIs.get(id))
         }
 
-        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        layout = cy.layout({ name: 'cise', directed: true, padding: 10 });
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
