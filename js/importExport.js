@@ -23,6 +23,7 @@ function singleImportJSON(cy){
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
         console.log('expected: ',data)
+        document.getElementById('cy').style.visibility = 'hidden';
         cy.json(data);
       };
     }
