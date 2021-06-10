@@ -1,6 +1,6 @@
-/* 
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Création de projet via un formulaire et initialisation de notre base de donnée
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
+project creation and init of the DB
 */
 
 'use strict'
@@ -13,40 +13,37 @@ const abstractInput = document.querySelector('#abstract');
 
 
 
-/////////////////////////INITIALISATION BDD///////////////////////////////
+/////////////////////////INITIALISATION DB///////////////////////////////
 
-//Objet db pour stocker la BDD ouverte
+//stock ref db
 let db;
 
 window.onload = function() {
   let request = window.indexedDB.open('morphotools', 3);
 
-  //La base de données n'a pas pu être ouverte avec succès
+  //the DB couldn't be opened
   request.onerror = function(event) {
     console.log('Database error : ' + event.target.errorCode);
   };
 
-  //La base de données a été ouverte avec succès
+  //the DB is now open
   request.onsuccess = function() {
     console.log('Database opened successfully');
-    //Stocke la base de données ouverte dans la variable db.
     db = request.result;
-    //Exécute la fonction displayData() pour afficher les projets qui sont dans la BDD
+    //display projects currently in the DB
     displayData();
   };
 
-  //Spécifie les tables de la BDD si ce n'est pas déjà pas fait
+  //on update or when DB is created : create the stores
   request.onupgradeneeded = function(e) { 
-    //Récupère une référence à la BDD ouverte
     let db = e.target.result;
 
-    //Crée une table pour stocker nos projets avec un champ qui s'auto-incrémente comme clé
+    //project store
     let objectStore = db.createObjectStore('projects', { keyPath: 'id', autoIncrement:true });
-    //Définition des autres champs
     objectStore.createIndex('name', 'name', { unique: false });
     objectStore.createIndex('abstract', 'abstract', { unique: false });
     
-    //Crée la table qui stocke les fichiers qui vont être importés par l'utilisateur
+    //imported files store
     objectStore = db.createObjectStore('imports', { keyPath: 'id', autoIncrement:true });
     objectStore.createIndex('data', 'data', { unique: false });
     objectStore.createIndex('project_id', 'project_id', { unique: false});

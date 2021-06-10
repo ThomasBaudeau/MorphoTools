@@ -1,10 +1,14 @@
-//Crée un gestionnaire onsubmit pour appeler la fonction addData() quand le formulaire est soumis
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+handle display of projects within the DB
+*/
+
+//call addData() whenever a formulary is submited.
 const form = document.querySelector('form');
 const submitBtn = document.querySelector('form button');
 
 form.onsubmit = addData;
 
-//Définit la fonction addData()
 function addData(e) {
     console.log(nameInput.value)
     e.preventDefault();
@@ -13,7 +17,7 @@ function addData(e) {
         error.parentNode.removeChild(error);
     }
 
-    //vérif de presence des fichiers
+    //check if files exist
     if (nameInput.value.length == 0) {
         let window = document.querySelector('form');;
         let error = document.createElement('p');
@@ -23,26 +27,22 @@ function addData(e) {
     }
     
     else {
-        //Récupérent les valeurs entrées dans les champs du formulaire
-        //et les stockent dans un objet qui sera inséré en BDD 
+        //stock values within the formulary to the DB
         let newItem = { name: nameInput.value, abstract: abstractInput.value };
-        //Ouvre une transaction en lecture/écriture sur notre table projects
         let transaction = db.transaction(['projects'], 'readwrite');
-        //Récupére la table de la base de données qui a été ouvert avec la transaction
         let objectStore = transaction.objectStore('projects');
-        //Demande l'ajout de notre nouvel objet à la table
         var request = objectStore.add(newItem);
 
         request.onsuccess = function () {
-            //Vide le formulaire, pour qu'il soit prêt pour un nouvel ajout
+            //empty the formulary
             nameInput.value = '';
             abstractInput.value = '';
-            // On ferme la fenetre qui a été ouverte
+            // close window
             document.querySelector('.bg-modal').style.display = 'none';
         };
         transaction.oncomplete = function () {
             console.log('Transaction completed.');
-            //Met à jour l'affichage pour montrer le nouvel item en exécutant displayData()
+            //update display
             displayData();
         };
 

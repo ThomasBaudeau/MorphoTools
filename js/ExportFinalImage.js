@@ -1,12 +1,12 @@
 /*
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Exportation du graphe sous forme d'image
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Exportation of the graph as a jpg
 */
 
 'use strict'
 
 function exportJPG(cy){
-    // dessine physiquement  l'image jpg puis l'export 
+    // draw and export the picture
     const canvas = document.getElementById("export_canvas");
     const racine = document.createElement('canvas');
     const ctx = racine.getContext('2d');

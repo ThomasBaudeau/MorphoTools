@@ -1,7 +1,6 @@
 /*
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Sauvegarde du graphe dans le session storage sous format JSON
-Permet de réaliser un équivalent d'UNDO à la précédente sauvegarde
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Save graph in session storage as a checkpoint
 */
 
 function shortSave(cy){
@@ -11,14 +10,14 @@ function shortSave(cy){
     }
     
 function loadShortSave(cy){
-//Permet de réaliser un équivalent d'UNDO à la précédente sauvegarde
 //load the graph kept in the sessionStorage
     cy.elements().remove();
-    cy.json({ elements: JSON.parse( window.sessionStorage.getItem("elements") ).elements }).layout({ name: 'circle' }).run();
+    cy.json({ elements: JSON.parse( window.sessionStorage.getItem("elements") ).elements }).layout({ name: 'preset', directed: true, padding: 10 }).run();
     nodes = cy.nodes();
     for (var j = 0; j < nodes.length; j++){
         id = nodes[j].data("id");
         nodes[j].style("background-image", fileURIs.get(id));
     }
+    cy.center();
     console.log("loaded json");
 }

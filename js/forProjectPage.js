@@ -1,3 +1,8 @@
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+informations display on the project page
+*/
+
 function check_tool(){
     let tl = document.getElementsByName("tools");
     for (let i = 0; i<tl.length; i++){

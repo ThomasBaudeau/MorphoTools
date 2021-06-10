@@ -1,3 +1,7 @@
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+scrollbar in projet.html
+*/
 'use strict'
 
 $('#titre').mouseover(
@@ -11,7 +15,7 @@ $('#titre').mouseout(
         //document.getElementById('bulle').style.display='none';
     })
 
-//Fenêtre d'importation de fichiers
+//file import window
 document.getElementById('import').addEventListener('click',
     function () {
         document.querySelector('.import-modal').style.display = 'flex';
@@ -39,13 +43,13 @@ document.getElementById('choose-close').addEventListener('click',
 
 document.getElementById('Validation').addEventListener('click',
     function(){
-        //suppression des ancients messages
+        //delete old messages
         if(document.getElementById("error_message") !== null){
             var error = document.getElementById("error_message");
             error.parentNode.removeChild(error);
         }
 
-        //vérif de presence des fichiers
+        //check files existence
         if (document.getElementById('ii').files.length == 0 || document.getElementById('ij').files.length == 0){
             let window = document.getElementById('import-mc');
             let error = document.createElement('p');
@@ -53,7 +57,7 @@ document.getElementById('Validation').addEventListener('click',
             error.innerHTML = "Error, you must import images and a matrix.";
             window.appendChild(error);
         }
-        // fermeture de la fenetre et ajout info a gauche
+        //close window and add infos to the left
         else{
             document.querySelector('.import-modal').style.display = 'none';
             document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + document.getElementById('ii').files.length;
@@ -136,7 +140,7 @@ function chooseImage() {
         return
     }
 
-    // Open the DB
+    // Open DB
     let request = indexedDB.open('morphotools', 3);
     
     // if an error occur :
