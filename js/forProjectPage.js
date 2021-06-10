@@ -34,12 +34,12 @@ function loadStart(function_name){
 //toggle download bar
     document.querySelector('#download_symbol').style.display = 'block';
     document.querySelector('#loading_div').style.display = 'block';
-    document.getElementById('#loading_div_message').innerHTML = function_name;
+    document.getElementById('loading_div_message').innerHTML = function_name;
 
 }
 function loadEnd(){
     document.querySelector('#download_symbol').style.display = 'none';
     document.querySelector('#loading_div').style.display = 'none';
-    document.getElementById('#loading_div_message').innerHTML = "";
+    document.getElementById('loading_div_message').innerHTML = "";
  
 }
