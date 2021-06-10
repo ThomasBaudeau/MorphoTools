@@ -235,10 +235,24 @@ function retractGraph(cy) {
 async function filterEdges(cy) {
     var thr = prompt("Threshold for edge filtering? (0 to 1)");
     //recharge du json et réimportation des images
-    singleImportJSON(cy);
-    initGraph(cy);
+    if (thr==='')
+        {return}
+    
     //timeout car le chargement a tendance a se faire après la definition du threshold
-    setTimeout(function(){ 
+    setTimeout(function(){
+        if (thr.search('-')!=-1){
+            console.log(thr.slice(1))
+            cy.remove('edge[proba > ' + thr.slice(1) + ']');
+            nodes = cy.nodes();
+            for (var j = 0; j < nodes.length; j++) {
+                if (nodes[j].connectedEdges().length == 0) {
+                    cy.remove(nodes[j]);
+                }
+            }
+            console.log("filtered");
+            
+        }
+        else{
         cy.remove('edge[proba < ' + thr + ']');
         nodes = cy.nodes();
         for (var j = 0; j < nodes.length; j++) {
@@ -246,8 +260,9 @@ async function filterEdges(cy) {
                 cy.remove(nodes[j]);
             }
         }
-        console.log("filtered");
-     }, 100);
+        console.log("filtered1");
+        }
+     }, 1000);
     
 }
 
