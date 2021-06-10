@@ -1,6 +1,6 @@
 /* 
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Foncitonnalités de notre page d'acceuil
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+functionalities for the homepage
 */
 
 'use strict'
@@ -8,7 +8,7 @@ Foncitonnalités de notre page d'acceuil
 //Responsive menu
 
 
-//Fenêtre de création de projet
+//project creation window
 document.getElementById('create').addEventListener('click',
 function() {
   document.querySelector('.bg-modal').style.display = 'flex';
@@ -18,7 +18,7 @@ function() {
   document.querySelector('.bg-modal').style.display = 'none';
 });
 
-//Sélection et stockage du project sur lequel l'utilisateur va travailler liens vers projet .html
+//selection and stockage of the working project. Link to projet.html
 document.addEventListener("DOMContentLoaded", () => {
     var ul = document.querySelector('ul');
     
@@ -43,12 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-//obtenir le nom l'abstract et l'id et les transmettre vers la seconde page
+//get the id and the abstract for the projet.html
 function obtainValues(key) {
-    //La base de données a été ouverte avec succès
+    //DB successfully opened
     let objectStore = db.transaction(['projects'], 'readwrite').objectStore('projects');
     objectStore.openCursor().onsuccess = function (e) {
-        //Récupère une référence au curseur
+        //ref to the cursor
         let cursor = e.target.result;
         if (cursor){
             let thename = cursor.value.name;

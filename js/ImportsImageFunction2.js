@@ -1,3 +1,8 @@
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+functionalities for handling files for Indexed DB
+*/
+
 function initDb(){
     let request = indexedDB.open('morphotools', 3);
 

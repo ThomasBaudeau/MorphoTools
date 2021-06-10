@@ -1,6 +1,11 @@
-//fin features
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+functionalities dedicated to the import of images
+*/
 
-//Stockage temporaire de l'url d'une image dans session storage
+//end features
+
+//temporarily stock an image url in sessionStorage
 function transformImport(file) {
     if (/\.(jpe?g|png|gif|json|csv)$/i.test(file.name)) {
         var reader = new FileReader();
@@ -12,7 +17,7 @@ function transformImport(file) {
     };
 };
 
-//Stockage des images dans le dossier import de notre base de donnée
+//add images to the import store in IndexedDB
 function addImport() {
     let d_b;
     var photo = document.getElementById("ii").files;
@@ -36,7 +41,7 @@ function addImport() {
         
         for (let i = 0; i < files.length; i++) {
             for (let j = 0; j < files[i].length; j++){
-                //Add un champs patch_name ou créer une table d'import par projet 
+                //Add a patch_name field or create an import store
                 let myData = sessionStorage.getItem('patch_' + files[i][j].name);
                 let newItem = { project_id: select_id, data: myData };
                 objectStore.add(newItem);

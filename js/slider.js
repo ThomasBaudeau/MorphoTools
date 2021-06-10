@@ -1,7 +1,6 @@
-/* 
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Affiche un slider contenant des informations pour chaque 
-plugin de la boite à outils
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+display a slider with informations for each plugin within Morphotools
 */
 
 'use strict'
@@ -10,7 +9,7 @@ let slides = document.querySelectorAll('.slide');
 let btns = document.querySelectorAll('.nav-btn');
 let active = 1;
 
-//Navigation manuel
+//manual
 let manualNav = function(manual){
     slides.forEach((slide) => {
         slide.classList.remove('active');
@@ -29,7 +28,7 @@ btns.forEach((btn, i) => {
     });
 });
 
-//Navigation automatique
+//auto
 let repeat = function(activeClass){
     let active = document.getElementsByClassName('active');
     let i = 1;

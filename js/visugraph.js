@@ -1,7 +1,6 @@
 /*
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Amélioration des principales fonctionnalités de Visugraph 
-fournit par notre client
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Main functions of Visugraph
 */
 
 var deleted_nodes = [];

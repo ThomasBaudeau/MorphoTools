@@ -1,6 +1,6 @@
 /*
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Fonctions évitant la superpositon entre des patchs dans Visugraph
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+avoid or reveal superposition of pictures
 */
 
 function show_superposition(cy){

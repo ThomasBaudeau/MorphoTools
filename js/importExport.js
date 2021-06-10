@@ -1,6 +1,6 @@
-/*
-SAUVESTRE Clément / JACQUES Patrick / GOMES Enzo
-Importation et exportation du graphe sous format JSON
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Import/export of the graph in JSON format
 */
 
 function checkimport(fileName){
@@ -14,7 +14,7 @@ function singleImportJSON(cy){
   if (fileInput!=undefined){
     var reader = new FileReader();
     reader.fileName = fileInput.name;
-    // le fichier importé est un JSON
+    // if JSON
     if (checkimport(reader.fileName)) {
       console.log(reader);
       reader.onload = function (readerEvent) {
@@ -25,7 +25,7 @@ function singleImportJSON(cy){
         cy.json(data);
       };
     }
-    // le fichier importé est un CSV
+    // if CSV
     else {
       console.log("dans le else");
       console.log(reader);
@@ -59,7 +59,7 @@ function singleImportJSON(cy){
   
 }
 
-// convertir le fichier csv (string) en array
+// convertion of csv (string) into an array
 function parseData(csv_data){
   let word = "";
   let char = 0;
@@ -86,7 +86,7 @@ function parseData(csv_data){
   return array;
 }
 
-// convertir le fichier csv (array) en json (cytoscape)
+// convertion array into json (cytoscape)
 function CSV_to_JSON(array){
   let cpt = 0;
   
@@ -115,7 +115,7 @@ function CSV_to_JSON(array){
   //console.log("Width :" + window.screen.width);
   //console.log("Height :" + window.screen.height);
 
-  //remplissage nodes
+  //filling nodes
   for(let node = 1 ; node < array[0].length ; node++){
     let val_x = getRandomArbitrary(0, window.screen.width) - 250;
     let val_y = getRandomArbitrary(0, window.screen.height) - 70;
@@ -130,7 +130,7 @@ function CSV_to_JSON(array){
     };
     json.elements.nodes.push(data);
   }
-  //remplissage edges
+  //filling edges
   for(let line = 1 ; line < array.length ; line++){
     for(let col = line ; col < array[line].length ; col++){
       //console.log("line :" + line + "col :" + col);
