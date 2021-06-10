@@ -30,3 +30,10 @@ document.getElementById('back_visu').addEventListener('click',function(){
     document.querySelector('#menu_visu').style.display = 'none';
     document.querySelector('#display_window').style.display = 'none';
 })
+function loadStart(){
+//toggle download bar
+    document.querySelector('#download_symbol').style.display = 'block';
+}
+function loadEnd(){
+    document.querySelector('#download_symbol').style.display = 'none'; 
+}

@@ -9,6 +9,9 @@ function checkimport(fileName){
 
 
 function singleImportJSON(cy){
+  document.getElementById('cy').style.visibility = 'hidden';
+  loadStart();
+  console.log("everything start");
   const fileInput = $('#ij')[0].files[0];
   var data;
   if (fileInput!=undefined){
@@ -20,8 +23,6 @@ function singleImportJSON(cy){
       reader.onload = function (readerEvent) {
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
-
-        document.getElementById('cy').style.visibility = 'hidden';
         cy.json(data);
       };
     }
@@ -56,7 +57,8 @@ function singleImportJSON(cy){
     },150)
     
   }
-  
+  loadEnd();
+  console.log("everything is done");
 }
 
 // convertion of csv (string) into an array
