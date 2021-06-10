@@ -57,7 +57,9 @@ function singleImportJSON(cy){
     },150)
     
   }
+  setTimeout(function () {
   loadEnd();
+  }, 250)
   console.log("everything is done");
 }
 
