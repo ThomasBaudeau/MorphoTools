@@ -40,10 +40,17 @@ Définit le style général du site ainsi que celui de chaque plugin
 
 #loading_div{
     display: none;
-    background-color: rgba(0, 0, 0, 0.363);
+    background-color: rgba(0, 0, 0, 0.568);
     width: 100%;
     height: 100%;
     z-index: 49;
+}
+
+#loading_div_message{
+    margin-left: auto;
+    margin-right: auto;
+    top : calc(100% + 60px);
+    color: rgb(255, 255, 255);
 }
 
 #download_symbol {

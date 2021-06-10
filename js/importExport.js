@@ -10,7 +10,7 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   document.getElementById('cy').style.visibility = 'hidden';
-  loadStart();
+  loadStart("Importation");
   console.log("everything start");
   const fileInput = $('#ij')[0].files[0];
   var data;
