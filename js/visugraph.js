@@ -98,7 +98,7 @@ function initGraph(cy){
             console.log('a',fileURIs.get(id))
         }
         document.getElementById('cy').style.visibility = 'visible';
-        layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
         cy.minZoom(4);
         cy.maxZoom(1e-50);
