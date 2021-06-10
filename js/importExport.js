@@ -57,8 +57,12 @@ function singleImportJSON(cy){
     },150)
     
   }
+<<<<<<< HEAD
   loadEnd();
   console.log("everything is done");
+=======
+  document.getElementById('cy').style.visibility = 'hidden';
+>>>>>>> efb400d58640873276edd8fec14440264d7bee39
 }
 
 // convertion of csv (string) into an array
