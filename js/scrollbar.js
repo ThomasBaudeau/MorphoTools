@@ -30,6 +30,7 @@ function () {
     },500)
 });
 
+
 document.getElementById('choose-close').addEventListener('click',
     function () {
         document.querySelector('.choose-modal').style.display = 'none';
@@ -130,6 +131,10 @@ function selectAll(ch) {
 }
 
 function chooseImage() {
+    let select = document.getElementsByName('select[]');
+    if(select.length>1){
+        return
+    }
 
     // Open the DB
     let request = indexedDB.open('morphotools', 3);
