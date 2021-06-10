@@ -31,8 +31,9 @@ Définit le style général du site ainsi que celui de chaque plugin
     z-index: 50;
     width : 50px;
     height : 50px;
+    cursor: pointer;
 }
 
 #zoom_out {
-    left : 50px;
+    left : 65px;
 }
