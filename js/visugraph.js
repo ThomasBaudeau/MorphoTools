@@ -328,3 +328,36 @@ function zm_out() {
     console.log("Apres :"+ zm)
     cy.center();
 }
+
+document.getElementById('send_div').addEventListener('click',
+    function () {
+        delimage(cy);
+    });
+
+function delimage(cy) {
+    if (document.getElementById("error_message") !== null) {
+        var error = document.getElementById("error_message");
+        error.parentNode.removeChild(error);
+    }
+    //vérif de chargement de cy
+    if (cy === undefined) {
+        let window = document.getElementById('choose-mc');
+        let error = document.createElement('p');
+        error.setAttribute('id', "error_message");
+        error.innerHTML = "Error, matrix must be imported";
+        window.appendChild(error);
+    }
+    let select = document.getElementsByName('select[]');
+    console.log('ok select : ', select);
+    for (let i = 0; i < select.length; i++) {
+        if (!select[i].checked) {
+            if (select[i].id != "box-1") {
+                cy.remove(cy.$('#'+select[i].id.slice(0, -4)));
+            }
+        }
+    }
+}
+
+cy.on('click', 'node', function (evt) {
+    console.log('clicked ' + this.id());
+});
