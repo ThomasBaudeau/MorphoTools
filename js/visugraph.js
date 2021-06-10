@@ -346,6 +346,7 @@ function zm_out() {
 document.getElementById('send_div').addEventListener('click',
     function () {
         delimage(cy);
+        document.querySelector('.choose-modal').style.display = 'none';
     });
 
 function delimage(cy) {
