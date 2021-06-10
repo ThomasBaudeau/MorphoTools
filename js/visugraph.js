@@ -352,7 +352,7 @@ function delimage(cy) {
     for (let i = 0; i < select.length; i++) {
         if (!select[i].checked) {
             if (select[i].id != "box-1") {
-                cy.remove(cy.$('#'+select[i].id.slice(0, -4)));
+                cy.remove(cy.getElementById(select[i].id.slice(0, -4)));
             }
         }
     }
