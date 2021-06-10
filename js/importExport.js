@@ -20,6 +20,7 @@ function singleImportJSON(cy){
     // if JSON
     if (checkimport(reader.fileName)) {
       console.log(reader);
+      reader.readAsText(fileInput);
       reader.onload = function (readerEvent) {
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
@@ -40,9 +41,10 @@ function singleImportJSON(cy){
 
         data = JSON.parse(data);
         cy.json(data);
+        addJSONtoDB(cy);
       }
     }
-    reader.readAsText(fileInput);
+    
 
   }
   else{
