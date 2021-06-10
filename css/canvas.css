@@ -47,17 +47,24 @@ Définit le style général du site ainsi que celui de chaque plugin
 }
 
 #loading_div_message{
-    margin-left: auto;
-    margin-right: auto;
-    top : calc(100% + 60px);
-    color: rgb(255, 255, 255);
+  height: 100%;
+  position: relative;
+}
+
+#loading_message{
+  margin: 0;
+  color: rgb(255, 255, 255);
+  position: absolute;
+  top: calc(50% + 15px);
+  left: calc(50% + 125px);
+  transform: translateY(-50%);
 }
 
 #download_symbol {
     display: none;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: calc(50% + 125px);
     width : 50px;
     height : 50px;
     z-index: 50;
