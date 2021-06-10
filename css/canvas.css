@@ -38,6 +38,14 @@ Définit le style général du site ainsi que celui de chaque plugin
     left : 65px;
 }
 
+#loading_div{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.363);
+    width: 100%;
+    height: 100%;
+    z-index: 49;
+}
+
 #download_symbol {
     display: none;
     position: absolute;

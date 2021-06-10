@@ -33,7 +33,9 @@ document.getElementById('back_visu').addEventListener('click',function(){
 function loadStart(){
 //toggle download bar
     document.querySelector('#download_symbol').style.display = 'block';
+    document.querySelector('#loading_div').style.display = 'block';
 }
 function loadEnd(){
-    document.querySelector('#download_symbol').style.display = 'none'; 
+    document.querySelector('#download_symbol').style.display = 'none';
+    document.querySelector('#loading_div').style.display = 'none'; 
 }
