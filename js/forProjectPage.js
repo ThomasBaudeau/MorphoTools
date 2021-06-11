@@ -48,10 +48,9 @@ function loadEnd(){
 function blocking_buttons(){
     $(':button').prop('disabled', true);
     $('input').prop('disabled', true);
-    
 }
+
 function activating_buttons(){
     $(':button').prop('disabled', false);
     $('input').prop('disabled', false);
-
 }
