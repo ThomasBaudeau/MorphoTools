@@ -1,3 +1,8 @@
+/*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
+selection des images du projet à afficher
+*/
+
 #send_img{
   width: 100px;
   height: 30px;
@@ -8,6 +13,16 @@
   text-align: center;
   margin-top: 10px;
 
+}
+
+#choose-mc {
+  width: 650px;
+  height: 450px;
+}
+
+#choose_image{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .choose-modal {
@@ -23,11 +38,6 @@
   z-index: 50;
 }
 
-#choose-mc {
-  width: 650px;
-  height: 450px;
-}
-
 .modal-choose {
   width: 600px;
   height: auto;
@@ -35,19 +45,6 @@
   border-radius: 4px;
   padding: 20px;
   position: relative;
-}
-
-#choose_image{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-h2 {
-  text-align: center;
-}
-
-td { text-align: center; /* center checkbox horizontally */ 
-     vertical-align: middle; /* center checkbox vertically */ 
 }
 
 .boxes {
@@ -79,12 +76,6 @@ td { text-align: center; /* center checkbox horizontally */
 
 .boxes::-webkit-scrollbar-corner {
   background-color: transparent;
-}
-
-table {
-	border-spacing: 20px 10px;
-  text-align: center;
-  vertical-align: middle;
 }
 
 input[type="checkbox"] { display: none; }
