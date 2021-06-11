@@ -35,11 +35,23 @@ function loadStart(function_name){
     document.querySelector('#download_symbol').style.display = 'block';
     document.querySelector('#loading_div').style.display = 'block';
     document.getElementById('loading_message').innerHTML = function_name;
-
+    blocking_buttons()
 }
+
 function loadEnd(){
     document.querySelector('#download_symbol').style.display = 'none';
     document.querySelector('#loading_div').style.display = 'none';
     document.getElementById('loading_message').innerHTML = "";
- 
+    activating_buttons()
+}
+
+function blocking_buttons(){
+    $(':button').prop('disabled', true);
+    $('input').prop('disabled', true);
+    
+}
+function activating_buttons(){
+    $(':button').prop('disabled', false);
+    $('input').prop('disabled', false);
+
 }
