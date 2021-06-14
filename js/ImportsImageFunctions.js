@@ -32,24 +32,20 @@ function ImportImage(files) {
         console.error('Unable to open database.');
     }
 
-    request.onsuccess = function (e) {
+    request.onsuccess = async function (e) {
+        console.log('db opened');
+        console.log('change event fired for input field');
         for (let i = 0; i < files.length; i++) {
             for (let j = 0; j < files[i].length; j++) {
                 if (/\.(jpe?g|png|gif)$/i.test(files[i][j].name)) {
                     db = e.target.result;
-                    file=files[i][j];
-                    console.log('db opened');
-                    console.log('change event fired for input field');
                     var reader = new FileReader();
-                    //reader.readAsDataURL(file);
-                    reader.readAsBinaryString(file);
-
+                    reader.readAsBinaryString(files[i][j]);
                     reader.onload = function (e) {
-                        //alert(e.target.result);
                         let bits = e.target.result;
                         let ob = {
                             project_id: sessionStorage.getItem('selected_project'),
-                            type_file: file.name,
+                            type_file: files[i][j].name,
                             data: bits
                         };
 
@@ -61,13 +57,12 @@ function ImportImage(files) {
                             console.error(e);
                         }
 
-                        trans.oncomplete =async function (e) {
+                        trans.oncomplete =function (e) {
                             console.log('data stored');
                             count++;
                             if (count===nbfile)
                             {
                                 loadEnd();
-                                await chargement('loading file',files.length,75)
                             }
                         }
                     }

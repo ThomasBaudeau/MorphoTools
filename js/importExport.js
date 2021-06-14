@@ -9,6 +9,7 @@ function checkimport(fileName){
 
 
 function singleImportJSON(cy){
+  sessionStorage.setItem('stop', true)
   document.getElementById('cy').style.visibility = 'hidden';
   loadStart("retrieving dies");
   console.log("everything start");
@@ -45,8 +46,11 @@ function singleImportJSON(cy){
         data = JSON.parse(data);
         cy.json(data);
         cy.on('render', function (e) {
-          addJSONtoDB(cy);
-          loadEnd();
+          
+          if(sessionStorage.getItem(stop))
+            addJSONtoDB(cy);
+            loadEnd();
+            sessionStorage.setItem('stop', false)
         })
       }
     }

@@ -31,11 +31,13 @@ var cy = cytoscape({
         })
 });
 
-function showFile() {
+async function showFile(cy) {
+    loadStart('retrieving images')
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
         console.log("je suis ici")
+        var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
             reader.fileName = fileInput.files[i].name;
@@ -45,18 +47,26 @@ function showFile() {
                 console.log(name.slice(0, -4));
                 console.log(typeof (url))
                 fileURIs.set(name.slice(0, -4), url);
+                count2++
+                if (count2 == sessionStorage.getItem('numberImage')) 
+                {
+                    console.log(fileURIs)
+                        loadEnd();
+                        imageinit(cy); }
+                
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
+        
     }
     else {
+    var count=0;
     console.log("je suis dans le else")
-    setTimeout(function(){
     console.log('loading files')
     let connection = window.indexedDB.open('morphotools', 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
-    }
+        }
     connection.onsuccess = (e) => {
         let db = e.target.result;
         console.log('DB opened');
@@ -69,7 +79,14 @@ function showFile() {
                 let id = cursor.value.project_id;
                 let name = cursor.value.type_file;
                 if (id == project_id && /\.(jpe?g|png|gif)$/i.test(name)) {
-                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,' + btoa(cursor.value.data) )
+                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
+                    console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
+                    count++;
+                    if(count==sessionStorage.getItem('numberImage'))
+                    {
+                        console.log(fileURIs)
+                        loadEnd()
+                        imageinit(cy)}
                 }
                 cursor.continue();
             }
@@ -78,36 +95,44 @@ function showFile() {
                 
             }
         }
+        }
     }
-    },300)}
-    console.log(fileURIs)
-    console.log("loading ok")
+    
 }
 
 function initGraph(cy){
 // center() ne fonctionne pas avec les fichiers csv pour le moment, mais c'est
 // parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
 // devrait se corriger de lui même.
-    showFile();
-    //var window = cy.$('#cy')
-    setTimeout(function(){ 
-        nodes = cy.nodes();
-        for (var j = 0; j < nodes.length; j++) {
-            id = nodes[j].data("id");
-            nodes[j].style("background-image", fileURIs.get(id));
-            console.log('a',fileURIs.get(id))
-        }
-        document.getElementById('cy').style.visibility = 'visible';
-        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
-        layout.run();
-        cy.minZoom(0.5);
-        cy.maxZoom(1e-50);
-        //cy.center(window); 
-        cy.center();
-        console.log("init ok");
-     }, 400);
-
+    showFile(cy);
 }
+
+function imageinit(cy){
+    console.log('ok')
+    loadStart('loading images')
+    var count = 0;
+    nodes = cy.nodes();
+    for (var j = 0; j < nodes.length; j++) {
+        id = nodes[j].data("id");
+        nodes[j].style("background-image", fileURIs.get(id));
+        cy.on('style', function () {
+            count++
+            if (count == nodes.length) {
+                loadEnd();
+                document.getElementById('cy').style.visibility = 'visible';
+            }
+        })
+        console.log('a', fileURIs.get(id))
+    }
+    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout.run();
+    cy.minZoom(0.5);
+    cy.maxZoom(1e-50);
+    //cy.center(window); 
+    cy.center();
+    console.log("init ok");
+}
+
 
 function expandGraph(cy) {
     dismiss_borderColor(cy);

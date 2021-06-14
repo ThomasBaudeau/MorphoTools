@@ -61,6 +61,7 @@ document.getElementById('Validation').addEventListener('click',
         else{
             document.querySelector('.import-modal').style.display = 'none';
             document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + document.getElementById('ii').files.length;
+            sessionStorage.setItem('numberImage', document.getElementById('ii').files.length);
             document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + document.getElementById('ij').files.length;
             deleteImport();
             addImport();
@@ -116,6 +117,7 @@ function NumberImage()
                 console.log("No more key");
                 document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + numberImage;
                 document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + numberJson;
+                sessionStorage.setItem('numberImage',numberImage)
             }
         }
     
