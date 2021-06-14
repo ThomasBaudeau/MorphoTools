@@ -265,6 +265,7 @@ async function filterEdges(cy) {
     //timeout car le chargement a tendance a se faire après la definition du threshold
     setTimeout(function(){
         if (thr.search('-')!=-1){
+            loadStart('filtering edges')
             console.log(thr.slice(1))
             cy.remove('edge[proba > ' + thr.slice(1) + ']');
             nodes = cy.nodes();
@@ -273,6 +274,7 @@ async function filterEdges(cy) {
                     cy.remove(nodes[j]);
                 }
             }
+            loadEnd()
             console.log("filtered");
             
         }
