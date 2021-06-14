@@ -24,6 +24,7 @@ function initDb(){
 
 function ImportImage(files) {
     var count=0;
+    var nbfile=files[0].length;
     loadStart('saving files');
     let request = indexedDB.open('morphotools', 3);
 
