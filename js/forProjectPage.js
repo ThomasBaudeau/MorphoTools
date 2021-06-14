@@ -3,6 +3,23 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 informations display on the project page
 */
 
+async function chargement(texte, nbr, multi) {
+    console.log(nbr * multi)
+    loadStart(texte)
+    await delay(nbr * multi)
+    loadEnd()
+}
+
+function delay(n) {
+    n = n || 2000;
+    return new Promise(done => {
+        setTimeout(() => {
+            done();
+        }, n);
+    });
+}
+
+
 function check_tool(){
     let tl = document.getElementsByName("tools");
     for (let i = 0; i<tl.length; i++){
