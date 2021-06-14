@@ -175,7 +175,7 @@ function CSV_to_JSON(array){
           "data":{
             "id": id,
             "label":"",
-            "proba":array[line][col],
+            "proba":1-array[line][col],
             "source":array[line][0],
             "target":array[0][col]
           },
