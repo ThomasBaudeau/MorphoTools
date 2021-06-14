@@ -3,7 +3,7 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 add JSON to Indexed DB
 */
 function addJSONtoDB(cy) {
-
+    loadStart('converting CSV to JSON')
     // Open DB
     let request = indexedDB.open('morphotools', 3);
     
@@ -58,6 +58,7 @@ function addJSONtoDB(cy) {
         }
         store2.oncomplete = function(e) {
             console.log('new json saved');
+            loadEnd()
         } 
     }   
 }
