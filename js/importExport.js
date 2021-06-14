@@ -49,20 +49,39 @@ function singleImportJSON(cy){
   }
   else{
     console.log("autre else")
-    LoadJson();
-    setTimeout(function(){
-      data = sessionStorage.getItem('Json');
-      data = JSON.parse(data)
-      cy.json(data);
-      
-      
-    },150)
     
-  }
+  
+    let connection = window.indexedDB.open('morphotools', 3);
+    connection.onerror = function (e) {
+      console.error('Unable to open database.');
+      }
+    connection.onsuccess = (e) => {
+      let db = e.target.result;
+      console.log('DB opened');
+      let project_id = sessionStorage.getItem('selected_project');
+      let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+      objectStore.openCursor().onsuccess = function (e) {
+        let cursor = e.target.result;
+        if (cursor) {
+          let id = cursor.value.project_id;
+          let name = cursor.value.type_file;
+          if (id == project_id && name.search('json') != -1) {
+            let file = JSON.parse(cursor.value.data);
+            if (file.length < 16) {
+              console.log('oups :',cursor.value.data)
+              }
+            console.log(file)
+            cy.json(file);
+          }
+          cursor.continue();
+        }
+      }
+    }
   setTimeout(function () {
   loadEnd();
   }, 250)
   console.log("everything is done");
+  }
 }
 
 // convertion of csv (string) into an array
@@ -179,35 +198,6 @@ function exportGraphJSON(cy){
 }
 
 
-function LoadJson(){
-  let connection = window.indexedDB.open('morphotools', 3);
-  connection.onerror = function (e) {
-    console.error('Unable to open database.');
-  }
-  connection.onsuccess = (e) => {
-    let db = e.target.result;
-    console.log('DB opened');
-    let project_id = sessionStorage.getItem('selected_project');
-    let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-    objectStore.openCursor().onsuccess = function (e) {
-      let cursor = e.target.result;
-      if (cursor) {
-        let id = cursor.value.project_id;
-        let name= cursor.value.type_file;
-        if (id == project_id && name.search('json')!=-1) {
-          let file =JSON.parse(cursor.value.data);
-          sessionStorage.setItem('Json',file)
-          let test=sessionStorage.getItem('Json')
-          if (test.length<16){
-            sessionStorage.setItem('Json',cursor.value.data)
-          }
-          return
-        }
-        cursor.continue();
-      }
-    }
-  }
-}
   
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
