@@ -10,7 +10,7 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   document.getElementById('cy').style.visibility = 'hidden';
-  loadStart("Importation");
+  loadStart("retrieving dies");
   console.log("everything start");
   const fileInput = $('#ij')[0].files[0];
   var data;
@@ -25,6 +25,9 @@ function singleImportJSON(cy){
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
         cy.json(data);
+        cy.on('render',function(e){
+          loadEnd();
+        })
       };
     }
     // if CSV
@@ -41,13 +44,16 @@ function singleImportJSON(cy){
 
         data = JSON.parse(data);
         cy.json(data);
-        addJSONtoDB(cy);
+        cy.on('render', function (e) {
+          addJSONtoDB(cy);
+          loadEnd();
+        })
       }
     }
     
 
   }
-  else{
+  else{ 
     console.log("autre else")
     
   
@@ -72,15 +78,14 @@ function singleImportJSON(cy){
               }
             console.log(file)
             cy.json(file);
+            cy.on('render', function (e) {
+              loadEnd();
+            })
           }
           cursor.continue();
         }
       }
     }
-  setTimeout(function () {
-  loadEnd();
-  }, 250)
-  console.log("everything is done");
   }
 }
 

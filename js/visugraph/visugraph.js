@@ -100,7 +100,7 @@ function initGraph(cy){
         document.getElementById('cy').style.visibility = 'visible';
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
-        cy.minZoom(4);
+        cy.minZoom(0.5);
         cy.maxZoom(1e-50);
         //cy.center(window); 
         cy.center();
