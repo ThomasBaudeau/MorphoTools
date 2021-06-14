@@ -29,9 +29,6 @@ document.getElementById('import-close').addEventListener('click',
 document.getElementById('choose').addEventListener('click',
 function () {
     chooseImage();
-    setTimeout(function(){
-        document.querySelector('.choose-modal').style.display = 'flex';
-    },500)
 });
 
 
@@ -138,10 +135,12 @@ function selectAll(ch) {
 
 function chooseImage() {
     let select = document.getElementsByName('select[]');
+    var count=0;
     if(select.length>1){
+        document.querySelector('.choose-modal').style.display = 'flex';
         return
     }
-
+    loadStart('loading images')
     // Open DB
     let request = indexedDB.open('morphotools', 3);
     
@@ -197,6 +196,12 @@ function chooseImage() {
                     line.appendChild(column);
                     line.appendChild(column2)
                     table.appendChild(line);
+                    count++;
+                    if (count==sessionStorage.getItem('numberImage'))
+                    {
+                        loadEnd()
+                        document.querySelector('.choose-modal').style.display = 'flex';
+                    }
                 }
                 cursor.continue();
             }
