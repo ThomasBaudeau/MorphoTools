@@ -22,8 +22,9 @@ function initDb(){
     }
 }
 
-function ImportImage(file) {
-
+function ImportImage(files) {
+    var count=0;
+    loadStart('saving files');
     let request = indexedDB.open('morphotools', 3);
 
     request.onerror = function (e) {
@@ -31,34 +32,49 @@ function ImportImage(file) {
     }
 
     request.onsuccess = function (e) {
-        db = e.target.result;
-        console.log('db opened');
-        console.log('change event fired for input field');
-        var reader = new FileReader();
-        //reader.readAsDataURL(file);
-        reader.readAsBinaryString(file);
+        for (let i = 0; i < files.length; i++) {
+            for (let j = 0; j < files[i].length; j++) {
+                if (/\.(jpe?g|png|gif)$/i.test(files[i][j].name)) {
+                    db = e.target.result;
+                    file=files[i][j];
+                    console.log('db opened');
+                    console.log('change event fired for input field');
+                    var reader = new FileReader();
+                    //reader.readAsDataURL(file);
+                    reader.readAsBinaryString(file);
 
-        reader.onload = function (e) {
-            //alert(e.target.result);
-            let bits = e.target.result;
-            let ob = {
-                project_id: sessionStorage.getItem('selected_project'),
-                type_file: file.name,
-                data: bits
-            };
+                    reader.onload = function (e) {
+                        //alert(e.target.result);
+                        let bits = e.target.result;
+                        let ob = {
+                            project_id: sessionStorage.getItem('selected_project'),
+                            type_file: file.name,
+                            data: bits
+                        };
 
-            let trans = db.transaction(['imports'], 'readwrite');
-            let addReq = trans.objectStore('imports').add(ob);
+                        let trans = db.transaction(['imports'], 'readwrite');
+                        let addReq = trans.objectStore('imports').add(ob);
 
-            addReq.onerror = function (e) {
-                console.log('error storing data');
-                console.error(e);
-            }
+                        addReq.onerror = function (e) {
+                            console.log('error storing data');
+                            console.error(e);
+                        }
 
-            trans.oncomplete = function (e) {
-                console.log('data stored');
+                        trans.oncomplete =async function (e) {
+                            console.log('data stored');
+                            count++;
+                            if (count===nbfile)
+                            {
+                                loadEnd();
+                                await chargement('loading file',files.length,75)
+                            }
+                        }
+                    }
+                    
+                }
             }
         }
+
     }
 
     
@@ -116,13 +132,7 @@ function addImport() {
             ImportJson(data, reader.fileName);
         };
     }
-    for (let i = 0; i < files.length; i++) {
-        for (let j = 0; j < files[i].length; j++) {
-            if (/\.(jpe?g|png|gif)$/i.test(files[i][j].name)) {
-                ImportImage(files[i][j]);
-            }
-        }
-    }       
+    ImportImage(files);
 }
 
 function deleteImport() {
@@ -150,6 +160,8 @@ function deleteImport() {
             else {
                 console.log("No more key");
             }
+        }
+        objectStore.oncomplete=function(e){
         }
     }
 }
