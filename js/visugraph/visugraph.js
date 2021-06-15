@@ -111,19 +111,19 @@ function imageinit(cy){
     console.log('ok')
     loadStart('loading images')
     var count = 0;
-    nodes = cy.nodes();
+    var nodes = cy.nodes();
+    console.log(nodes.length)
     for (var j = 0; j < nodes.length; j++) {
-        id = nodes[j].data("id");
+        var id = nodes[j].data("id");
         nodes[j].style("background-image", fileURIs.get(id));
-        cy.on('style', function () {
-            count++
-            if (count == nodes.length) {
-                loadEnd();
-                document.getElementById('cy').style.visibility = 'visible';
+        count++
+        console.log(count);
+        if (count == nodes.length) {
+            loadEnd();
+            document.getElementById('cy').style.visibility = 'visible';
             }
-        })
-        console.log('a', fileURIs.get(id))
-    }
+        }
+    console.log('a', fileURIs.get(id))
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
     cy.minZoom(0.5);
