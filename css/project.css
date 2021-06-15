@@ -10,6 +10,16 @@ Gestion du style des projets
   background:#ebf3f4;
 }
 
+/* Nom de projet */
+#project_name{
+  margin-top: 10px;
+  height: 26px;
+  width: 206px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* Description de projet et scroll bar */
 #description{
   width:207px;
