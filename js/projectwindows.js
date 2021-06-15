@@ -72,7 +72,8 @@ function displayData() {
             let listItem = document.createElement('li');
             let h3 = document.createElement('h3');
             let para = document.createElement('p');
-            para.setAttribute("id", "description")
+            para.setAttribute("id", "description");
+            h3.setAttribute("id","project_name");
             listItem.appendChild(h3);
             listItem.appendChild(para);
             list.appendChild(listItem);
