@@ -123,8 +123,7 @@ function imageinit(cy){
             document.getElementById('cy').style.visibility = 'visible';
             }
         }
-        console.log('a', fileURIs.get(id))
-    }
+    console.log('a', fileURIs.get(id))
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
     cy.minZoom(0.5);
