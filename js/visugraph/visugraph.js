@@ -116,14 +116,13 @@ function imageinit(cy){
     for (var j = 0; j < nodes.length; j++) {
         var id = nodes[j].data("id");
         nodes[j].style("background-image", fileURIs.get(id));
-        cy.on('style', function () {
-            count++
-            console.log(count);
-            if (count == nodes.length) {
-                loadEnd();
-                document.getElementById('cy').style.visibility = 'visible';
+        count++
+        console.log(count);
+        if (count == nodes.length) {
+            loadEnd();
+            document.getElementById('cy').style.visibility = 'visible';
             }
-        })
+        }
         console.log('a', fileURIs.get(id))
     }
     layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
