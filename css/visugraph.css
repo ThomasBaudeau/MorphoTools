@@ -41,10 +41,20 @@ Définit le style général du site ainsi que celui de chaque plugin
 #loading_div{
     display: none;
     margin-left: 250px;
-    background-color: rgba(0, 0, 0, 0.568);
+    background-color: rgba(0, 0, 0, 0.85);
     width: calc(100% - 250px);
     height: 100%;
     z-index: 49;
+    position: absolute;
+}
+
+#loading_div_index{
+  display: none;
+  background-color: rgba(0, 0, 0, 0.85);
+  width: 100%;
+  height: 100%;
+  z-index: 49;
+  position: absolute;
 }
 
 #loading_div_message{
