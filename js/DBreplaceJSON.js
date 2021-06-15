@@ -53,10 +53,10 @@ function addJSONtoDB(cy) {
         // ref for the store
         let store2 = trans2.objectStore('imports').add(ob);
         
-        store2.onerror = function(e) {
+        trans2.onerror = function(e) {
             console.log('error new json didnt save');
         }
-        store2.oncomplete = function(e) {
+        trans2.oncomplete = function(e) {
             console.log('new json saved');
             loadEnd()
         } 

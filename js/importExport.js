@@ -77,9 +77,15 @@ function singleImportJSON(cy){
           let name = cursor.value.type_file;
           if (id == project_id && name.search('json') != -1) {
             let file = JSON.parse(cursor.value.data);
-            if (file.length < 16) {
-              console.log('oups :',cursor.value.data)
-              }
+            try{
+              file=JSON.parse(file);
+              if (file.length < 16) {
+                file=JSON.parse(cursor.value.data)
+                }
+            }
+            catch{
+              file=JSON.parse(cursor.value.data)
+            }
             console.log(file)
             cy.json(file);
             cy.on('render', function (e) {

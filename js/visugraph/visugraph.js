@@ -111,12 +111,14 @@ function imageinit(cy){
     console.log('ok')
     loadStart('loading images')
     var count = 0;
-    nodes = cy.nodes();
+    var nodes = cy.nodes();
+    console.log(nodes.length)
     for (var j = 0; j < nodes.length; j++) {
-        id = nodes[j].data("id");
+        var id = nodes[j].data("id");
         nodes[j].style("background-image", fileURIs.get(id));
         cy.on('style', function () {
             count++
+            console.log(count);
             if (count == nodes.length) {
                 loadEnd();
                 document.getElementById('cy').style.visibility = 'visible';
