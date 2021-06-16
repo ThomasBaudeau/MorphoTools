@@ -14,7 +14,7 @@ Gestion du style du left container
 }
 
 .left-container{
-    min-height: 100vh;
+    min-height: calc(100vh - 70px);
     width: 250px;
     background: #1c4c50d7;
     position: absolute;
