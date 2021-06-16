@@ -15,7 +15,7 @@ body, html {
 #cy {
   top: 70px;
   left: 250px;
-  height: 100%;
+  height: calc(100% - 70px);
   width: calc(100% - 250px);
   position: absolute;
   background-color: rgb(255, 255, 255);
