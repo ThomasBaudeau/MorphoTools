@@ -62,7 +62,7 @@ document.getElementById('Validation').addEventListener('click',
             sessionStorage.setItem('numberImage', document.getElementById('ii').files.length);
             document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + document.getElementById('ij').files.length;
             deleteImport();
-            addImport();
+            //addImport();
         }
     });
 
