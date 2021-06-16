@@ -77,8 +77,7 @@ function ImportImage(files) {
 }
 
 function ImportJson(arr,name){
-    console.log(arr)
-    
+    console.log(arr);
     let request = indexedDB.open('morphotools', 3);
 
     request.onerror = function (e) {

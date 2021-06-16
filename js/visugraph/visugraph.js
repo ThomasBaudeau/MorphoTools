@@ -259,7 +259,9 @@ function retractGraph(cy) {
 }
 
 async function filterEdges(cy) {
-    var thr = prompt("Threshold for edge filtering? (0 to 1)");
+    const min = sessionStorage.getItem("min_similitude");
+    const max = sessionStorage.getItem("max_similitude")
+    var thr = prompt("Threshold for edge filtering? (" + min + " to " + max + ")");
     //recharge du json et réimportation des images
     if (thr==='')
         {return}

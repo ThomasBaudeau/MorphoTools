@@ -25,9 +25,10 @@ function singleImportJSON(cy){
       reader.onload = function (readerEvent) {
         console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
+        findMinMax(data);
         cy.json(data);
         cy.on('render',function(e){
-          loadEnd();
+        loadEnd();
         })
       };
     }
@@ -42,11 +43,10 @@ function singleImportJSON(cy){
         obj_csv = readerEvent.target.result;
         let array = parseData(obj_csv);
         let data = CSV_to_JSON(array);
-
         data = JSON.parse(data);
+        findMinMax(data);
         cy.json(data);
         cy.on('render', function (e) {
-          
           if(sessionStorage.getItem(stop))
             addJSONtoDB(cy);
             loadEnd();
@@ -218,4 +218,26 @@ function exportGraphJSON(cy){
   
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
+}
+
+//find min and max JSON (call dans ImportsImageFunction 118)
+function findMinMax(data){
+  //data au format json 
+  //=> value dans data['elements']['edges'][i]['data']['proba']
+  var min = 1;
+  var max = 0;
+  //parcour tout les edges pour comparer les proba
+  for (let i = 0 ; i < data['elements']['edges'].length ; i++){
+    let value = data['elements']['edges'][i]['data']['proba']
+    if (value > max){
+      max = value;
+    }
+    if (value < min){
+      min = value;
+    }
+  }
+  console.log("max proba = " + max);
+  console.log("min proba = " + min);
+  sessionStorage.setItem('max_similitude', max);
+  sessionStorage.setItem('min_similitude', min);
 }
