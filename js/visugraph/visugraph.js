@@ -121,7 +121,7 @@ function imageinit(cy){
             }
         }
     console.log('a', fileURIs.get(id))
-    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
     layout.run();
     cy.minZoom(0.5);
     cy.maxZoom(1e-50);
@@ -180,15 +180,15 @@ function expandGraph(cy) {
     edges.style('curve-style', 'bezier');
     edges.style('control-point-step-size', 4);
     for (var j = 0; j < edges.length; j++) {
-        if (edges[j].data('proba') > 0.9){
+        if (edges[j].data('proba') >= 0.9){
             edges[j].data('line-color','green'),
             edges[j].style('target-arrow-color','green'),
             edges[j].style('color', 'green')
         }
-        else if (edges[j].data('proba') < 0.8 && edges[j].data('proba') > 0.6){
-            edges[j].data('line-color','yellow'),
-            edges[j].style('target-arrow-color','yellow'),
-            edges[j].style('color', 'yellow')
+        else if (edges[j].data('proba') < 0.9 && edges[j].data('proba') >= 0.6){
+            edges[j].data('line-color','orange'),
+            edges[j].style('target-arrow-color','orange'),
+            edges[j].style('color', 'orange')
         }
         else{
             edges[j].data('line-color','red'),
@@ -196,8 +196,12 @@ function expandGraph(cy) {
             edges[j].style('color', 'red')
         }
         edges[j].style('label', function() {
-            let label= edges[j].data('label') + ' - ' + edges[j].data('proba');
-            return label
+            if (edges[j].data('label') === ''){
+                return edges[j].data('proba');
+            }
+            else {
+                return edges[j].data('label') + ' : ' + edges[j].data('proba');
+            }
         });
         document.querySelector('#legend').style.display = 'block';
     }

@@ -120,6 +120,7 @@ function ColaLayout(options) {
 
 // runs the layout
 ColaLayout.prototype.run = function () {
+  console.log('COLA :' + cola);
   var layout = this;
   var options = this.options;
 

@@ -175,7 +175,7 @@ function CSV_to_JSON(array){
     for(let col = line ; col < array[line].length ; col++){
       //console.log("line :" + line + "col :" + col);
       let prob= parseFloat(array[line][col]);
-      if (array[line][col]!=='1' && prob>=0.1 && array[line][col].includes('e')==false){  
+      if (array[line][col]!='1' && prob>=0.1 && array[line][col].includes('e')===false){  
         let id = 'E' + cpt;
         cpt++;
         let data = {
