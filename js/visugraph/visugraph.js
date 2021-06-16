@@ -101,9 +101,6 @@ async function showFile(cy) {
 }
 
 function initGraph(cy){
-// center() ne fonctionne pas avec les fichiers csv pour le moment, mais c'est
-// parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
-// devrait se corriger de lui même.
     showFile(cy);
 }
 
@@ -124,7 +121,7 @@ function imageinit(cy){
             }
         }
     console.log('a', fileURIs.get(id))
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
     layout.run();
     cy.minZoom(0.5);
     cy.maxZoom(1e-50);
@@ -179,7 +176,6 @@ function expandGraph(cy) {
     edges.style('text-opacity', 0.5);
     edges.style('width', 0.1);
     edges.style('arrow-scale', 0.1);
-    edges.style('color', 'red');
     edges.style('font-size', 1);
     edges.style('curve-style', 'bezier');
     edges.style('control-point-step-size', 4);
@@ -199,12 +195,14 @@ function expandGraph(cy) {
             edges[j].style('target-arrow-color','red'),
             edges[j].style('color', 'red')
         }
-        edges[j].style('label', edges[j].data('label'));
-
+        edges[j].style('label', function() {
+            let label= edges[j].data('label') + ' - ' + edges[j].data('proba');
+            return label
+        });
         document.querySelector('#legend').style.display = 'block';
     }
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
     layout.run();
     shift_superposition(cy);
     console.log("expanded");
@@ -249,7 +247,7 @@ function retractGraph(cy) {
     edges.style('width', 0);
     edges.style('arrow-scale', 0);
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'layout', directed: true, padding: 10 });
     layout.run();
 
     document.querySelector('#legend').style.display = 'none';

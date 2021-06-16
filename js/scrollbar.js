@@ -54,6 +54,7 @@ document.getElementById('Validation').addEventListener('click',
             error.innerHTML = "Error, you must import images and a matrix.";
             window.appendChild(error);
         }
+
         //close window and add infos to the left
         else{
             document.querySelector('.import-modal').style.display = 'none';
@@ -61,7 +62,7 @@ document.getElementById('Validation').addEventListener('click',
             sessionStorage.setItem('numberImage', document.getElementById('ii').files.length);
             document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + document.getElementById('ij').files.length;
             deleteImport();
-            addImport();
+            //addImport();
         }
     });
 
