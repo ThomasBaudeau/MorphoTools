@@ -289,6 +289,10 @@ async function filterEdges(cy) {
         console.log("filtered1");
         }
      }, 1000);
+     setTimeout(function(){
+        console.log("refreshing position...")
+        nodePositions(cy);
+     }, 1100);
     
 }
 
@@ -398,6 +402,8 @@ function delimage(cy) {
             }
         }
     }
+    console.log("refreshing position...")
+    nodePositions(cy);
 }
 
 cy.on('click', 'node', function (evt) {
