@@ -176,7 +176,6 @@ function expandGraph(cy) {
     edges.style('text-opacity', 0.5);
     edges.style('width', 0.1);
     edges.style('arrow-scale', 0.1);
-    edges.style('color', 'red');
     edges.style('font-size', 1);
     edges.style('curve-style', 'bezier');
     edges.style('control-point-step-size', 4);
@@ -196,10 +195,10 @@ function expandGraph(cy) {
             edges[j].style('target-arrow-color','red'),
             edges[j].style('color', 'red')
         }
-        // edges[j].style('label', edges[j].data('label'));
-        edges[j].style('label', edges[j].data('proba'));
-
-
+        edges[j].style('label', function() {
+            let label= edges[j].data('label') + ' - ' + edges[j].data('proba');
+            return label
+        });
         document.querySelector('#legend').style.display = 'block';
     }
 
