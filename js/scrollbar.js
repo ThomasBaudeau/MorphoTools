@@ -54,6 +54,7 @@ document.getElementById('Validation').addEventListener('click',
             error.innerHTML = "Error, you must import images and a matrix.";
             window.appendChild(error);
         }
+
         //close window and add infos to the left
         else{
             document.querySelector('.import-modal').style.display = 'none';

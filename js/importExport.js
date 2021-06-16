@@ -174,14 +174,15 @@ function CSV_to_JSON(array){
   for(let line = 1 ; line < array.length ; line++){
     for(let col = line ; col < array[line].length ; col++){
       //console.log("line :" + line + "col :" + col);
-      if (array[line][col] !== '1'){  
+      let prob= parseInt(array[line][col]);
+      if (array[line][col] !== '1' && prob >= 0.1){  
         let id = 'E' + cpt;
         cpt++;
         let data = {
           "data":{
             "id": id,
             "label":"",
-            "proba":1-array[line][col],
+            "proba":array[line][col],
             "source":array[line][0],
             "target":array[0][col]
           },
