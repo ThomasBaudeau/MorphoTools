@@ -101,9 +101,6 @@ async function showFile(cy) {
 }
 
 function initGraph(cy){
-// center() ne fonctionne pas avec les fichiers csv pour le moment, mais c'est
-// parce qu'ils n'ont pas d'images associés. Lorsque ce sera le cas, le problème
-// devrait se corriger de lui même.
     showFile(cy);
 }
 
@@ -199,7 +196,9 @@ function expandGraph(cy) {
             edges[j].style('target-arrow-color','red'),
             edges[j].style('color', 'red')
         }
-        edges[j].style('label', edges[j].data('label'));
+        // edges[j].style('label', edges[j].data('label'));
+        edges[j].style('label', edges[j].data('proba'));
+
 
         document.querySelector('#legend').style.display = 'block';
     }
