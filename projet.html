@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/checkbox.css">
     <link rel="stylesheet" href="css/select_box.css">
+    <link rel="stylesheet" href="css/loading.css">
+
 
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -206,6 +208,16 @@
     <div class=export_canvas id="export_canvas"></div>
     <!-- <img class=download src= images/logo-Chargement.jpg id="download_symbol"></img> -->
     <div id = "loading_div"><div id = "loading_div_message"><p id = "loading_message"></p></div><div class="lds-ring" id="download_symbol"><div></div><div></div><div></div><div></div></div></div>
+    <div id = "end-loading_div" style="display: none;">
+        <div class="success-checkmark">
+            <div class="check-icon">
+                <span class="icon-line line-tip"></span>
+                <span class="icon-line line-long"></span>
+                <div class="icon-circle"></div>
+                <div class="icon-fix"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src= "js/visugraph/ExportFinalImage.js"></script>
