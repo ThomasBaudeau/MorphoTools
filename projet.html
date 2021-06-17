@@ -135,7 +135,19 @@
             <div class="visu" style="display: none;">
                 <div id="bouton_visu" class="cy">
                     <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Loading data</button>
-                    <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Display</button>
+                    <div class="btn3">
+                        <div class="select-box__current" tabindex="0">
+                            <div class="select-box__value"><input class="select-box__input" id="display" type="radio" value=" " name="display" checked="checked" />
+                                <p class="select-box__input-text">Display</p>
+                            </div>
+                        </div>
+                        <ul class="select-box__list">
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'1')">Preset</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'2')">Cola</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'3')">Cose</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'4')">Elk</label></li>
+                        </ul>
+                    </div>
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
                     <button class="btn3" id="choose">Choose image</button>
                     <!-- Sous menu edge -->
@@ -225,9 +237,6 @@
     <!-- layout cola -->
     <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
     <script src="js/layout/cytoscape-cola.js"></script>
-    
-    
-
 </body>
 
 </html> 

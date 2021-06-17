@@ -31,7 +31,7 @@ var cy = cytoscape({
         })
 });
 
-async function showFile(cy) {
+async function showFile(cy,lyt) {
     loadStart('retrieving images')
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
@@ -52,7 +52,7 @@ async function showFile(cy) {
                 {
                     console.log(fileURIs)
                         loadEnd();
-                        imageinit(cy); }
+                        imageinit(cy,lyt); }
                 
             }
             reader.readAsDataURL(fileInput.files[i]);
@@ -86,7 +86,7 @@ async function showFile(cy) {
                     {
                         console.log(fileURIs)
                         loadEnd()
-                        imageinit(cy)}
+                        imageinit(cy,lyt)}
                 }
                 cursor.continue();
             }
@@ -100,11 +100,11 @@ async function showFile(cy) {
     
 }
 
-function initGraph(cy){
-    showFile(cy);
+function initGraph(cy, lyt){
+    showFile(cy, lyt);
 }
 
-function imageinit(cy){
+function imageinit(cy,lyt){
     console.log('ok')
     loadStart('loading images')
     var count = 0;
@@ -120,8 +120,19 @@ function imageinit(cy){
             document.getElementById('cy').style.visibility = 'visible';
             }
         }
-    console.log('a', fileURIs.get(id))
-    layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
+    console.log('a', fileURIs.get(id));
+    if (lyt === '1'){
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    };
+    if (lyt === '2') {
+        layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
+    };
+    if (lyt === '3') {
+        layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
+    };
+    if (lyt === '4') {
+        layout = cy.layout({ name: 'elk', directed: true, padding: 10 });
+    };
     layout.run();
     cy.minZoom(0.5);
     cy.maxZoom(1e-50);
