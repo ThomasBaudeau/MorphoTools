@@ -142,6 +142,55 @@ function chooseImage() {
         return
     }
     loadStart('loading images')
+    if (document.getElementById('ii').files.length!=0){
+        console.log('okok')
+        var fileInput = document.getElementById('ii');
+        for(let i=0;i<fileInput.files.length;i++){
+            console.log('ici')
+            var reader = new FileReader();
+            reader.readAsDataURL(fileInput.files[i]);
+            reader.fileName = fileInput.files[i].name;
+            reader.onload = function (readerEvent) {
+                var url = readerEvent.target.result;
+                var name = readerEvent.target.fileName;
+                if (/\.(jpe?g|png|gif)$/i.test(name)) {
+                    let data = url;
+                    let table = document.getElementById('choose_image');
+                    let line = document.createElement('tr');
+                    let column = document.createElement('td');
+                    let checkbox = document.createElement('input');
+                    checkbox.setAttribute('type', 'checkbox');
+                    checkbox.setAttribute('id', name);
+                    checkbox.setAttribute('name', 'select[]');
+                    checkbox.setAttribute('value', 'image_' + name);
+                    let label = document.createElement('label');
+                    label.setAttribute('for', name);
+                    label.textContent = name;
+                    let column2 = document.createElement('td');
+                    let image = document.createElement('img');
+                    image.setAttribute('src', data);
+                    image.setAttribute('style', 'opacity:1')
+                    image.setAttribute('width', '100px')
+                    image.setAttribute('height', '100px')
+                    column.appendChild(checkbox);
+                    column.appendChild(label)
+                    column2.appendChild(image)
+                    line.appendChild(column);
+                    line.appendChild(column2)
+                    table.appendChild(line);
+                    count++
+                    console.log(count)
+                    if (count == sessionStorage.getItem('numberImage')) {
+                        loadEnd();
+                        document.querySelector('.choose-modal').style.display = 'flex';
+                    }
+                }
+            
+            }
+        }
+    }
+    else{
+        console.log('pasok')
     // Open DB
     let request = indexedDB.open('morphotools', 3);
     
@@ -208,5 +257,6 @@ function chooseImage() {
             }
         }
         console.log(cy.json());
+    }
     }
 }

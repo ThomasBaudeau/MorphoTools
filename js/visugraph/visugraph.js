@@ -16,7 +16,7 @@ var cy = cytoscape({
             'height': 10,
             'width': 10,
             'shape': 'rectangle',
-            'background-fit': 'cover',
+            'background-fit': 'none',
             'border-color': '#000',
             'border-width': 0,
             'border-opacity': 0.5
@@ -409,13 +409,25 @@ function delimage(cy) {
         window.appendChild(error);
     }
     let select = document.getElementsByName('select[]');
-    console.log('ok select : ', select);
+    var arrayselect=[];
     for (let i = 0; i < select.length; i++) {
         if (!select[i].checked) {
             if (select[i].id != "box-1") {
                 cy.remove(cy.getElementById(select[i].id.slice(0, -4)));
             }
         }
+        else{
+            arrayselect.push(select[i].id.slice(0, -4))
+        }
+    }
+    
+    elements = cy.elements()
+    for (let i = 0; i < elements.length; i++){
+        console.log(elements[i].id())
+        if (!arrayselect.includes(elements[i].id()) && elements[i].isNode())
+            {
+            cy.remove(cy.getElementById(elements[i].id()))
+            }
     }
     console.log("refreshing position...")
     nodePositions(cy);

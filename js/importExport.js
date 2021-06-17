@@ -28,7 +28,8 @@ function singleImportJSON(cy){
         findMinMax(data);
         cy.json(data);
         cy.on('render',function(e){
-        loadEnd();
+          loadEnd();
+          sessionStorage.setItem('stop', false)
         })
       };
     }
