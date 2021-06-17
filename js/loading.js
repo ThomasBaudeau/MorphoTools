@@ -16,6 +16,10 @@ function loadEnd(){
     document.querySelector('#loading_div').style.display = 'none';
     document.getElementById('loading_message').innerHTML = "";
     activating_buttons();
+
+}
+
+function loadEnd_witness(){
     //fin du chargement
     document.querySelector('#end-loading_div').style.display = 'block';
     setTimeout(function(){

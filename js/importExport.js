@@ -29,6 +29,7 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.on('render',function(e){
         loadEnd();
+        loadEnd_witness();
         })
       };
     }
@@ -50,6 +51,7 @@ function singleImportJSON(cy){
           if(sessionStorage.getItem(stop))
             addJSONtoDB(cy);
             loadEnd();
+            loadEnd_witness();
             sessionStorage.setItem('stop', false)
         })
       }
