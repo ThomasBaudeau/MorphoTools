@@ -131,7 +131,7 @@ function imageinit(cy,lyt){
         layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
     };
     if (lyt === '4') {
-        layout = cy.layout({ name: 'elk', directed: true, padding: 10 });
+        layout = cy.layout({ name: 'circle', directed: true, padding: 10 });
     };
     layout.run();
     cy.minZoom(0.5);
