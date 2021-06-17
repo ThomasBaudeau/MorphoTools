@@ -206,7 +206,7 @@ function expandGraph(cy) {
         document.querySelector('#legend').style.display = 'block';
     }
 
-    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
     shift_superposition(cy);
     console.log("expanded");
@@ -251,7 +251,7 @@ function retractGraph(cy) {
     edges.style('width', 0);
     edges.style('arrow-scale', 0);
 
-    layout = cy.layout({ name: 'layout', directed: true, padding: 10 });
+    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
     layout.run();
 
     document.querySelector('#legend').style.display = 'none';
