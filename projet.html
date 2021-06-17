@@ -137,6 +137,8 @@
             <div class="visu" style="display: none;">
                 <div id="bouton_visu" class="cy">
                     <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Loading data</button>
+                    
+                    <!-- Sous menu Display -->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
                             <div class="select-box__value"><input class="select-box__input" id="display" type="radio" value=" " name="display" checked="checked" />
@@ -150,8 +152,11 @@
                                 <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'4')">Other ..</label></li>
                         </ul>
                     </div>
+                    <!-- Fin sous menu Display -->
+
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
                     <button class="btn3" id="choose">Choose image</button>
+                    
                     <!-- Sous menu edge -->
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
@@ -217,9 +222,10 @@
 
 
     </div>
-
+    <!-- Display de cytoscape -->
     <div class=export_canvas id="export_canvas"></div>
-    <!-- <img class=download src= images/logo-Chargement.jpg id="download_symbol"></img> -->
+
+    <!-- Chargement en cours -->
     <div id = "loading_div"><div id = "loading_div_message"><p id = "loading_message"></p></div><div class="lds-ring" id="download_symbol"><div></div><div></div><div></div><div></div></div></div>
     <div id = "end-loading_div" style="display: none;">
         <div class="success-checkmark">
