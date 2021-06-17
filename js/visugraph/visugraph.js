@@ -5,6 +5,7 @@ Main functions of Visugraph
 
 var deleted_nodes = [];
 var constante = 0;
+var constante2 = 0;
 var fileURIs = new Map();
 var cy = cytoscape({
     container: document.getElementById('cy'),
@@ -48,16 +49,16 @@ async function showFile(cy,lyt) {
                 console.log(typeof (url))
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
-                if (count2 == sessionStorage.getItem('numberImage')) 
+                if (count2 == sessionStorage.getItem('numberImage'))
                 {
                     console.log(fileURIs)
                         loadEnd();
                         imageinit(cy,lyt); }
-                
+
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
-        
+
     }
     else {
     var count=0;
@@ -92,12 +93,12 @@ async function showFile(cy,lyt) {
             }
             else{
                 console.log('end')
-                
+
             }
         }
         }
     }
-    
+
 }
 
 function initGraph(cy, lyt){
@@ -136,19 +137,77 @@ function imageinit(cy,lyt){
     layout.run();
     cy.minZoom(0.5);
     cy.maxZoom(1e-50);
-    //cy.center(window); 
     cy.center();
     console.log("init ok");
 }
 
+function Showhide_edges(cy) {
+    if (constante2 == 0) {
+        expandGraph(cy);
+        constante2++;
+    }
+    else {
+        retractGraph(cy);
+        constante2--;
+    }
+}
 
 function expandGraph(cy) {
     dismiss_borderColor(cy);
+    display_labels();
+    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+    layout.run();
+    shift_superposition(cy);
+    console.log("expanded");
+
+    cy.edges().on('click', function(evt) {
+        console.log('deleting edge ' + evt.target.id());
+        cy.remove(evt.target);
+    });
+
+    if(constante==0){
+        cy.edges().on('mouseover', function(event) {
+            let edge = event.target;
+            edge.style('text-opacity', 0.5);
+            setTimeout(function(){
+              edge.style('text-opacity',0);
+            },2500);
+        });
+        cy.nodes().on('mouseover', function(event) {
+            let node = event.target;
+            node.style('text-opacity', 0.5);
+            setTimeout(function(){
+              node.style('text-opacity',0);
+            },2500);
+        });
+    }
+}
+
+function viewProbs(cy){
+    edges = cy.edges();
+    nodes = cy.nodes();
+    if (constante==0){
+        display_labels();
+        edges.style('text-opacity',0.5);
+        nodes.style('text-opacity',0.5);
+        constante++;
+    } else {
+        edges.style('text-opacity',0);
+        nodes.style('text-opacity',0);
+        edges.style('target-arrow-color','black');
+        edges.style('color', 'black');
+        nodes.style('target-arrow-color','black');
+        nodes.style('color', 'black');
+        constante--;
+    }
+}
+
+function display_labels() {
     nodes = cy.nodes();
     nodes.style('height', 5);
     nodes.style('width', 5);
     nodes.style('text-opacity', 0);
-    nodes.style('color', 'red');
+    nodes.style('color', 'blue');
     nodes.style('font-size', 1);
     nodes.style('text-halign', 'center');
     nodes.style('text-valign', 'center');
@@ -217,36 +276,6 @@ function expandGraph(cy) {
         document.querySelector('#legend').style.display = 'block';
     }
 
-    layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
-    layout.run();
-    shift_superposition(cy);
-    console.log("expanded");
-
-    cy.edges().on('click', function(evt) {
-        console.log('deleting edge ' + evt.target.id());
-        cy.remove(evt.target);
-    });
-
-    if(constante==0){
-        cy.edges().on('mouseover', function(event) {
-            let edge = event.target;
-            edge.style('text-opacity', 0.5);
-            setTimeout(function(){
-              edge.style('text-opacity',0);
-            },2500);
-        });
-    }
-}
-
-function viewProbs(cy){
-    edges = cy.edges();
-    if (constante==0){
-        edges.style('text-opacity',0.5);
-        constante++;
-    } else {
-        edges.style('text-opacity',0);
-        constante--;
-    }
 }
 
 
@@ -276,7 +305,7 @@ async function filterEdges(cy) {
     //recharge du json et réimportation des images
     if (thr==='')
         {return}
-    
+
     //timeout car le chargement a tendance a se faire après la definition du threshold
     setTimeout(function(){
         if (thr.search('-')!=-1){
@@ -291,7 +320,7 @@ async function filterEdges(cy) {
             }
             loadEnd()
             console.log("filtered");
-            
+
         }
         else{
         cy.remove('edge[proba < ' + thr + ']');
@@ -308,7 +337,7 @@ async function filterEdges(cy) {
         console.log("refreshing position...")
         nodePositions(cy);
      }, 1100);
-    
+
 }
 
 function nodePositions(cy) {

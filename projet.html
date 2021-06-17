@@ -156,21 +156,7 @@
 
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
                     <button class="btn3" id="choose">Choose image</button>
-                    
-                    <!-- Sous menu edge -->
-                    <div class="btn3">
-                        <div class="select-box__current" tabindex="0">
-                            <div class="select-box__value"><input class="select-box__input" id="edge" type="radio" value=" " name="edge" checked="checked" />
-                                <p class="select-box__input-text">Show/Hide edges</p>
-                            </div>
-                        </div>
-                        <ul class="select-box__list">
-                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="expandGraph(cy)">Show edges</label></li>
-                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="retractGraph(cy)">Hide edges</label></li>
-                        </ul>
-                    </div>
-                    <!-- Fin sous menu edge -->
-
+                    <button class="btn3" id="btn-vg" onclick="Showhide_edges(cy)">Show/Hide edges</button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
                     <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
                     
