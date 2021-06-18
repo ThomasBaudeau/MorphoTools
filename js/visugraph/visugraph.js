@@ -7,6 +7,8 @@ Main functions of Visugraph
 var check_bool = sessionStorage.getItem('loading_check')
 
 
+var removedE;
+var removedN;
 var deleted_nodes = [];
 var constante = 0;
 var constante2 = 0;
@@ -329,49 +331,45 @@ function retractGraph(cy) {
     }
 }
 
-async function filterEdges(cy) {
+function filterEdges(cy) {
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         const min = sessionStorage.getItem("min_similitude");
         const max = sessionStorage.getItem("max_similitude")
         var thr = prompt("Threshold for edge filtering? (" + min + " to " + max + ")");
+        
         //recharge du json et réimportation des images
-        if (thr==='')
+        if (thr===null)
             {return}
-
-        //timeout car le chargement a tendance a se faire après la definition du threshold
-        setTimeout(function(){
-            if (thr.search('-')!=-1){
-                loadStart('filtering edges')
-                console.log(thr.slice(1))
-                cy.remove('edge[proba > ' + thr.slice(1) + ']');
-                nodes = cy.nodes();
-                for (var j = 0; j < nodes.length; j++) {
-                    if (nodes[j].connectedEdges().length == 0) {
-                        cy.remove(nodes[j]);
-                    }
-                }
-                loadEnd()
-                console.log("filtered");
-
-            }
-            else{
-            cy.remove('edge[proba < ' + thr + ']');
+        console.log(removedE)
+        console.log(removedN)
+        if (removedN != undefined){
+            console.log('ici');
+            removedN.restore();
+        }
+        if (removedE!=undefined){
+            console.log('ici');
+            removedE.restore();
+        }
+        if (thr.search('-')!=-1){
+            loadStart('filtering edges')
+            console.log(thr.slice(1))
+            removedE =cy.remove('edge[proba > ' + thr.slice(1) + ']');
+            removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
+            console.log("filtered");
+            loadEnd();
+            loadEnd_witness();
+        }
+        else{
+            loadStart('filtering edges')
+            removedE=cy.remove('edge[proba < ' + thr + ']');
             nodes = cy.nodes();
-            for (var j = 0; j < nodes.length; j++) {
-                if (nodes[j].connectedEdges().length == 0) {
-                    cy.remove(nodes[j]);
-                }
-            }
-            console.log("filtered1");
-            }
-        }, 1000);
-        setTimeout(function(){
-            console.log("refreshing position...")
-            nodePositions(cy);
-        }, 1100);
+            removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
+            console.log("filtered");
+            loadEnd();
+            loadEnd_witness();
+        }
     }
-
 }
 
 function nodePositions(cy) {
