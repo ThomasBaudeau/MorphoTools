@@ -7,6 +7,7 @@ function shortSave(cy){
     //Save the current graph for the duration of the session. To use before experimenting with the nodes
         window.sessionStorage.setItem("elements", JSON.stringify( cy.json() ));
         console.log("short save done");
+        loadEnd_witness();
     }
     
 function loadShortSave(cy){
@@ -20,4 +21,5 @@ function loadShortSave(cy){
     }
     cy.center();
     console.log("loaded json");
+    loadEnd_witness();
 }
