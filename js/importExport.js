@@ -28,10 +28,10 @@ function singleImportJSON(cy){
         findMinMax(data);
         cy.json(data);
         cy.on('render',function(e){
-        loadEnd();
+          loadEnd();
+        })
         console.log("fin du chargement import 1")
         loadEnd_witness();
-        })
       };
     }
     // if CSV
@@ -94,9 +94,9 @@ function singleImportJSON(cy){
             cy.json(file);
             cy.on('render', function (e) {
               loadEnd();
-              console.log("fin du chargement import 3")
-              loadEnd_witness();
             })
+            console.log("fin du chargement import 3")
+            loadEnd_witness();
           }
           cursor.continue();
         }
