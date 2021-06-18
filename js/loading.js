@@ -5,11 +5,11 @@ fonctions de chargement et blockage des bouttons
 
 function loadStart(function_name){
     //toggle download bar
-        document.querySelector('#download_symbol').style.display = 'block';
-        document.querySelector('#loading_div').style.display = 'block';
-        document.getElementById('loading_message').innerHTML = function_name;
-        blocking_buttons();
-    }
+    document.querySelector('#download_symbol').style.display = 'block';
+    document.querySelector('#loading_div').style.display = 'block';
+    document.getElementById('loading_message').innerHTML = function_name;
+    blocking_buttons();
+}
     
 function loadEnd(){
     document.querySelector('#download_symbol').style.display = 'none';
@@ -22,6 +22,7 @@ function loadEnd(){
 function loadEnd_witness(){
     //fin du chargement
     document.querySelector('#end-loading_div').style.display = 'block';
+    console.log("fin du chargement")
     setTimeout(function(){
         document.querySelector('#end-loading_div').style.display = 'none';
     },2000)

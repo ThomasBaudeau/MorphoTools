@@ -29,6 +29,7 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.on('render',function(e){
         loadEnd();
+        console.log("fin du chargement import 1")
         loadEnd_witness();
         })
       };
@@ -51,9 +52,10 @@ function singleImportJSON(cy){
           if(sessionStorage.getItem(stop))
             addJSONtoDB(cy);
             loadEnd();
-            loadEnd_witness();
             sessionStorage.setItem('stop', false)
         })
+        console.log("fin du chargement import 2")
+        loadEnd_witness();
       }
     }
     
@@ -92,6 +94,8 @@ function singleImportJSON(cy){
             cy.json(file);
             cy.on('render', function (e) {
               loadEnd();
+              console.log("fin du chargement import 3")
+              loadEnd_witness();
             })
           }
           cursor.continue();
