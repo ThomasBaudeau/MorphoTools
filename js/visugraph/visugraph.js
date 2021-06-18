@@ -152,6 +152,15 @@ function Showhide_edges(cy) {
     }
 }
 
+function retn(cy){
+    cy.add(deleted_nodes[0]);
+    deleted_nodes.shift(deleted_nodes[0])
+    if (deleted_nodes.length == 0){
+        document.querySelector('#backward').style.display = 'none';
+    }
+}
+
+
 function expandGraph(cy) {
     dismiss_borderColor(cy);
     display_labels();
@@ -163,6 +172,8 @@ function expandGraph(cy) {
     cy.edges().on('click', function(evt) {
         console.log('deleting edge ' + evt.target.id());
         cy.remove(evt.target);
+        deleted_nodes.unshift(evt.target);
+        document.querySelector('#backward').style.display = 'block';
     });
 
     if(constante==0){
