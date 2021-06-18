@@ -30,7 +30,6 @@ function singleImportJSON(cy){
         cy.on('render',function(e){
           loadEnd();
         })
-        console.log("fin du chargement import 1")
         loadEnd_witness();
       };
     }
@@ -54,7 +53,6 @@ function singleImportJSON(cy){
             loadEnd();
             sessionStorage.setItem('stop', false)
         })
-        console.log("fin du chargement import 2")
         loadEnd_witness();
       }
     }
@@ -95,7 +93,6 @@ function singleImportJSON(cy){
             cy.on('render', function (e) {
               loadEnd();
             })
-            console.log("fin du chargement import 3")
             loadEnd_witness();
           }
           cursor.continue();
