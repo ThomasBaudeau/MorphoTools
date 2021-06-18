@@ -64,22 +64,20 @@ async function showFile(cy,lyt) {
     var count=0;
     console.log("je suis dans le else")
     console.log('loading files')
-    let connection = window.indexedDB.open('morphotools', 3);
+        let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
         }
     connection.onsuccess = (e) => {
         let db = e.target.result;
         console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
         let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
         objectStore.openCursor().onsuccess = function (e) {
             let cursor = e.target.result;
             if (cursor) {
                 image=[]
-                let id = cursor.value.project_id;
                 let name = cursor.value.type_file;
-                if (id == project_id && /\.(jpe?g|png|gif)$/i.test(name)) {
+                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                     fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
                     console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
                     count++;

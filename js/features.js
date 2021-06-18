@@ -46,26 +46,29 @@ document.addEventListener("DOMContentLoaded", () => {
 //get the id and the abstract for the projet.html
 function obtainValues(key) {
     //DB successfully opened
-    let objectStore = db.transaction(['projects'], 'readwrite').objectStore('projects');
-    objectStore.openCursor().onsuccess = function (e) {
-        //ref to the cursor
-        let cursor = e.target.result;
-        if (cursor){
-            let thename = cursor.value.name;
-            let abstract = cursor.value.abstract;
-            let id_ = cursor.key;
-            console.log(thename,abstract ,id_);
-            if (id_ == key) {
-                sessionStorage.setItem('name_project', thename);
-                sessionStorage.setItem('abstract_project', abstract);
+    let request = indexedDB.open('morphotools', 3);
+    request.onsuccess = function (e) {
+        db = e.target.result;
+        let objectStore = db.transaction(['projects'], 'readwrite').objectStore('projects');
+        objectStore.openCursor().onsuccess = function (e) {
+            //ref to the cursor
+            let cursor = e.target.result;
+            if (cursor){
+                let thename = cursor.value.name;
+                let abstract = cursor.value.abstract;
+                let id_ = cursor.key;
+                console.log(thename,abstract ,id_);
+                if (id_ == key) {
+                    sessionStorage.setItem('name_project', thename);
+                    sessionStorage.setItem('abstract_project', abstract);
+                }
+                cursor.continue();
             }
-            cursor.continue();
+            else{
+                console.log("No more key");
+                
+            }
         }
-        else{
-            console.log("No more key");
-            
-        }
-       
     }
 }
 

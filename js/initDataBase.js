@@ -42,10 +42,12 @@ window.onload = function() {
     let objectStore = db.createObjectStore('projects', { keyPath: 'id', autoIncrement:true });
     objectStore.createIndex('name', 'name', { unique: false });
     objectStore.createIndex('abstract', 'abstract', { unique: false });
-    
-    //imported files store
-    objectStore = db.createObjectStore('imports', { keyPath: 'id', autoIncrement:true });
+
+
+    /*/imported files store
+    objectStore = db.createObjectStore('imports', { keyPath: 'id', autoIncrement: true });
     objectStore.createIndex('data', 'data', { unique: false });
-    objectStore.createIndex('project_id', 'project_id', { unique: false});
+    objectStore.createIndex('project_id', 'project_id', { unique: false });
+    */
   };
 } 

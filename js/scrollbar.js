@@ -84,31 +84,26 @@ function NumberImage()
 {
     let numberJson=0;
     let numberImage=0;
-    let connection = window.indexedDB.open('morphotools', 3);
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
     }
     connection.onsuccess = (e) => {
         let db = e.target.result;
         console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
         let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
         
         objectStore.openCursor().onsuccess =function(e){
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
                 let key = cursor.key;
                 let name= cursor.value.type_file;
-                if (id == project_id) {
-                    if (name.search('json') !=-1 ){
-                        numberJson++;
-                    }
-                    else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
-                        numberImage++;
-                    }
+                if (name.search('json') !=-1 ){
+                    numberJson++;
                 }
-
+                else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
+                    numberImage++;
+                }
                 cursor.continue();
             }
             else {
@@ -192,7 +187,7 @@ function chooseImage() {
     else{
         console.log('pasok')
     // Open DB
-    let request = indexedDB.open('morphotools', 3);
+        let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     
     // if an error occur :
     request.onerror = function (e) {
@@ -214,14 +209,11 @@ function chooseImage() {
         }
         //cursor
         store.openCursor().onsuccess = function(e){
-            let project_id = sessionStorage.getItem("selected_project");
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
-                console.log("id ", id);
                 let name = cursor.value.type_file;
                 console.log("name ",name);
-                if ((id == project_id) &&  /\.(jpe?g|png|gif)$/i.test(name)) {
+                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                     let data = cursor.value.data;
                     let table=document.getElementById('choose_image');
                     let line=document.createElement('tr');
