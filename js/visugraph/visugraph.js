@@ -339,7 +339,7 @@ function filterEdges(cy) {
         loadStart('filtering edges')
         removedE=cy.remove('edge[proba < ' + thr + ']');
         nodes = cy.nodes();
-        removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges(":visible").size() === 0));
+        removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
         console.log("filtered");
         loadEnd();
         loadEnd_witness();
