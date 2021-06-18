@@ -4,7 +4,7 @@ functionalities for handling files for Indexed DB
 */
 
 function initDb(){
-    let request = indexedDB.open('morphotools', 3);
+    let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
 
     request.onerror = function (e) {
         console.error('Unable to open database.');
@@ -17,7 +17,7 @@ function initDb(){
 
     request.onupgradeneeded = function (e) {
         let db = e.target.result;
-        db.createObjectStore('imports', { project_id: 'id',type_file:'.JPG' ,data: 'data'  });
+        db.createObjectStore('imports', {type_file:'.JPG' ,data: 'data'  });
         dbReady = true;
     }
 }
@@ -26,7 +26,7 @@ function ImportImage(files) {
     var count=0;
     var nbfile=files[0].length;
     loadStart('saving files');
-    let request = indexedDB.open('morphotools', 3);
+    let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
 
     request.onerror = function (e) {
         console.error('Unable to open database.');
@@ -44,7 +44,6 @@ function ImportImage(files) {
                     reader.onload = function (e) {
                         let bits = e.target.result;
                         let ob = {
-                            project_id: sessionStorage.getItem('selected_project'),
                             type_file: files[i][j].name,
                             data: bits
                         };
@@ -78,7 +77,7 @@ function ImportImage(files) {
 
 function ImportJson(arr,name){
     console.log(arr);
-    let request = indexedDB.open('morphotools', 3);
+    let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
 
     request.onerror = function (e) {
         console.error('Unable to open database.');
@@ -88,7 +87,6 @@ function ImportJson(arr,name){
         db = e.target.result;
         console.log('db opened');
         let ob = {
-            project_id: sessionStorage.getItem('selected_project'),
             type_file: name,
             data: arr
         };
@@ -109,7 +107,6 @@ function ImportJson(arr,name){
         
 
 function addImport() {
-    let d_b;
     initDb();
     var photo = document.getElementById("ii").files;
     var files = [photo];
@@ -131,32 +128,24 @@ function addImport() {
 }
 
 function deleteImport() {
-    let connection = window.indexedDB.open('morphotools', 3);
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
     }
     connection.onsuccess = (e) => {
         let db = e.target.result;
         console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
-
         let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
         objectStore.openCursor().onsuccess = function (e) {
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
                 let key = cursor.key;
-                if (id == project_id) {
-                    cursor.delete(key);
-                }
-
+                cursor.delete(key);
                 cursor.continue();
             }
             else {
                 console.log("No more key");
             }
-        }
-        objectStore.oncomplete=function(e){
         }
     }
 }
