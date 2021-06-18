@@ -3,8 +3,7 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Main functions of Visugraph
 */
 
-//var de verification d'importation de matrice
-var check_bool = sessionStorage.getItem('loading_check')
+
 
 
 var removedE;
@@ -106,14 +105,18 @@ async function showFile(cy,lyt) {
 }
 
 function initGraph(cy, lyt){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
-    if(check_bool === 'true'){ 
+    if(check_bool !== 'false'){ 
         console.log("booleen de validation : " + check_bool);
         showFile(cy, lyt);
     }
 }
 
 function imageinit(cy,lyt){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         console.log('ok')
@@ -150,8 +153,13 @@ function imageinit(cy,lyt){
         cy.center();
         console.log("init ok");
     }
+}
 
-    function Showhide_edges(cy) {
+function Showhide_edges(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
         if (constante2 == 0) {
             expandGraph(cy);
             constante2++;
@@ -163,7 +171,10 @@ function imageinit(cy,lyt){
     }
 }
 
+
 function retn(cy){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         cy.add(deleted_nodes[0]);
@@ -176,6 +187,8 @@ function retn(cy){
 
 
 function expandGraph(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         dismiss_borderColor(cy);
@@ -212,6 +225,8 @@ function expandGraph(cy) {
 }
 
 function viewProbs(cy){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         edges = cy.edges();
@@ -310,6 +325,8 @@ function viewProbs(cy){
 
 
 function retractGraph(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         dismiss_borderColor(cy);
@@ -332,6 +349,8 @@ function retractGraph(cy) {
 }
 
 function filterEdges(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         const min = sessionStorage.getItem("min_similitude");
@@ -373,6 +392,8 @@ function filterEdges(cy) {
 }
 
 function nodePositions(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         elements = cy.elements();
@@ -460,6 +481,8 @@ document.getElementById('send_div').addEventListener('click',
     });
 
 function delimage(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         if (document.getElementById("error_message") !== null) {
