@@ -150,6 +150,15 @@ function Showhide_edges(cy) {
     }
 }
 
+function retn(cy){
+    cy.add(deleted_nodes[0]);
+    deleted_nodes.shift(deleted_nodes[0])
+    if (deleted_nodes.length == 0){
+        document.querySelector('#backward').style.display = 'none';
+    }
+}
+
+
 function expandGraph(cy) {
     dismiss_borderColor(cy);
     display_labels();
@@ -161,6 +170,8 @@ function expandGraph(cy) {
     cy.edges().on('click', function(evt) {
         console.log('deleting edge ' + evt.target.id());
         cy.remove(evt.target);
+        deleted_nodes.unshift(evt.target);
+        document.querySelector('#backward').style.display = 'block';
     });
 
     if(constante==0){
@@ -173,7 +184,7 @@ function expandGraph(cy) {
         });
         cy.nodes().on('mouseover', function(event) {
             let node = event.target;
-            node.style('text-opacity', 0.5);
+            node.style('text-opacity', 1);
             setTimeout(function(){
               node.style('text-opacity',0);
             },2500);
@@ -187,7 +198,7 @@ function viewProbs(cy){
     if (constante==0){
         display_labels();
         edges.style('text-opacity',0.5);
-        nodes.style('text-opacity',0.5);
+        nodes.style('text-opacity',1);
         constante++;
     } else {
         edges.style('text-opacity',0);
@@ -205,10 +216,10 @@ function display_labels() {
     nodes.style('height', 5);
     nodes.style('width', 5);
     nodes.style('text-opacity', 0);
-    nodes.style('color', 'blue');
-    nodes.style('font-size', 1);
+    nodes.style('color', '#256474');
+    nodes.style('font-size', 1.5);
     nodes.style('text-halign', 'center');
-    nodes.style('text-valign', 'center');
+    nodes.style('text-valign', 'bottom');
 
     for (var j = 0; j < nodes.length; j++) {
         nodes[j].style('label', nodes[j].data('id'));

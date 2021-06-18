@@ -54,9 +54,10 @@ function addJSONtoDB(cy) {
         }
         trans2.oncomplete = function(e) {
             console.log('new json saved');
-            loadEnd()
+            loadEnd();
+            loadEnd_witness();
         } 
-    }   
+    } 
 }
 
 
