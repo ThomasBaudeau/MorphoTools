@@ -177,10 +177,12 @@ function addProjectStorage(dbName){
         request2.onsuccess = function () {
             console.log('db deleted')
             console.log("La valeur de readyState est " + request2.readyState);
+            loadEnd()
         }
         request2.onblocked = function () {
             console.log("blocked: ");
             console.log("La valeur de readyState est " + request2.readyState)
+            loadStart('deleting database')
 
         }
         request2.onerror = function () { console.log("error: "); };
