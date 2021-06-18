@@ -22,7 +22,6 @@ function loadEnd(){
 function loadEnd_witness(){
     //fin du chargement
     document.querySelector('#end-loading_div').style.display = 'block';
-    console.log("fin du chargement")
     setTimeout(function(){
         document.querySelector('#end-loading_div').style.display = 'none';
     },2000)
