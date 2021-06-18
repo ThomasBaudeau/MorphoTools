@@ -6,14 +6,24 @@ fonctions de chargement et blockage des bouttons
 function loadStart(function_name){
     //toggle download bar
     document.querySelector('#download_symbol').style.display = 'block';
-    document.querySelector('#loading_div').style.display = 'block';
+    if(document.querySelector('#loading_div') !== null){
+        document.querySelector('#loading_div').style.display = 'block';
+    }
+    else if(document.querySelector('#loading_div_index') !== null){
+        document.querySelector('#loading_div_index').style.display = 'block';
+    }
     document.getElementById('loading_message').innerHTML = function_name;
     blocking_buttons();
 }
     
 function loadEnd(){
     document.querySelector('#download_symbol').style.display = 'none';
-    document.querySelector('#loading_div').style.display = 'none';
+    if(document.querySelector('#loading_div') !== null){
+        document.querySelector('#loading_div').style.display = 'none';
+    }
+    else if(document.querySelector('#loading_div_index') !== null){
+        document.querySelector('#loading_div_index').style.display = 'none';
+    }
     document.getElementById('loading_message').innerHTML = "";
     activating_buttons();
 
