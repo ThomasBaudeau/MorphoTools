@@ -1,3 +1,8 @@
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
+Gestion des styles d'erreur de chargement
+*/
+
 #loading_div_error{
     display: none;
     margin-left: 250px;

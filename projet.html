@@ -26,7 +26,8 @@
 </head>
 
 <body>
-  
+    
+    <!-- Top-container -->
     <div class="header">
         <div class="container">
             <div class="header_navbar">
@@ -43,6 +44,7 @@
         </div>
     </div>
 
+    <!-- Fenetre importation fichiers -->
     <div class="import-modal">
         <div class="modal-content" id="import-mc">
             <div class="close" id="import-close">+</div>
@@ -59,6 +61,7 @@
         </div>
     </div>
 
+    <!-- Fenetre choix image -->
     <div class="choose-modal">
         <div class="modal-choose" id="choose-mc">
             <div class="close" id="choose-close">+</div>
@@ -78,7 +81,8 @@
                 </div>
         </div>
     </div>
-
+    
+    <!-- Left-container -->
     <div class=sidebar id=sidebar>
         <section class= "left-container" id="menu_general">
             <div class="import-side">
@@ -126,6 +130,7 @@
             </div>
         </section>
 
+        
         <section class= "left-container" id='menu_visu' style="display: none;">
             <div class="import-side">
                 <button class="btn" id="back_visu">Back</button>
@@ -236,6 +241,7 @@
         </svg>
     </div>
 
+    <!-- Importation JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src= "js/visugraph/ExportFinalImage.js"></script>
     <script src="js/visugraph/cytoscape.min.js"></script>

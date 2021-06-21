@@ -38,6 +38,7 @@ var cy = cytoscape({
         })
 });
 
+
 async function showFile(cy,lyt) {
     loadStart('retrieving images')
     var fileInput = document.getElementById('ii');
@@ -105,6 +106,7 @@ async function showFile(cy,lyt) {
 
 }
 
+
 function initGraph(cy, lyt){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
@@ -114,6 +116,7 @@ function initGraph(cy, lyt){
         showFile(cy, lyt);
     }
 }
+
 
 function imageinit(cy,lyt){
     //var de verification d'importation de matrice
@@ -155,6 +158,7 @@ function imageinit(cy,lyt){
         console.log("init ok");
     }
 }
+
 
 function Showhide_edges(cy) {
     //var de verification d'importation de matrice
@@ -225,6 +229,7 @@ function expandGraph(cy) {
     }
 }
 
+
 function viewProbs(cy){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
@@ -248,6 +253,7 @@ function viewProbs(cy){
         }
     }
 }
+
 
 function display_labels() {
     nodes = cy.nodes();
@@ -476,11 +482,13 @@ function zm_out() {
     cy.center();
 }
 
+
 document.getElementById('send_div').addEventListener('click',
     function () {
         delimage(cy);
         document.querySelector('.choose-modal').style.display = 'none';
     });
+
 
 function delimage(cy) {
     //var de verification d'importation de matrice
@@ -521,6 +529,8 @@ function delimage(cy) {
         }
     }
 }
+
+
 cy.on('click', 'node', function (evt) {
     console.log('clicked ' + this.id());
 });
