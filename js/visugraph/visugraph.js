@@ -246,82 +246,83 @@ function viewProbs(cy){
             constante--;
         }
     }
+}
 
-    function display_labels() {
-        nodes = cy.nodes();
-        nodes.style('height', 5);
-        nodes.style('width', 5);
-        nodes.style('text-opacity', 0);
-        nodes.style('color', '#256474');
-        nodes.style('font-size', 1.5);
-        nodes.style('text-halign', 'center');
-        nodes.style('text-valign', 'bottom');
+function display_labels() {
+    nodes = cy.nodes();
+    nodes.style('height', 5);
+    nodes.style('width', 5);
+    nodes.style('text-opacity', 0);
+    nodes.style('color', '#256474');
+    nodes.style('font-size', 1.5);
+    nodes.style('text-halign', 'center');
+    nodes.style('text-valign', 'bottom');
 
-        for (var j = 0; j < nodes.length; j++) {
-            nodes[j].style('label', nodes[j].data('id'));
-            H = 0;
-            B = 0;
-            G = 0;
-            D = 0;
-            out_edges = nodes[j].outgoers('edge');
-            for (var k = 0; k < out_edges.length; k++) {
-                out_edge = out_edges[k];
-                if (out_edge.data('label') == "H") {
-                    H += 1;
-                } else if (out_edge.data('label') == "B") {
-                    B += 1;
-                } else if (out_edge.data('label') == "G") {
-                    G += 1;
-                } else if (out_edge.data('label') == "D") {
-                    D += 1;
-                }
-            }
-            if (H > 1 || B > 1 || G > 1 || D > 1) {
-                // conflict in pairwise assembly
-                nodes[j].style('border-width', 0.1);
-                nodes[j].style('border-color', 'red');
-            } else {
-                nodes[j].style('border-width', 0);
-                nodes[j].style('border-color', 'black');
+    for (var j = 0; j < nodes.length; j++) {
+        nodes[j].style('label', nodes[j].data('id'));
+        H = 0;
+        B = 0;
+        G = 0;
+        D = 0;
+        out_edges = nodes[j].outgoers('edge');
+        for (var k = 0; k < out_edges.length; k++) {
+            out_edge = out_edges[k];
+            if (out_edge.data('label') == "H") {
+                H += 1;
+            } else if (out_edge.data('label') == "B") {
+                B += 1;
+            } else if (out_edge.data('label') == "G") {
+                G += 1;
+            } else if (out_edge.data('label') == "D") {
+                D += 1;
             }
         }
-
-        edges = cy.edges();
-        console.log(edges);
-        edges.style('text-opacity', 0.5);
-        edges.style('width', 0.1);
-        edges.style('arrow-scale', 0.1);
-        edges.style('font-size', 1);
-        edges.style('curve-style', 'bezier');
-        edges.style('control-point-step-size', 4);
-        for (var j = 0; j < edges.length; j++) {
-            if (edges[j].data('proba') >= 0.9){
-                edges[j].data('line-color','green'),
-                edges[j].style('target-arrow-color','green'),
-                edges[j].style('color', 'green')
-            }
-            else if (edges[j].data('proba') < 0.9 && edges[j].data('proba') >= 0.6){
-                edges[j].data('line-color','orange'),
-                edges[j].style('target-arrow-color','orange'),
-                edges[j].style('color', 'orange')
-            }
-            else{
-                edges[j].data('line-color','red'),
-                edges[j].style('target-arrow-color','red'),
-                edges[j].style('color', 'red')
-            }
-            edges[j].style('label', function() {
-                if (edges[j].data('label') === ''){
-                    return edges[j].data('proba');
-                }
-                else {
-                    return edges[j].data('label') + ' : ' + edges[j].data('proba');
-                }
-            });
-            document.querySelector('#legend').style.display = 'block';
+        if (H > 1 || B > 1 || G > 1 || D > 1) {
+            // conflict in pairwise assembly
+            nodes[j].style('border-width', 0.1);
+            nodes[j].style('border-color', 'red');
+        } else {
+            nodes[j].style('border-width', 0);
+            nodes[j].style('border-color', 'black');
         }
     }
+
+    edges = cy.edges();
+    console.log(edges);
+    edges.style('text-opacity', 0.5);
+    edges.style('width', 0.1);
+    edges.style('arrow-scale', 0.1);
+    edges.style('font-size', 1);
+    edges.style('curve-style', 'bezier');
+    edges.style('control-point-step-size', 4);
+    for (var j = 0; j < edges.length; j++) {
+        if (edges[j].data('proba') >= 0.9){
+            edges[j].data('line-color','green'),
+            edges[j].style('target-arrow-color','green'),
+            edges[j].style('color', 'green')
+        }
+        else if (edges[j].data('proba') < 0.9 && edges[j].data('proba') >= 0.6){
+            edges[j].data('line-color','orange'),
+            edges[j].style('target-arrow-color','orange'),
+            edges[j].style('color', 'orange')
+        }
+        else{
+            edges[j].data('line-color','red'),
+            edges[j].style('target-arrow-color','red'),
+            edges[j].style('color', 'red')
+        }
+        edges[j].style('label', function() {
+            if (edges[j].data('label') === ''){
+                return edges[j].data('proba');
+            }
+            else {
+                return edges[j].data('label') + ' : ' + edges[j].data('proba');
+            }
+        });
+        document.querySelector('#legend').style.display = 'block';
+    }
 }
+
 
 
 function retractGraph(cy) {
