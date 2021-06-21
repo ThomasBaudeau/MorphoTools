@@ -33,6 +33,8 @@ function check_tool(){
 
 document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();
+    if(sessionStorage.getItem('numberJson')==0)
+        {return}
     if (tl == "VISU"){
         document.getElementById("visu_titre").textContent = sessionStorage.getItem('name_project');
         document.querySelector('.visu').style.display ='flex';
