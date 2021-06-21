@@ -10,7 +10,6 @@ const submitBtn = document.querySelector('form button');
 form.onsubmit = addData;
 
 function addData(e) {
-    console.log(nameInput.value)
     e.preventDefault();
     if (document.getElementById("error_message") !== null) {
         var error = document.getElementById("error_message");
@@ -30,31 +29,32 @@ function addData(e) {
         //stock values within the formulary to the DB
         let newItem = { name: nameInput.value, abstract: abstractInput.value };
         let request = indexedDB.open('morphotools', 3);
+        // on success : do the transaction
         request.onsuccess = function (e) {
             db = e.target.result;
             console.log('db opened');
-        let transaction = db.transaction(['projects'], 'readwrite');
-        let objectStore = transaction.objectStore('projects');
-        var trans = objectStore.add(newItem);
-        
-        trans.onsuccess = function () {
-            //empty the formulary
-            nameInput.value = '';
-            abstractInput.value = '';
-            // close window
-            document.querySelector('.bg-modal').style.display = 'none';
-        };
-        transaction.oncomplete = function () {
-            console.log('Transaction completed.');
-            //update display
-            displayData();
-        };
+            let transaction = db.transaction(['projects'], 'readwrite');
+            let objectStore = transaction.objectStore('projects');
+            var trans = objectStore.add(newItem);
+            
+            trans.onsuccess = function () {
+                //empty the formulary
+                nameInput.value = '';
+                abstractInput.value = '';
+                // close window
+                document.querySelector('.bg-modal').style.display = 'none';
+            };
+            transaction.oncomplete = function () {
+                console.log('Transaction completed.');
+                //update display
+                displayData();
+            };
 
-        transaction.onerror = function () {
-            console.log('Transaction not opened due to error');
-        };
+            transaction.onerror = function () {
+                console.log('Transaction not opened due to error');
+            };
+        }
     }
-}
 
     //Attente de la fin de la transaction
 };
@@ -133,8 +133,8 @@ function deleteItem(e) {
         transaction.oncomplete = function () {
             //Supprime l'élément parent du bouton
             e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-            console.log('Project ' + projectId + ' deleted.');
             deleteProjectStorage(projectId);
+            console.log('Project ' + projectId + ' deleted.');
 
             if (!list.firstChild) {
                 let listItem = document.createElement('li');
@@ -169,15 +169,13 @@ function addProjectStorage(dbName){
     var DBOpenRequest =window.indexedDB.open(dbName);
     DBOpenRequest.onsuccess = function (event) {
         db = DBOpenRequest.result;
-        // This line will log the name of the database, which should be "toDoList"
-        console.log('le nom de la db est : ',db.name);
+        // This line will log the name of the database
         aname=db.name;
         db.close();
         var request2 = indexedDB.deleteDatabase(aname);
         request2.onsuccess = function () {
-            console.log('db deleted')
-            console.log("La valeur de readyState est " + request2.readyState);
-            loadEnd()
+            console.log('db deleted');
+            loadEnd();
         }
         request2.onblocked = function () {
             console.log("blocked: ");
@@ -185,6 +183,8 @@ function addProjectStorage(dbName){
             loadStart('deleting database')
 
         }
-        request2.onerror = function () { console.log("error: "); };
+        request2.onerror = function () {
+            console.log("error: ");
+        };
     }
 };

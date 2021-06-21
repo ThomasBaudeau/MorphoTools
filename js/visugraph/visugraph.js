@@ -56,9 +56,7 @@ async function showFile(cy) {
                 var name = readerEvent.target.fileName;
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
-                if (count2 == sessionStorage.getItem('numberImage'))
-                {
-                    console.log('start image Init')
+                if (count2 == sessionStorage.getItem('numberImage')){
                     loadEnd();
                     imageinit(cy); 
                 }
@@ -68,39 +66,39 @@ async function showFile(cy) {
         }
     }
     else {
-    var count=0;
+        var count=0;
+        // connection to the database
         let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
+        // in case of error
         connection.onerror = function (e) {
             console.error('Unable to open database.');
         }
-    connection.onsuccess = (e) => {
-        let db = e.target.result;
-        console.log('DB opened');
-        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-        objectStore.openCursor().onsuccess = function (e) {
-            let cursor = e.target.result;
-            if (cursor) {
-                image=[]
-                let name = cursor.value.type_file;
-                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
-                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
-                    console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
-                    count++;
-                    if(count==sessionStorage.getItem('numberImage'))
-                    {
-                        loadEnd()
-                        imageinit(cy)}
-                    }
-                cursor.continue();
+        // on connection successful :
+        connection.onsuccess = (e) => {
+            let db = e.target.result;
+            // connection to the store
+            let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+            // cration of the cursor
+            objectStore.openCursor().onsuccess = function (e) {
+                let cursor = e.target.result;
+                if (cursor) {
+                    image=[]
+                    let name = cursor.value.type_file;
+                    if ( /\.(jpe?g|png|gif)$/i.test(name)) {
+                        fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
+                        count++;
+                        if(count==sessionStorage.getItem('numberImage')){
+                            loadEnd()
+                            imageinit(cy)}
+                        }
+                    cursor.continue();
                 }
-            else{
-                console.log('end')
-
+                else{
+                    console.log('end')
                 }
             }
         }
     }
-
 }
 
 
@@ -108,8 +106,7 @@ function initGraph(cy, lyt){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
-    if(check_bool !== 'false'){ 
-        console.log("booleen de validation : " + check_bool);
+    if(check_bool !== 'false'){
         document.getElementById('cy').style.visibility = 'visible';
         if (lyt === '1') {
             layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
@@ -146,9 +143,8 @@ function imageinit(cy){
             if (count == nodes.length) {
                 loadEnd();
                 savegraphelement()
-                }
             }
-        console.log('a', fileURIs.get(id));
+        }
     }
 }
 
@@ -415,7 +411,6 @@ function nodePositions(cy) {
         for (i = 0; i < components.length; i++) {
             component = components[i];
             root = component[0];
-            console.log("root ", root.id());
             dps = component.depthFirstSearch({
                 roots: root,
                 visit: function(v, e, u, i, depth) {
@@ -503,7 +498,6 @@ function delimage(cy) {
         }
         else{
             if(restoredE!=undefined){
-                console.log('icc')
                 try {
                     removedN.restore();
                     removedE.restore();
@@ -538,8 +532,3 @@ function delimage(cy) {
         }
     }
 }
-
-
-cy.on('click', 'node', function (evt) {
-    console.log('clicked ' + this.id());
-});

@@ -138,10 +138,8 @@ function chooseImage() {
     }
     loadStart('loading images')
     if (document.getElementById('ii').files.length!=0){
-        console.log('okok')
         var fileInput = document.getElementById('ii');
         for(let i=0;i<fileInput.files.length;i++){
-            console.log('ici')
             var reader = new FileReader();
             reader.readAsDataURL(fileInput.files[i]);
             reader.fileName = fileInput.files[i].name;
@@ -174,7 +172,6 @@ function chooseImage() {
                     line.appendChild(column2)
                     table.appendChild(line);
                     count++
-                    console.log(count)
                     if (count == sessionStorage.getItem('numberImage')) {
                         loadEnd();
                         document.querySelector('.choose-modal').style.display = 'flex';
@@ -185,7 +182,6 @@ function chooseImage() {
         }
     }
     else{
-        console.log('pasok')
     // Open DB
         let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     
@@ -212,7 +208,6 @@ function chooseImage() {
             let cursor = e.target.result;
             if (cursor) {
                 let name = cursor.value.type_file;
-                console.log("name ",name);
                 if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                     let data = cursor.value.data;
                     let table=document.getElementById('choose_image');

@@ -51,7 +51,6 @@ function max(nodes){
             nodeMax = nodes[j];
         }
     }
-    console.log("taille max:",nodeMax.height());
     return nodeMax;
 }
 
@@ -63,7 +62,6 @@ function ThresholdLine(node_max){
 function sortNodesInlines(maximum,threshold,nodes){
     let max_position = maximum.renderedPosition();
     const nbr_l = numberOfLines(maximum,max_position,nodes);
-    console.log("nombre de lignes:",nbr_l);
     let big_array = [];
     for (let i=0;i < nbr_l;i++){
         big_array.push([]);

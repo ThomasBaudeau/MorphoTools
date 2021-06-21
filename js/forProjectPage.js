@@ -4,7 +4,6 @@ informations display on the project page
 */
 
 async function chargement(texte, nbr, multi) {
-    console.log(nbr * multi)
     loadStart(texte)
     await delay(nbr * multi)
     loadEnd()

@@ -11,29 +11,26 @@ function show_superposition(cy){
           if (check_position(nodes[i],nodes[j])){
             nodes[i].style('border-width', 0.1);
             nodes[i].style('border-color', 'orange');
-            console.log("superposition highlighted");
           }
         }
       }
     }
-    console.log("done");
 }
   
 function shift_superposition(cy){
   let nodes = cy.nodes();
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = 0; j < nodes.length; j++) {
-        if (i != j){
-          if (check_position(nodes[i],nodes[j])){
-            var x_1 = nodes[i].renderedPosition().x;
-            var y_1 = nodes[i].renderedPosition().y;
-            nodes[i].renderedPosition("x",x_1+10);
-            nodes[i].renderedPosition("y",y_1-5);
-          }
+  for (var i = 0; i < nodes.length; i++) {
+    for (var j = 0; j < nodes.length; j++) {
+      if (i != j){
+        if (check_position(nodes[i],nodes[j])){
+          var x_1 = nodes[i].renderedPosition().x;
+          var y_1 = nodes[i].renderedPosition().y;
+          nodes[i].renderedPosition("x",x_1+10);
+          nodes[i].renderedPosition("y",y_1-5);
         }
       }
     }
-    console.log("done");
+  }
 }
 
 function dismiss_borderColor(cy){

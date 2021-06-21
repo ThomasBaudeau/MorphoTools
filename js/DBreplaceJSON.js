@@ -30,7 +30,6 @@ function addJSONtoDB(cy) {
             let cursor = e.target.result;
             if (cursor) {
                 let name = cursor.value.type_file;
-                console.log("name ",name);
                 let key = cursor.key;
                 if ((name.search('json')!=-1)) {
                     cursor.delete(key);

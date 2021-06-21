@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
             else {
                 projectId = event.target.parentNode.attributes["data-project-id"].value;
             }
-            console.log(projectId);
             sessionStorage.setItem('selected_project',projectId);
             obtainValues(projectId);
             window.location.href="projet.html";
@@ -57,7 +56,6 @@ function obtainValues(key) {
                 let thename = cursor.value.name;
                 let abstract = cursor.value.abstract;
                 let id_ = cursor.key;
-                console.log(thename,abstract ,id_);
                 if (id_ == key) {
                     sessionStorage.setItem('name_project', thename);
                     sessionStorage.setItem('abstract_project', abstract);
@@ -66,7 +64,6 @@ function obtainValues(key) {
             }
             else{
                 console.log("No more key");
-                
             }
         }
     }

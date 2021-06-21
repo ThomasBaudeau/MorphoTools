@@ -7,7 +7,6 @@ function shortSave(cy){
 //Save the current graph for the duration of the session. To use before experimenting with the nodes
     loadStart("Quick saving...");
     window.sessionStorage.setItem("elements", JSON.stringify( cy.json() ));
-    console.log("short save done");
     loadEnd();
     loadEnd_witness();
 }
@@ -23,7 +22,6 @@ function loadShortSave(cy){
         nodes[j].style("background-image", fileURIs.get(id));
     }
     cy.center();
-    console.log("loaded json");
     loadEnd();
     loadEnd_witness();
 }
