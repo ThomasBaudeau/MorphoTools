@@ -41,7 +41,6 @@ async function showFile(cy,lyt) {
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
-        console.log("je suis ici")
         var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
@@ -49,25 +48,18 @@ async function showFile(cy,lyt) {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
-                console.log(name.slice(0, -4));
-                console.log(typeof (url))
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
-                if (count2 == sessionStorage.getItem('numberImage'))
-                {
-                    console.log(fileURIs)
-                        loadEnd();
-                        imageinit(cy,lyt); }
-
+                if (count2 == sessionStorage.getItem('numberImage')){
+                    loadEnd();
+                    imageinit(cy,lyt);
+                }
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
-
     }
     else {
     var count=0;
-    console.log("je suis dans le else")
-    console.log('loading files')
         let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
@@ -85,11 +77,10 @@ async function showFile(cy,lyt) {
                     fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
                     console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
                     count++;
-                    if(count==sessionStorage.getItem('numberImage'))
-                    {
-                        console.log(fileURIs)
+                    if(count==sessionStorage.getItem('numberImage')){
                         loadEnd()
-                        imageinit(cy,lyt)}
+                        imageinit(cy,lyt)
+                    }
                 }
                 cursor.continue();
             }
@@ -109,7 +100,6 @@ function initGraph(cy, lyt){
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool !== 'false'){ 
-        console.log("booleen de validation : " + check_bool);
         showFile(cy, lyt);
     }
 }
@@ -119,23 +109,19 @@ function imageinit(cy,lyt){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
-    if(check_bool === 'true'){ 
-        console.log('ok')
+    if(check_bool === 'true'){
         loadStart('loading images')
         var count = 0;
         var nodes = cy.nodes();
-        console.log(nodes.length)
         for (var j = 0; j < nodes.length; j++) {
             var id = nodes[j].data("id");
             nodes[j].style("background-image", fileURIs.get(id));
             count++
-            console.log(count);
             if (count == nodes.length) {
                 loadEnd();
                 document.getElementById('cy').style.visibility = 'visible';
                 }
             }
-        console.log('a', fileURIs.get(id));
         if (lyt === '1'){
             layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         };
@@ -201,7 +187,6 @@ function expandGraph(cy) {
         console.log("expanded");
 
         cy.edges().on('click', function(evt) {
-            console.log('deleting edge ' + evt.target.id());
             cy.remove(evt.target);
             deleted_nodes.unshift(evt.target);
             document.querySelector('#backward').style.display = 'block';
@@ -292,7 +277,6 @@ function display_labels() {
     }
 
     edges = cy.edges();
-    console.log(edges);
     edges.style('text-opacity', 0.5);
     edges.style('width', 0.1);
     edges.style('arrow-scale', 0.1);
@@ -365,19 +349,14 @@ function filterEdges(cy) {
         //recharge du json et réimportation des images
         if (thr===null)
             {return}
-        console.log(removedE)
-        console.log(removedN)
         if (removedN != undefined){
-            console.log('ici');
             removedN.restore();
         }
         if (removedE!=undefined){
-            console.log('ici');
             removedE.restore();
         }
         if (thr.search('-')!=-1){
             loadStart('filtering edges')
-            console.log(thr.slice(1))
             removedE =cy.remove('edge[proba > ' + thr.slice(1) + ']');
             removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
             console.log("filtered");
@@ -403,7 +382,6 @@ function nodePositions(cy) {
     if(check_bool === 'true'){ 
         elements = cy.elements();
         components = elements.components();
-        console.log(components.length);
         nodes = cy.nodes();
         origin_pos = { 'x': 0, 'y': 0 };
         for (i = 0; i < components.length; i++) {
@@ -413,13 +391,10 @@ function nodePositions(cy) {
             dps = component.depthFirstSearch({
                 roots: root,
                 visit: function(v, e, u, i, depth) {
-                    console.log("v ", v.id());
                     if (v == root) {
                         v.position(origin_pos);
                         origin_pos['x'] += 50;
                     } else if (e.source() == u) {
-                        console.log("S ", e.source().id());
-                        console.log("T ", e.target().id());
                         pos = u.position();
                         x = pos['x'];
                         y = pos['y'];
@@ -433,8 +408,6 @@ function nodePositions(cy) {
                             v.position({ 'x': x + 10, 'y': y });
                         }
                     } else if (e.source() == v) {
-                        console.log("S ", e.source().id());
-                        console.log("T ", e.target().id());
                         pos = u.position();
                         x = pos['x'];
                         y = pos['y'];
@@ -465,17 +438,13 @@ function nodePositions(cy) {
 
 function zm_in() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm + 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
 
 function zm_out() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm - 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
 
@@ -505,9 +474,7 @@ function delimage(cy) {
             window.appendChild(error);
         }
         else{
-            console.log('ici')
             if(restoredE!=undefined){
-                console.log('icc')
                 restoredE.restore()
             }
             restoredE=(cy.remove(cy.nodes().filter(function (node) {
