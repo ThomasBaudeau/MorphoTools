@@ -37,11 +37,11 @@ var cy = cytoscape({
 
 
 async function showFile(cy,lyt) {
-    loadStart('retrieving images')
+    loadStart('retrieving images');
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
-        console.log("je suis ici")
+        console.log("je suis ici");
         var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
@@ -50,14 +50,15 @@ async function showFile(cy,lyt) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
                 console.log(name.slice(0, -4));
-                console.log(typeof (url))
+                console.log(typeof (url));
                 fileURIs.set(name.slice(0, -4), url);
-                count2++
+                count2++;
                 if (count2 == sessionStorage.getItem('numberImage'))
                 {
-                    console.log(fileURIs)
-                        loadEnd();
-                        imageinit(cy,lyt); }
+                    console.log(fileURIs);
+                    loadEnd();
+                    imageinit(cy,lyt); 
+                }
 
             }
             reader.readAsDataURL(fileInput.files[i]);
@@ -65,39 +66,40 @@ async function showFile(cy,lyt) {
 
     }
     else {
-    var count=0;
-    console.log("je suis dans le else")
-    console.log('loading files')
+        var count=0;
+        console.log("je suis dans le else");
+        console.log('loading files');
         let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
-    connection.onerror = function (e) {
-        console.error('Unable to open database.');
+        connection.onerror = function (e) {
+            console.error('Unable to open database.');
         }
-    connection.onsuccess = (e) => {
-        let db = e.target.result;
-        console.log('DB opened');
-        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-        objectStore.openCursor().onsuccess = function (e) {
-            let cursor = e.target.result;
-            if (cursor) {
-                image=[]
-                let name = cursor.value.type_file;
-                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
-                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
-                    console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
-                    count++;
-                    if(count==sessionStorage.getItem('numberImage'))
-                    {
-                        console.log(fileURIs)
-                        loadEnd()
-                        imageinit(cy,lyt)}
+        connection.onsuccess = (e) => {
+            let db = e.target.result;
+            console.log('DB opened');
+            let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+            objectStore.openCursor().onsuccess = function (e) {
+                let cursor = e.target.result;
+                if (cursor) {
+                    image=[]
+                    let name = cursor.value.type_file;
+                    if ( /\.(jpe?g|png|gif)$/i.test(name)) {
+                        fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) );
+                        console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data));
+                        count++;
+                        if(count==sessionStorage.getItem('numberImage'));
+                        {
+                            console.log(fileURIs);
+                            loadEnd();
+                            imageinit(cy,lyt);
+                        }
+                    }
+                    cursor.continue();
                 }
-                cursor.continue();
-            }
-            else{
-                console.log('end')
+                else{
+                    console.log('end');
 
+                }
             }
-        }
         }
     }
 
