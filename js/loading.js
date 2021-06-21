@@ -54,3 +54,15 @@ function activating_buttons(){
     $(':button').prop('disabled', false);
     $('input').prop('disabled', false);
 }
+
+// Verification du chargement de la matrice
+function dies_verification(check_bool){
+    console.log("check value = " + check_bool)
+    //si loading check = false, erreur apparait
+    if(check_bool === 'false'){
+        document.querySelector('#loading_div_error').style.display = 'block';
+        setTimeout(function(){
+            document.querySelector('#loading_div_error').style.display = 'none';
+        },2000)
+    }
+}

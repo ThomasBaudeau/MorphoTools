@@ -3,6 +3,10 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Import/export of the graph in JSON format
 */
 
+// variable de verif, false si pas de matrice load, true si matrice load
+sessionStorage.setItem('loading_check',false);
+
+
 function checkimport(fileName){
   return fileName.includes(".json")
 }
@@ -10,6 +14,8 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   sessionStorage.setItem('stop', true)
+
+
   document.getElementById('cy').style.visibility = 'hidden';
   loadStart("retrieving dies");
   console.log("everything start");
@@ -61,8 +67,6 @@ function singleImportJSON(cy){
   }
   else{ 
     console.log("autre else")
-    
-  
     let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
       console.error('Unable to open database.');
@@ -98,6 +102,9 @@ function singleImportJSON(cy){
       }
     }
   }
+  // dies is loaded, setting check var to true
+  console.log("loading_check devient true");
+  sessionStorage.setItem('loading_check',true);
 }
 
 // convertion of csv (string) into an array
