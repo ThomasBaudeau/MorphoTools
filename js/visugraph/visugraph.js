@@ -5,7 +5,7 @@ Main functions of Visugraph
 
 
 
-
+var allGraph;
 var removedE;
 var removedN;
 var deleted_nodes = [];
@@ -38,12 +38,15 @@ var cy = cytoscape({
         })
 });
 
-async function showFile(cy,lyt) {
+function savegraphelement(){
+    allGraph=cy.elements()
+}
+
+async function showFile(cy) {
     loadStart('retrieving images')
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
-        console.log("je suis ici")
         var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
@@ -51,15 +54,14 @@ async function showFile(cy,lyt) {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
-                console.log(name.slice(0, -4));
-                console.log(typeof (url))
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
                 if (count2 == sessionStorage.getItem('numberImage'))
                 {
-                    console.log(fileURIs)
-                        loadEnd();
-                        imageinit(cy,lyt); }
+                    console.log('start image Init')
+                    loadEnd();
+                    imageinit(cy); 
+                }
 
             }
             reader.readAsDataURL(fileInput.files[i]);
@@ -89,17 +91,16 @@ async function showFile(cy,lyt) {
                     count++;
                     if(count==sessionStorage.getItem('numberImage'))
                     {
-                        console.log(fileURIs)
                         loadEnd()
-                        imageinit(cy,lyt)}
-                }
+                        imageinit(cy)}
+                    }
                 cursor.continue();
-            }
+                }
             else{
                 console.log('end')
 
+                }
             }
-        }
         }
     }
 
@@ -111,32 +112,8 @@ function initGraph(cy, lyt){
     dies_verification(check_bool);
     if(check_bool !== 'false'){ 
         console.log("booleen de validation : " + check_bool);
-        showFile(cy, lyt);
-    }
-}
-
-function imageinit(cy,lyt){
-    //var de verification d'importation de matrice
-    var check_bool = sessionStorage.getItem('loading_check')
-    dies_verification(check_bool);
-    if(check_bool === 'true'){ 
-        console.log('ok')
-        loadStart('loading images')
-        var count = 0;
-        var nodes = cy.nodes();
-        console.log(nodes.length)
-        for (var j = 0; j < nodes.length; j++) {
-            var id = nodes[j].data("id");
-            nodes[j].style("background-image", fileURIs.get(id));
-            count++
-            console.log(count);
-            if (count == nodes.length) {
-                loadEnd();
-                document.getElementById('cy').style.visibility = 'visible';
-                }
-            }
-        console.log('a', fileURIs.get(id));
-        if (lyt === '1'){
+        document.getElementById('cy').style.visibility = 'visible';
+        if (lyt === '1') {
             layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         };
         if (lyt === '2') {
@@ -153,6 +130,30 @@ function imageinit(cy,lyt){
         cy.maxZoom(1e-50);
         cy.center();
         console.log("init ok");
+    }
+}
+
+function imageinit(cy){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        console.log('ok')
+        loadStart('loading images')
+        var count = 0;
+        var nodes = cy.nodes();
+        console.log(nodes.length)
+        for (var j = 0; j < nodes.length; j++) {
+            var id = nodes[j].data("id");
+            nodes[j].style("background-image", fileURIs.get(id));
+            count++
+            console.log(count);
+            if (count == nodes.length) {
+                loadEnd();
+                savegraphelement()
+                }
+            }
+        console.log('a', fileURIs.get(id));
     }
 }
 
@@ -362,8 +363,12 @@ function filterEdges(cy) {
         //recharge du json et réimportation des images
         if (thr===null)
             {return}
-        console.log(removedE)
-        console.log(removedN)
+        try{
+            restoredE.restore()
+        }
+        catch{
+            allGraph.restore()
+        }
         if (removedN != undefined){
             console.log('ici');
             removedN.restore();
@@ -377,18 +382,30 @@ function filterEdges(cy) {
             console.log(thr.slice(1))
             removedE =cy.remove('edge[proba > ' + thr.slice(1) + ']');
             removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
-            console.log("filtered");
+            try {
+                cy.remove(restoredE)
+            }
+            catch {
+                console.log('error')
+            }
             loadEnd();
             loadEnd_witness();
+            console.log("filtered");
         }
         else{
             loadStart('filtering edges')
             removedE=cy.remove('edge[proba < ' + thr + ']');
             nodes = cy.nodes();
             removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
-            console.log("filtered");
+            try {
+                cy.remove(restoredE)
+            }
+            catch {
+                console.log('error')
+            }
             loadEnd();
             loadEnd_witness();
+            console.log("filtered");
         }
     }
 }
@@ -503,7 +520,15 @@ function delimage(cy) {
             console.log('ici')
             if(restoredE!=undefined){
                 console.log('icc')
-                restoredE.restore()
+                try {
+                    removedN.restore();
+                    removedE.restore();
+                }
+                catch {
+                    allGraph.restore();
+                }
+                restoredE.restore();
+                
             }
             restoredE=(cy.remove(cy.nodes().filter(function (node) {
                 let select = document.getElementsByName('select[]');
@@ -517,6 +542,14 @@ function delimage(cy) {
                 }
                 return (!arrayselect.includes(node.id()))
             })))
+            try {
+                cy.remove(removedE);
+                cy.remove(removedN);
+            }
+            catch {
+                consol.log('error')
+            }
+            
         console.log("refreshing position...")
         }
     }

@@ -14,8 +14,6 @@ function checkimport(fileName){
 
 function singleImportJSON(cy){
   sessionStorage.setItem('stop', true)
-
-
   document.getElementById('cy').style.visibility = 'hidden';
   loadStart("retrieving dies");
   console.log("everything start");
@@ -33,8 +31,13 @@ function singleImportJSON(cy){
         data= JSON.parse(readerEvent.target.result); //parsing du json
         findMinMax(data);
         cy.json(data);
-        cy.on('render',function(e){
-          loadEnd();
+        cy.one('render',function(e){
+          if (sessionStorage.getItem('stop')){
+            console.log('PROBLEMAS')
+            sessionStorage.setItem('stop', false)
+            loadEnd();
+            showFile(cy)
+          }
         })
         loadEnd_witness();
       };
@@ -53,11 +56,13 @@ function singleImportJSON(cy){
         data = JSON.parse(data);
         findMinMax(data);
         cy.json(data);
-        cy.on('render', function (e) {
-          if(sessionStorage.getItem(stop))
-            addJSONtoDB(cy);
-            loadEnd();
+        cy.one('render', function (e) {
+          if(sessionStorage.getItem('stop')){
+            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
+            loadEnd();
+            showFile(cy)
+          }            
         })
         loadEnd_witness();
       }
@@ -92,8 +97,13 @@ function singleImportJSON(cy){
             }
             console.log(file)
             cy.json(file);
-            cy.on('render', function (e) {
-              loadEnd();
+            cy.one('render', function (e) {
+              if (sessionStorage.getItem('stop')){
+                console.log('PROBLEMAS')
+                sessionStorage.setItem('stop', false)
+                loadEnd();
+                showFile(cy)
+              }
             })
             loadEnd_witness();
           }
