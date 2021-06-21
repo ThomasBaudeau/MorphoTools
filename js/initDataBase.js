@@ -11,14 +11,12 @@ const nameInput = document.querySelector('#name');
 const abstractInput = document.querySelector('#abstract');
 
 
-// checking DB
-// var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msINdexedDB;
-
 /////////////////////////INITIALISATION DB///////////////////////////////
 
 //stock ref db
 let db;
 
+// checking DB
 window.onload = function() {
   if (!('indexedDB' in window)){
     alert("your browser must support indexedDB if you want to use Morphotools");
