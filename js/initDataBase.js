@@ -12,7 +12,7 @@ const abstractInput = document.querySelector('#abstract');
 
 
 // checking DB
-var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msINdexedDB;
+// var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msINdexedDB;
 
 /////////////////////////INITIALISATION DB///////////////////////////////
 
@@ -20,7 +20,7 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 let db;
 
 window.onload = function() {
-  if (!indexedDB){
+  if (!('indexedDB' in window)){
     alert("your browser must support indexedDB if you want to use Morphotools");
   }
   
