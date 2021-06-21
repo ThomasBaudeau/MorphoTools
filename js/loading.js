@@ -59,9 +59,13 @@ function activating_buttons(){
 function dies_verification(check_bool){
     //si loading check = false, erreur apparait
     if(check_bool === 'false'){
-        document.querySelector('#loading_div_error').style.display = 'block';
-        setTimeout(function(){
-            document.querySelector('#loading_div_error').style.display = 'none';
-        },2000)
+        displayerror()
     }
+}
+
+function displayerror(){
+    document.querySelector('#loading_div_error').style.display = 'block';
+    setTimeout(function () {
+        document.querySelector('#loading_div_error').style.display = 'none';
+    }, 2000)
 }

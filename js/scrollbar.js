@@ -110,7 +110,8 @@ function NumberImage()
                 console.log("No more key");
                 document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + numberImage;
                 document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + numberJson;
-                sessionStorage.setItem('numberImage',numberImage)
+                sessionStorage.setItem('numberImage',numberImage);
+                sessionStorage.setItem('numberJson',numberJson);
             }
         }
     
