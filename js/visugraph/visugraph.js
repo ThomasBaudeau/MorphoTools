@@ -3,9 +3,6 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Main functions of Visugraph
 */
 
-
-
-
 var removedE;
 var removedN;
 var deleted_nodes = [];
