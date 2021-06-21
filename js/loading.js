@@ -1,5 +1,5 @@
 /* 
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
 fonctions de chargement et blockage des bouttons
 */
 

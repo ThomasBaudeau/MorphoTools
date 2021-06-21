@@ -66,15 +66,12 @@ async function showFile(cy) {
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
-
     }
     else {
     var count=0;
-    console.log("je suis dans le else")
-    console.log('loading files')
         let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
-    connection.onerror = function (e) {
-        console.error('Unable to open database.');
+        connection.onerror = function (e) {
+            console.error('Unable to open database.');
         }
     connection.onsuccess = (e) => {
         let db = e.target.result;
@@ -105,6 +102,7 @@ async function showFile(cy) {
     }
 
 }
+
 
 function initGraph(cy, lyt){
     //var de verification d'importation de matrice
@@ -137,17 +135,14 @@ function imageinit(cy){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
-    if(check_bool === 'true'){ 
-        console.log('ok')
+    if(check_bool === 'true'){
         loadStart('loading images')
         var count = 0;
         var nodes = cy.nodes();
-        console.log(nodes.length)
         for (var j = 0; j < nodes.length; j++) {
             var id = nodes[j].data("id");
             nodes[j].style("background-image", fileURIs.get(id));
             count++
-            console.log(count);
             if (count == nodes.length) {
                 loadEnd();
                 savegraphelement()
@@ -156,6 +151,7 @@ function imageinit(cy){
         console.log('a', fileURIs.get(id));
     }
 }
+
 
 function Showhide_edges(cy) {
     //var de verification d'importation de matrice
@@ -201,7 +197,6 @@ function expandGraph(cy) {
         console.log("expanded");
 
         cy.edges().on('click', function(evt) {
-            console.log('deleting edge ' + evt.target.id());
             cy.remove(evt.target);
             deleted_nodes.unshift(evt.target);
             document.querySelector('#backward').style.display = 'block';
@@ -226,6 +221,7 @@ function expandGraph(cy) {
     }
 }
 
+
 function viewProbs(cy){
     //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
@@ -249,6 +245,7 @@ function viewProbs(cy){
         }
     }
 }
+
 
 function display_labels() {
     nodes = cy.nodes();
@@ -290,7 +287,6 @@ function display_labels() {
     }
 
     edges = cy.edges();
-    console.log(edges);
     edges.style('text-opacity', 0.5);
     edges.style('width', 0.1);
     edges.style('arrow-scale', 0.1);
@@ -370,16 +366,13 @@ function filterEdges(cy) {
             allGraph.restore()
         }
         if (removedN != undefined){
-            console.log('ici');
             removedN.restore();
         }
         if (removedE!=undefined){
-            console.log('ici');
             removedE.restore();
         }
         if (thr.search('-')!=-1){
             loadStart('filtering edges')
-            console.log(thr.slice(1))
             removedE =cy.remove('edge[proba > ' + thr.slice(1) + ']');
             removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
             try {
@@ -417,7 +410,6 @@ function nodePositions(cy) {
     if(check_bool === 'true'){ 
         elements = cy.elements();
         components = elements.components();
-        console.log(components.length);
         nodes = cy.nodes();
         origin_pos = { 'x': 0, 'y': 0 };
         for (i = 0; i < components.length; i++) {
@@ -427,13 +419,10 @@ function nodePositions(cy) {
             dps = component.depthFirstSearch({
                 roots: root,
                 visit: function(v, e, u, i, depth) {
-                    console.log("v ", v.id());
                     if (v == root) {
                         v.position(origin_pos);
                         origin_pos['x'] += 50;
                     } else if (e.source() == u) {
-                        console.log("S ", e.source().id());
-                        console.log("T ", e.target().id());
                         pos = u.position();
                         x = pos['x'];
                         y = pos['y'];
@@ -447,8 +436,6 @@ function nodePositions(cy) {
                             v.position({ 'x': x + 10, 'y': y });
                         }
                     } else if (e.source() == v) {
-                        console.log("S ", e.source().id());
-                        console.log("T ", e.target().id());
                         pos = u.position();
                         x = pos['x'];
                         y = pos['y'];
@@ -479,25 +466,23 @@ function nodePositions(cy) {
 
 function zm_in() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm + 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
 
 function zm_out() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm - 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
+
 
 document.getElementById('send_div').addEventListener('click',
     function () {
         delimage(cy);
         document.querySelector('.choose-modal').style.display = 'none';
     });
+
 
 function delimage(cy) {
     //var de verification d'importation de matrice
@@ -517,7 +502,6 @@ function delimage(cy) {
             window.appendChild(error);
         }
         else{
-            console.log('ici')
             if(restoredE!=undefined){
                 console.log('icc')
                 try {
@@ -554,6 +538,8 @@ function delimage(cy) {
         }
     }
 }
+
+
 cy.on('click', 'node', function (evt) {
     console.log('clicked ' + this.id());
 });

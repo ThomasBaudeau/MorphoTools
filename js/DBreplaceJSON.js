@@ -39,7 +39,6 @@ function addJSONtoDB(cy) {
                 cursor.continue();
             }
         }
-        console.log(cy.json());
         let thedata=JSON.stringify(cy.json());
         let ob = {
             type_file : 'json',
