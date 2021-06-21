@@ -8,6 +8,7 @@ var deleted_nodes = [];
 var constante = 0;
 var constante2 = 0;
 var fileURIs = new Map();
+var restoredE;
 var cy = cytoscape({
     container: document.getElementById('cy'),
     boxSelectionEnabled: false,
@@ -443,31 +444,27 @@ function delimage(cy) {
         error.innerHTML = "Error, matrix must be imported";
         window.appendChild(error);
     }
-    let select = document.getElementsByName('select[]');
-    var arrayselect=[];
-    for (let i = 0; i < select.length; i++) {
-        if (!select[i].checked) {
-            if (select[i].id != "box-1") {
-                cy.remove(cy.getElementById(select[i].id.slice(0, -4)));
-            }
+    else{
+        console.log('ici')
+        if(restoredE!=undefined){
+            console.log('icc')
+            restoredE.restore()
         }
-        else{
-            arrayselect.push(select[i].id.slice(0, -4))
-        }
-    }
-    
-    elements = cy.elements()
-    for (let i = 0; i < elements.length; i++){
-        console.log(elements[i].id())
-        if (!arrayselect.includes(elements[i].id()) && elements[i].isNode())
-            {
-            cy.remove(cy.getElementById(elements[i].id()))
+        restoredE=(cy.remove(cy.nodes().filter(function (node) {
+            let select = document.getElementsByName('select[]');
+            var arrayselect = [];
+            for (let i = 0; i < select.length; i++) {
+                if (!select[i].checked) {
+                }
+                else {
+                    arrayselect.push(select[i].id.slice(0, -4))
+                }
             }
+            return (!arrayselect.includes(node.id()))
+        })))
+        console.log("refreshing position...")
     }
-    console.log("refreshing position...")
-    nodePositions(cy);
 }
-
 cy.on('click', 'node', function (evt) {
     console.log('clicked ' + this.id());
 });
