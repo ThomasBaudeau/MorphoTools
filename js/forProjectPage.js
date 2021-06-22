@@ -43,6 +43,7 @@ document.getElementById('btn_run').addEventListener('click',function(){
         document.querySelector('#menu_general').style.display = 'none';
         document.querySelector('#menu_visu').style.display = 'block';
         document.querySelector('#display_window').style.display = 'block';
+        setTimeout(singleImportJSON(cy),500)
     }
     else{
         {

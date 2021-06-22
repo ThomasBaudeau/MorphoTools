@@ -2,11 +2,27 @@
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
 
 */
+var group=[]
 var li_nodes=[];
+
+function choose_grp(cy) {
+    cy.nodes().on('click', function(evt) {
+            var node=new Node(evt.target.id(),[evt.target.renderedPosition("x"),evt.target.renderedPosition("y")]);
+            evt.target.connectedEdges().forEach( elmt => function(){
+                if (elmt.data().source==evt.target.id()){
+                    node.AddEdge(elmt.data.target(),elmt.data().proba)};
+                } );
+            li_nodes.push(node);
+            console.log(li_nodes);
+    });
+}
+
+//evt.target.renderedPosition("x")
+//console.log(elmt.id())
 
 class Node{
     constructor(id,pos){
-        this.id=li_nodes;
+        this.id=id;
         this.pos=pos;
         this.link=[];
     }
@@ -16,8 +32,9 @@ class Node{
 }
 
 class Assembly{
-    constructor(nodes){
+    constructor(name,nodes){
         this.nodes=nodes;
+        this.name=name
     }
     static makeJson(){
         for (node in this.nodes){
@@ -27,17 +44,6 @@ class Assembly{
 }
 
 ///////////////////////////////////////
-
-function choose_grp(cy) {
-    cy.nodes().on('click', function(evt) {
-            li_nodes.push(evt.target);
-            console.log("position" + evt.target.renderedPosition("x"));
-            console.log("id : " + evt.target.id());$
-            evt.target.connectedEdges().forEach( elmt => console.log(elmt.data()));
-            console.log(evt.target);
-            console.log(li_nodes);
-    });
-}
 
 function check_grp(cy) {
     document.querySelector('#check').style.display = 'block';
