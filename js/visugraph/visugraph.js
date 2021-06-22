@@ -3,9 +3,16 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Main functions of Visugraph
 */
 
+
+
+var allGraph;
+var removedE;
+var removedN;
 var deleted_nodes = [];
 var constante = 0;
+var constante2 = 0;
 var fileURIs = new Map();
+var restoredE;
 var cy = cytoscape({
     container: document.getElementById('cy'),
     boxSelectionEnabled: false,
@@ -16,7 +23,7 @@ var cy = cytoscape({
             'height': 10,
             'width': 10,
             'shape': 'rectangle',
-            'background-fit': 'cover',
+            'background-fit': 'none',
             'border-color': '#000',
             'border-width': 0,
             'border-opacity': 0.5
@@ -31,12 +38,15 @@ var cy = cytoscape({
         })
 });
 
+function savegraphelement(){
+    allGraph=cy.elements()
+}
+
 async function showFile(cy) {
     loadStart('retrieving images')
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
-        console.log("je suis ici")
         var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
@@ -44,103 +54,204 @@ async function showFile(cy) {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
-                console.log(name.slice(0, -4));
-                console.log(typeof (url))
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
-                if (count2 == sessionStorage.getItem('numberImage')) 
-                {
-                    console.log(fileURIs)
-                        loadEnd();
-                        imageinit(cy); }
-                
+                if (count2 == sessionStorage.getItem('numberImage')){
+                    loadEnd();
+                    imageinit(cy); 
+                }
+
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
-        
     }
     else {
-    var count=0;
-    console.log("je suis dans le else")
-    console.log('loading files')
-    let connection = window.indexedDB.open('morphotools', 3);
-    connection.onerror = function (e) {
-        console.error('Unable to open database.');
+        var count=0;
+        // connection to the database
+        let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
+        // in case of error
+        connection.onerror = function (e) {
+            console.error('Unable to open database.');
         }
-    connection.onsuccess = (e) => {
-        let db = e.target.result;
-        console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
-        let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-        objectStore.openCursor().onsuccess = function (e) {
-            let cursor = e.target.result;
-            if (cursor) {
-                image=[]
-                let id = cursor.value.project_id;
-                let name = cursor.value.type_file;
-                if (id == project_id && /\.(jpe?g|png|gif)$/i.test(name)) {
-                    fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
-                    console.log('1:', name.slice(0, -4), '2:', 'data:image/jpeg;base64,' + btoa(cursor.value.data))
-                    count++;
-                    if(count==sessionStorage.getItem('numberImage'))
-                    {
-                        console.log(fileURIs)
-                        loadEnd()
-                        imageinit(cy)}
+        // on connection successful :
+        connection.onsuccess = (e) => {
+            let db = e.target.result;
+            // connection to the store
+            let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
+            // cration of the cursor
+            objectStore.openCursor().onsuccess = function (e) {
+                let cursor = e.target.result;
+                if (cursor) {
+                    image=[]
+                    let name = cursor.value.type_file;
+                    if ( /\.(jpe?g|png|gif)$/i.test(name)) {
+                        fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
+                        count++;
+                        if(count==sessionStorage.getItem('numberImage')){
+                            loadEnd()
+                            imageinit(cy)}
+                        }
+                    cursor.continue();
                 }
-                cursor.continue();
+                else{
+                    console.log('end')
+                }
             }
-            else{
-                console.log('end')
-                
-            }
-        }
         }
     }
-    
 }
 
-function initGraph(cy){
-    showFile(cy);
+
+function initGraph(cy, lyt){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool !== 'false'){
+        document.getElementById('cy').style.visibility = 'visible';
+        if (lyt === '1') {
+            layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        };
+        if (lyt === '2') {
+            layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
+        };
+        if (lyt === '3') {
+            layout = cy.layout({ name: 'cose', directed: true, padding: 10 });
+        };
+        if (lyt === '4') {
+            layout = cy.layout({ name: 'circle', directed: true, padding: 10 });
+        };
+        layout.run();
+        cy.minZoom(0.5);
+        cy.maxZoom(1e-50);
+        cy.center();
+        console.log("init ok");
+    }
 }
 
 function imageinit(cy){
-    console.log('ok')
-    loadStart('loading images')
-    var count = 0;
-    var nodes = cy.nodes();
-    console.log(nodes.length)
-    for (var j = 0; j < nodes.length; j++) {
-        var id = nodes[j].data("id");
-        nodes[j].style("background-image", fileURIs.get(id));
-        count++
-        console.log(count);
-        if (count == nodes.length) {
-            loadEnd();
-            document.getElementById('cy').style.visibility = 'visible';
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){
+        loadStart('loading images')
+        var count = 0;
+        var nodes = cy.nodes();
+        for (var j = 0; j < nodes.length; j++) {
+            var id = nodes[j].data("id");
+            nodes[j].style("background-image", fileURIs.get(id));
+            count++
+            if (count == nodes.length) {
+                loadEnd();
+                savegraphelement()
             }
         }
-    console.log('a', fileURIs.get(id))
-    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
-    layout.run();
-    cy.minZoom(0.5);
-    cy.maxZoom(1e-50);
-    //cy.center(window); 
-    cy.center();
-    console.log("init ok");
+    }
+}
+
+
+function Showhide_edges(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        if (constante2 == 0) {
+            expandGraph(cy);
+            constante2++;
+        }
+        else {
+            retractGraph(cy);
+            constante2--;
+        }
+    }
+}
+
+
+function retn(cy){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        cy.add(deleted_nodes[0]);
+        deleted_nodes.shift(deleted_nodes[0])
+        if (deleted_nodes.length == 0){
+            document.querySelector('#backward').style.display = 'none';
+        }
+    }
 }
 
 
 function expandGraph(cy) {
-    dismiss_borderColor(cy);
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        dismiss_borderColor(cy);
+        display_labels();
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        layout.run();
+        shift_superposition(cy);
+        console.log("expanded");
+
+        cy.edges().on('click', function(evt) {
+            cy.remove(evt.target);
+            deleted_nodes.unshift(evt.target);
+            document.querySelector('#backward').style.display = 'block';
+        });
+
+        if(constante==0){
+            cy.edges().on('mouseover', function(event) {
+                let edge = event.target;
+                edge.style('text-opacity', 0.5);
+                setTimeout(function(){
+                edge.style('text-opacity',0);
+                },2500);
+            });
+            cy.nodes().on('mouseover', function(event) {
+                let node = event.target;
+                node.style('text-opacity', 1);
+                setTimeout(function(){
+                node.style('text-opacity',0);
+                },2500);
+            });
+        }
+    }
+}
+
+
+function viewProbs(cy){
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        edges = cy.edges();
+        nodes = cy.nodes();
+        if (constante==0){
+            display_labels();
+            edges.style('text-opacity',0.5);
+            nodes.style('text-opacity',1);
+            constante++;
+        } else {
+            edges.style('text-opacity',0);
+            nodes.style('text-opacity',0);
+            edges.style('target-arrow-color','black');
+            edges.style('color', 'black');
+            nodes.style('target-arrow-color','black');
+            nodes.style('color', 'black');
+            constante--;
+        }
+    }
+}
+
+
+function display_labels() {
     nodes = cy.nodes();
     nodes.style('height', 5);
     nodes.style('width', 5);
     nodes.style('text-opacity', 0);
-    nodes.style('color', 'red');
-    nodes.style('font-size', 1);
+    nodes.style('color', '#256474');
+    nodes.style('font-size', 1.5);
     nodes.style('text-halign', 'center');
-    nodes.style('text-valign', 'center');
+    nodes.style('text-valign', 'bottom');
 
     for (var j = 0; j < nodes.length; j++) {
         nodes[j].style('label', nodes[j].data('id'));
@@ -172,7 +283,6 @@ function expandGraph(cy) {
     }
 
     edges = cy.edges();
-    console.log(edges);
     edges.style('text-opacity', 0.5);
     edges.style('width', 0.1);
     edges.style('arrow-scale', 0.1);
@@ -180,15 +290,15 @@ function expandGraph(cy) {
     edges.style('curve-style', 'bezier');
     edges.style('control-point-step-size', 4);
     for (var j = 0; j < edges.length; j++) {
-        if (edges[j].data('proba') > 0.9){
+        if (edges[j].data('proba') >= 0.9){
             edges[j].data('line-color','green'),
             edges[j].style('target-arrow-color','green'),
             edges[j].style('color', 'green')
         }
-        else if (edges[j].data('proba') < 0.8 && edges[j].data('proba') > 0.6){
-            edges[j].data('line-color','yellow'),
-            edges[j].style('target-arrow-color','yellow'),
-            edges[j].style('color', 'yellow')
+        else if (edges[j].data('proba') < 0.9 && edges[j].data('proba') >= 0.6){
+            edges[j].data('line-color','orange'),
+            edges[j].style('target-arrow-color','orange'),
+            edges[j].style('color', 'orange')
         }
         else{
             edges[j].data('line-color','red'),
@@ -196,183 +306,171 @@ function expandGraph(cy) {
             edges[j].style('color', 'red')
         }
         edges[j].style('label', function() {
-            let label= edges[j].data('label') + ' - ' + edges[j].data('proba');
-            return label
+            if (edges[j].data('label') === ''){
+                return edges[j].data('proba');
+            }
+            else {
+                return edges[j].data('label') + ' : ' + edges[j].data('proba');
+            }
         });
         document.querySelector('#legend').style.display = 'block';
     }
-
-    layout = cy.layout({ name: 'cola', directed: true, padding: 10 });
-    layout.run();
-    shift_superposition(cy);
-    console.log("expanded");
-
-    cy.edges().on('click', function(evt) {
-        console.log('deleting edge ' + evt.target.id());
-        cy.remove(evt.target);
-    });
-
-    if(constante==0){
-        cy.edges().on('mouseover', function(event) {
-            let edge = event.target;
-            edge.style('text-opacity', 0.5);
-            setTimeout(function(){
-              edge.style('text-opacity',0);
-            },2500);
-        });
-    }
 }
 
-function viewProbs(cy){
-    edges = cy.edges();
-    if (constante==0){
-        edges.style('text-opacity',0.5);
-        constante++;
-    } else {
-        edges.style('text-opacity',0);
-        constante--;
-    }
-}
 
 
 function retractGraph(cy) {
-    dismiss_borderColor(cy);
-    nodes = cy.nodes();
-    nodes.style('height', 10);
-    nodes.style('width', 10);
-    nodes.style('text-opacity', 0);
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        dismiss_borderColor(cy);
+        nodes = cy.nodes();
+        nodes.style('height', 10);
+        nodes.style('width', 10);
+        nodes.style('text-opacity', 0);
 
-    edges = cy.edges();
-    edges.style('text-opacity', 0);
-    edges.style('width', 0);
-    edges.style('arrow-scale', 0);
+        edges = cy.edges();
+        edges.style('text-opacity', 0);
+        edges.style('width', 0);
+        edges.style('arrow-scale', 0);
 
-    layout = cy.layout({ name: 'layout', directed: true, padding: 10 });
-    layout.run();
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
+        layout.run();
 
-    document.querySelector('#legend').style.display = 'none';
-    console.log("retracted");
+        document.querySelector('#legend').style.display = 'none';
+        console.log("retracted");
+    }
 }
 
-async function filterEdges(cy) {
-    const min = sessionStorage.getItem("min_similitude");
-    const max = sessionStorage.getItem("max_similitude")
-    var thr = prompt("Threshold for edge filtering? (" + min + " to " + max + ")");
-    //recharge du json et réimportation des images
-    if (thr==='')
-        {return}
-    
-    //timeout car le chargement a tendance a se faire après la definition du threshold
-    setTimeout(function(){
+function filterEdges(cy) {
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        const min = sessionStorage.getItem("min_similitude");
+        const max = sessionStorage.getItem("max_similitude")
+        var thr = prompt("Threshold for edge filtering? (" + min + " to " + max + ")");
+        
+        //recharge du json et réimportation des images
+        if (thr===null)
+            {return}
+        try{
+            restoredE.restore()
+        }
+        catch{
+            allGraph.restore()
+        }
+        if (removedN != undefined){
+            removedN.restore();
+        }
+        if (removedE!=undefined){
+            removedE.restore();
+        }
         if (thr.search('-')!=-1){
             loadStart('filtering edges')
-            console.log(thr.slice(1))
-            cy.remove('edge[proba > ' + thr.slice(1) + ']');
-            nodes = cy.nodes();
-            for (var j = 0; j < nodes.length; j++) {
-                if (nodes[j].connectedEdges().length == 0) {
-                    cy.remove(nodes[j]);
-                }
+            removedE =cy.remove('edge[proba > ' + thr.slice(1) + ']');
+            removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
+            try {
+                cy.remove(restoredE)
             }
-            loadEnd()
+            catch {
+                console.log('error')
+            }
+            loadEnd();
+            loadEnd_witness();
             console.log("filtered");
-            
         }
         else{
-        cy.remove('edge[proba < ' + thr + ']');
-        nodes = cy.nodes();
-        for (var j = 0; j < nodes.length; j++) {
-            if (nodes[j].connectedEdges().length == 0) {
-                cy.remove(nodes[j]);
+            loadStart('filtering edges')
+            removedE=cy.remove('edge[proba < ' + thr + ']');
+            nodes = cy.nodes();
+            removedN = cy.remove(cy.nodes().filter(node => node.connectedEdges().size() === 0));
+            try {
+                cy.remove(restoredE)
             }
+            catch {
+                console.log('error')
+            }
+            loadEnd();
+            loadEnd_witness();
+            console.log("filtered");
         }
-        console.log("filtered1");
-        }
-     }, 1000);
-     setTimeout(function(){
-        console.log("refreshing position...")
-        nodePositions(cy);
-     }, 1100);
-    
+    }
 }
 
 function nodePositions(cy) {
-    elements = cy.elements();
-    components = elements.components();
-    console.log(components.length);
-    nodes = cy.nodes();
-    origin_pos = { 'x': 0, 'y': 0 };
-    for (i = 0; i < components.length; i++) {
-        component = components[i];
-        root = component[0];
-        console.log("root ", root.id());
-        dps = component.depthFirstSearch({
-            roots: root,
-            visit: function(v, e, u, i, depth) {
-                console.log("v ", v.id());
-                if (v == root) {
-                    v.position(origin_pos);
-                    origin_pos['x'] += 50;
-                } else if (e.source() == u) {
-                    console.log("S ", e.source().id());
-                    console.log("T ", e.target().id());
-                    pos = u.position();
-                    x = pos['x'];
-                    y = pos['y'];
-                    if (e.data('label') == "H") {
-                        v.position({ 'x': x, 'y': y - 10 });
-                    } else if (e.data('label') == "B") {
-                        v.position({ 'x': x, 'y': y + 10 });
-                    } else if (e.data('label') == "G") {
-                        v.position({ 'x': x - 10, 'y': y });
-                    } else if (e.data('label') == "D") {
-                        v.position({ 'x': x + 10, 'y': y });
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if(check_bool === 'true'){ 
+        elements = cy.elements();
+        components = elements.components();
+        nodes = cy.nodes();
+        origin_pos = { 'x': 0, 'y': 0 };
+        for (i = 0; i < components.length; i++) {
+            component = components[i];
+            root = component[0];
+            dps = component.depthFirstSearch({
+                roots: root,
+                visit: function(v, e, u, i, depth) {
+                    if (v == root) {
+                        v.position(origin_pos);
+                        origin_pos['x'] += 50;
+                    } else if (e.source() == u) {
+                        pos = u.position();
+                        x = pos['x'];
+                        y = pos['y'];
+                        if (e.data('label') == "H") {
+                            v.position({ 'x': x, 'y': y - 10 });
+                        } else if (e.data('label') == "B") {
+                            v.position({ 'x': x, 'y': y + 10 });
+                        } else if (e.data('label') == "G") {
+                            v.position({ 'x': x - 10, 'y': y });
+                        } else if (e.data('label') == "D") {
+                            v.position({ 'x': x + 10, 'y': y });
+                        }
+                    } else if (e.source() == v) {
+                        pos = u.position();
+                        x = pos['x'];
+                        y = pos['y'];
+                        if (e.data('label') == "H") {
+                            v.position({ 'x': x, 'y': y + 10 });
+                        } else if (e.data('label') == "B") {
+                            v.position({ 'x': x, 'y': y - 10 });
+                        } else if (e.data('label') == "G") {
+                            v.position({ 'x': x + 10, 'y': y });
+                        } else if (e.data('label') == "D") {
+                            v.position({ 'x': x - 10, 'y': y });
+                        }
                     }
-                } else if (e.source() == v) {
-                    console.log("S ", e.source().id());
-                    console.log("T ", e.target().id());
-                    pos = u.position();
-                    x = pos['x'];
-                    y = pos['y'];
-                    if (e.data('label') == "H") {
-                        v.position({ 'x': x, 'y': y + 10 });
-                    } else if (e.data('label') == "B") {
-                        v.position({ 'x': x, 'y': y - 10 });
-                    } else if (e.data('label') == "G") {
-                        v.position({ 'x': x + 10, 'y': y });
-                    } else if (e.data('label') == "D") {
-                        v.position({ 'x': x - 10, 'y': y });
-                    }
-                }
-            },
-            directed: false
-        });
-    }
+                },
+                directed: false
+            });
+        }
 
-    //layout = cy.layout({name: 'preset', directed: true, padding: 10});
-    //layout.run();
-    dismiss_borderColor(cy);
-    show_superposition(cy);
-    cy.center();
-    console.log("positions recomputed");
+        //layout = cy.layout({name: 'preset', directed: true, padding: 10});
+        //layout.run();
+        dismiss_borderColor(cy);
+        show_superposition(cy);
+        cy.center();
+        console.log("positions recomputed");
+    }
 }
 
 
 function zm_in() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm + 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
 
 function zm_out() {
     let zm= cy.zoom();
-    console.log("Avant :"+ zm)
     cy.zoom(zm - 1);
-    console.log("Apres :"+ zm)
     cy.center();
 }
+
 
 document.getElementById('send_div').addEventListener('click',
     function () {
@@ -380,32 +478,57 @@ document.getElementById('send_div').addEventListener('click',
         document.querySelector('.choose-modal').style.display = 'none';
     });
 
+
 function delimage(cy) {
-    if (document.getElementById("error_message") !== null) {
-        var error = document.getElementById("error_message");
-        error.parentNode.removeChild(error);
-    }
-    //vérif de chargement de cy
-    if (cy === undefined) {
-        let window = document.getElementById('choose-mc');
-        let error = document.createElement('p');
-        error.setAttribute('id', "error_message");
-        error.innerHTML = "Error, matrix must be imported";
-        window.appendChild(error);
-    }
-    let select = document.getElementsByName('select[]');
-    console.log('ok select : ', select);
-    for (let i = 0; i < select.length; i++) {
-        if (!select[i].checked) {
-            if (select[i].id != "box-1") {
-                cy.remove(cy.getElementById(select[i].id.slice(0, -4)));
+    //var de verification d'importation de matrice
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if (check_bool === 'true') {
+        if (document.getElementById("error_message") !== null) {
+            var error = document.getElementById("error_message");
+            error.parentNode.removeChild(error);
+        }
+        //vérif de chargement de cy
+        if (cy === undefined) {
+            let window = document.getElementById('choose-mc');
+            let error = document.createElement('p');
+            error.setAttribute('id', "error_message");
+            error.innerHTML = "Error, matrix must be imported";
+            window.appendChild(error);
+        }
+        else{
+            if(restoredE!=undefined){
+                try {
+                    removedN.restore();
+                    removedE.restore();
+                }
+                catch {
+                    allGraph.restore();
+                }
+                restoredE.restore();
+                
             }
+            restoredE=(cy.remove(cy.nodes().filter(function (node) {
+                let select = document.getElementsByName('select[]');
+                var arrayselect = [];
+                for (let i = 0; i < select.length; i++) {
+                    if (!select[i].checked) {
+                    }
+                    else {
+                        arrayselect.push(select[i].id.slice(0, -4))
+                    }
+                }
+                return (!arrayselect.includes(node.id()))
+            })))
+            try {
+                cy.remove(removedE);
+                cy.remove(removedN);
+            }
+            catch {
+                consol.log('error')
+            }
+            
+        console.log("refreshing position...")
         }
     }
-    console.log("refreshing position...")
-    nodePositions(cy);
 }
-
-cy.on('click', 'node', function (evt) {
-    console.log('clicked ' + this.id());
-});

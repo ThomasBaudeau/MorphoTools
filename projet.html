@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="css/scrollbar.css">
     <link rel="stylesheet" href="css/checkbox.css">
     <link rel="stylesheet" href="css/select_box.css">
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/error.css">
+
 
     <link href="https://fonts.googleapis.com/css2?family=Cantora+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
@@ -23,7 +26,8 @@
 </head>
 
 <body>
-  
+    
+    <!-- Top-container -->
     <div class="header">
         <div class="container">
             <div class="header_navbar">
@@ -40,6 +44,7 @@
         </div>
     </div>
 
+    <!-- Fenetre importation fichiers -->
     <div class="import-modal">
         <div class="modal-content" id="import-mc">
             <div class="close" id="import-close">+</div>
@@ -56,6 +61,7 @@
         </div>
     </div>
 
+    <!-- Fenetre choix image -->
     <div class="choose-modal">
         <div class="modal-choose" id="choose-mc">
             <div class="close" id="choose-close">+</div>
@@ -75,7 +81,8 @@
                 </div>
         </div>
     </div>
-
+    
+    <!-- Left-container -->
     <div class=sidebar id=sidebar>
         <section class= "left-container" id="menu_general">
             <div class="import-side">
@@ -123,6 +130,7 @@
             </div>
         </section>
 
+        
         <section class= "left-container" id='menu_visu' style="display: none;">
             <div class="import-side">
                 <button class="btn" id="back_visu">Back</button>
@@ -134,26 +142,38 @@
 
             <div class="visu" style="display: none;">
                 <div id="bouton_visu" class="cy">
+<<<<<<< HEAD
                     <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Load</button>
                     <button class="btn3" id="btn-vg" onclick="initGraph(cy)">Display</button>
                     <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
                     <button class="btn3" id="choose">Choose image</button>
                     <!-- Sous menu edge -->
+=======
+                    <button class="btn3" id="btn-vg" onclick="singleImportJSON(cy)">Loading data</button>
+                    
+                    <!-- Sous menu Display -->
+>>>>>>> 79a0645a19716f10d017a678cb77bb8462f72aa7
                     <div class="btn3">
                         <div class="select-box__current" tabindex="0">
-                            <div class="select-box__value"><input class="select-box__input" id="edge" type="radio" value=" " name="edge" checked="checked" />
-                                <p class="select-box__input-text">Expand/Retract Edge</p>
+                            <div class="select-box__value"><input class="select-box__input" id="display" type="radio" value=" " name="display" checked="checked" />
+                                <p class="select-box__input-text">Display</p>
                             </div>
                         </div>
                         <ul class="select-box__list">
-                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="expandGraph(cy)">Show edges</label></li>
-                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="retractGraph(cy)">Hide edges</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'1')">Preset</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'2')">Cola</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'3')">Cose</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="initGraph(cy,'4')">Other ..</label></li>
                         </ul>
                     </div>
-                    <!-- Fin sous menu edge -->
+                    <!-- Fin sous menu Display -->
 
+                    <button class="btn3" id="btn-vg" onclick="filterEdges(cy)">Filter edges</button>
+                    <button class="btn3" id="choose">Choose image</button>
+                    <button class="btn3" id="btn-vg" onclick="Showhide_edges(cy)">Show/Hide edges</button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
-                    <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Refresh positions </button>
+                    <button class="btn3" id="btn-vg" onclick="">Refresh positions</button>
+                    <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Recovery</button>
                     
                     <!-- Sous menu load-->
                     <div class="btn3">
@@ -165,7 +185,8 @@
                         <ul class="select-box__list">
                                 <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="shortSave(cy)">Quick save</label></li>
                                 <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="loadShortSave(cy)">Load quick save</label></li>
-                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="addJSONtoDB(cy)">save graph</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="addJSONtoDB(cy)">Save position</label></li>
+                                <li id="tool_list"><label class="select-box__option" aria-hidden="aria-hidden" onclick="addImport();addJSONtoDB(cy)">Save imported files</label></li>
                         </ul>
                     </div>
                     <!-- Fin sous menu load -->
@@ -197,17 +218,39 @@
             <div id="cy" class="cy" style="z-index: 0">
                 <img class="zoom" src= images/zoomin.png id="zoom_in" onclick="zm_in()">
                 <img class="zoom" src= images/zoomout.png id="zoom_out" onclick="zm_out()">
+                <img class="zoom" src= images/backward.png id="backward" onclick="retn(cy)" style="display: none;">
             </div>
         </div>
         
 
 
     </div>
-
+    <!-- Display de cytoscape -->
     <div class=export_canvas id="export_canvas"></div>
-    <!-- <img class=download src= images/logo-Chargement.jpg id="download_symbol"></img> -->
-    <div id = "loading_div"><div id = "loading_div_message"><p id = "loading_message"></p></div><div class="lds-ring" id="download_symbol"><div></div><div></div><div></div><div></div></div></div>
 
+    <!-- Chargement en cours -->
+    <div id = "loading_div"><div id = "loading_div_message"><p id = "loading_message"></p></div><div class="lds-ring" id="download_symbol"><div></div><div></div><div></div><div></div></div></div>
+    <div id = "end-loading_div" style="display: none;">
+        <div class="success-checkmark">
+            <div class="check-icon">
+                <span class="icon-line line-tip"></span>
+                <span class="icon-line line-long"></span>
+                <div class="icon-circle"></div>
+                <div class="icon-fix"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Erreur de chargement -->
+    <div id = "loading_div_error">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+            <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+            <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+            <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+        </svg>
+    </div>
+
+    <!-- Importation JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src= "js/visugraph/ExportFinalImage.js"></script>
     <script src="js/visugraph/cytoscape.min.js"></script>
@@ -220,6 +263,10 @@
     <script src="js/DBreplaceJSON.js"></script>
     <script src="js/visugraph/visugraph.js"></script>
     <script src="js/loading.js"></script>
+
+    
+    <!-- layout cola -->
+    <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
     <script src="js/layout/cytoscape-cola.js"></script>
 
 </body>

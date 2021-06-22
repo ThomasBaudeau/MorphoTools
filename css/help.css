@@ -1,8 +1,9 @@
 /* 
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
 Gestion des styles de la page help.html
 */
 
+/* Zone de texte et scroll bar */
 #help_content {
     top: 70px;
     left: 250px;
@@ -15,8 +16,6 @@ Gestion des styles de la page help.html
     width: 14px;
     height: 18px;
 }
-
-
 
 #help_content::-webkit-scrollbar-thumb {
     height: 6px;
@@ -36,6 +35,8 @@ Gestion des styles de la page help.html
     background-color: transparent;
 }
 
+
+/* style de texte */
 #title_summary{
     padding-top: 15px;
     padding-bottom: 15px;
@@ -47,9 +48,12 @@ Gestion des styles de la page help.html
 
 .help_title{
     font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
     padding: 10px;
     margin-left: 20px;
     margin-top: 20px;
+    
 }
 
 #help_text{
@@ -59,7 +63,9 @@ Gestion des styles de la page help.html
 
 #help{
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    text-decoration: underline overline;
     padding: 20px;
 }
 

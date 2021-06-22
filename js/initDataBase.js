@@ -11,14 +11,17 @@ const nameInput = document.querySelector('#name');
 const abstractInput = document.querySelector('#abstract');
 
 
-
-
 /////////////////////////INITIALISATION DB///////////////////////////////
 
 //stock ref db
 let db;
 
+// checking DB
 window.onload = function() {
+  if (!('indexedDB' in window)){
+    alert("your browser must support indexedDB if you want to use Morphotools");
+  }
+  
   let request = window.indexedDB.open('morphotools', 3);
 
   //the DB couldn't be opened
@@ -42,10 +45,5 @@ window.onload = function() {
     let objectStore = db.createObjectStore('projects', { keyPath: 'id', autoIncrement:true });
     objectStore.createIndex('name', 'name', { unique: false });
     objectStore.createIndex('abstract', 'abstract', { unique: false });
-    
-    //imported files store
-    objectStore = db.createObjectStore('imports', { keyPath: 'id', autoIncrement:true });
-    objectStore.createIndex('data', 'data', { unique: false });
-    objectStore.createIndex('project_id', 'project_id', { unique: false});
   };
 } 

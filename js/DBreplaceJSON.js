@@ -5,7 +5,7 @@ add JSON to Indexed DB
 function addJSONtoDB(cy) {
     loadStart('converting CSV to JSON')
     // Open DB
-    let request = indexedDB.open('morphotools', 3);
+    let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     
     // if an error occur :
     request.onerror = function (e) {
@@ -27,25 +27,19 @@ function addJSONtoDB(cy) {
         }
         //cursor
         store.openCursor().onsuccess = function(e){
-            let project_id = sessionStorage.getItem("selected_project");
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
-                console.log("id ", id);
                 let name = cursor.value.type_file;
-                console.log("name ",name);
                 let key = cursor.key;
-                if ((id == project_id) && (name.search('json')!=-1)) {
+                if ((name.search('json')!=-1)) {
                     cursor.delete(key);
                     return;
                 }
                 cursor.continue();
             }
         }
-        console.log(cy.json());
         let thedata=JSON.stringify(cy.json());
         let ob = {
-            project_id : sessionStorage.getItem('selected_project'),
             type_file : 'json',
             data : thedata
         };
@@ -58,9 +52,10 @@ function addJSONtoDB(cy) {
         }
         trans2.oncomplete = function(e) {
             console.log('new json saved');
-            loadEnd()
+            loadEnd();
+            loadEnd_witness();
         } 
-    }   
+    } 
 }
 
 

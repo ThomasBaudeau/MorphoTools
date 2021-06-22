@@ -3,6 +3,10 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Import/export of the graph in JSON format
 */
 
+// variable de verif, false si pas de matrice load, true si matrice load
+sessionStorage.setItem('loading_check',false);
+
+
 function checkimport(fileName){
   return fileName.includes(".json")
 }
@@ -20,62 +24,60 @@ function singleImportJSON(cy){
     reader.fileName = fileInput.name;
     // if JSON
     if (checkimport(reader.fileName)) {
-      console.log(reader);
       reader.readAsText(fileInput);
       reader.onload = function (readerEvent) {
-        console.log(readerEvent.target.result);
         data= JSON.parse(readerEvent.target.result); //parsing du json
         findMinMax(data);
         cy.json(data);
-        cy.on('render',function(e){
-        loadEnd();
+        cy.one('render',function(e){
+          if (sessionStorage.getItem('stop')){
+            console.log('PROBLEMAS')
+            sessionStorage.setItem('stop', false)
+            loadEnd();
+            showFile(cy)
+          }
         })
+        loadEnd_witness();
       };
     }
     // if CSV
     else {
-      console.log("dans le else");
-      console.log(reader);
       var obj_csv = []
       reader.readAsBinaryString(fileInput);
       reader.onload = function (readerEvent) {
-        console.log(readerEvent);
         obj_csv = readerEvent.target.result;
         let array = parseData(obj_csv);
         let data = CSV_to_JSON(array);
         data = JSON.parse(data);
         findMinMax(data);
         cy.json(data);
-        cy.on('render', function (e) {
-          if(sessionStorage.getItem(stop))
-            addJSONtoDB(cy);
-            loadEnd();
+        cy.one('render', function (e) {
+          if(sessionStorage.getItem('stop')){
+            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
+            loadEnd();
+            showFile(cy)
+          }            
         })
+        loadEnd_witness();
       }
     }
     
 
   }
-  else{ 
-    console.log("autre else")
-    
-  
-    let connection = window.indexedDB.open('morphotools', 3);
+  else{
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
       console.error('Unable to open database.');
       }
     connection.onsuccess = (e) => {
       let db = e.target.result;
-      console.log('DB opened');
-      let project_id = sessionStorage.getItem('selected_project');
       let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
       objectStore.openCursor().onsuccess = function (e) {
         let cursor = e.target.result;
         if (cursor) {
-          let id = cursor.value.project_id;
           let name = cursor.value.type_file;
-          if (id == project_id && name.search('json') != -1) {
+          if (name.search('json') != -1) {
             let file = JSON.parse(cursor.value.data);
             try{
               file=JSON.parse(file);
@@ -86,17 +88,25 @@ function singleImportJSON(cy){
             catch{
               file=JSON.parse(cursor.value.data)
             }
-            console.log(file)
             cy.json(file);
-            cy.on('render', function (e) {
-              loadEnd();
+            cy.one('render', function (e) {
+              if (sessionStorage.getItem('stop')){
+                console.log('PROBLEMAS')
+                sessionStorage.setItem('stop', false)
+                loadEnd();
+                showFile(cy)
+              }
             })
+            loadEnd_witness();
           }
           cursor.continue();
         }
       }
     }
   }
+  // dies is loaded, setting check var to true
+  console.log("loading_check devient true");
+  sessionStorage.setItem('loading_check',true);
 }
 
 // convertion of csv (string) into an array
@@ -173,9 +183,8 @@ function CSV_to_JSON(array){
   //filling edges
   for(let line = 1 ; line < array.length ; line++){
     for(let col = line ; col < array[line].length ; col++){
-      //console.log("line :" + line + "col :" + col);
       let prob= parseFloat(array[line][col]);
-      if (array[line][col]!=='1' && prob>=0.1 && array[line][col].includes('e')==false){  
+      if (array[line][col]!='1' && prob>=0.1 && array[line][col].includes('e')===false){  
         let id = 'E' + cpt;
         cpt++;
         let data = {
@@ -190,7 +199,6 @@ function CSV_to_JSON(array){
           "group":"edges",
           "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
         };
-        console.log("DATA " + id + " : "+ JSON.stringify(data));
         json.elements.edges.push(data);
       }
     }
@@ -205,7 +213,6 @@ function exportGraphJSON(cy){
         [JSON.stringify(cy.json())], 
         { type: 'application/json' }
       );
-    console.log("FILE :" + file);
     const fileURL = window.URL.createObjectURL(file);
     a.href = fileURL;
     a.download = "Graph.json";

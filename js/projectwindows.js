@@ -10,7 +10,6 @@ const submitBtn = document.querySelector('form button');
 form.onsubmit = addData;
 
 function addData(e) {
-    console.log(nameInput.value)
     e.preventDefault();
     if (document.getElementById("error_message") !== null) {
         var error = document.getElementById("error_message");
@@ -29,26 +28,32 @@ function addData(e) {
     else {
         //stock values within the formulary to the DB
         let newItem = { name: nameInput.value, abstract: abstractInput.value };
-        let transaction = db.transaction(['projects'], 'readwrite');
-        let objectStore = transaction.objectStore('projects');
-        var request = objectStore.add(newItem);
+        let request = indexedDB.open('morphotools', 3);
+        // on success : do the transaction
+        request.onsuccess = function (e) {
+            db = e.target.result;
+            console.log('db opened');
+            let transaction = db.transaction(['projects'], 'readwrite');
+            let objectStore = transaction.objectStore('projects');
+            var trans = objectStore.add(newItem);
+            
+            trans.onsuccess = function () {
+                //empty the formulary
+                nameInput.value = '';
+                abstractInput.value = '';
+                // close window
+                document.querySelector('.bg-modal').style.display = 'none';
+            };
+            transaction.oncomplete = function () {
+                console.log('Transaction completed.');
+                //update display
+                displayData();
+            };
 
-        request.onsuccess = function () {
-            //empty the formulary
-            nameInput.value = '';
-            abstractInput.value = '';
-            // close window
-            document.querySelector('.bg-modal').style.display = 'none';
-        };
-        transaction.oncomplete = function () {
-            console.log('Transaction completed.');
-            //update display
-            displayData();
-        };
-
-        transaction.onerror = function () {
-            console.log('Transaction not opened due to error');
-        };
+            transaction.onerror = function () {
+                console.log('Transaction not opened due to error');
+            };
+        }
     }
 
     //Attente de la fin de la transaction
@@ -63,6 +68,10 @@ function displayData() {
 
     //Ouvre la table projects puis récupère un curseur - qui va nous permettre d'itérer
     //sur les entrées de notre table
+    let request = indexedDB.open('morphotools', 3);
+    request.onsuccess = function (e) {
+        db = e.target.result;
+        console.log('db opened');
     let objectStore = db.transaction(['projects'], 'readwrite').objectStore('projects');
     objectStore.openCursor().onsuccess = function (e) {
         //Récupère une référence au curseur
@@ -83,6 +92,7 @@ function displayData() {
             //Met l'ID de l'entrée dans un attribut du li, pour savoir à quelle entrée il correspond
             //Ce sera utile plus tard pour pouvoir supprimer des entrées
             listItem.setAttribute('data-project-id', cursor.value.id);
+            addProjectStorage(cursor.value.id);
             //Crée un bouton et le place dans le li
             let deleteBtn = document.createElement('button');
             deleteBtn.setAttribute("id", "deletion")
@@ -103,52 +113,78 @@ function displayData() {
             console.log('Projects all displayed');
         };
     };
+    };
 };
 
 //Définit la fonction deleteItem()
 function deleteItem(e) {
-    //Récupère l'id de l'entrée que l'on veut supprimer
-    let projectId = Number(e.target.parentNode.getAttribute('data-project-id'));
-    deleteImport(projectId);
-    //Ouvre une transaction et supprime la projet ayant l'id récupéré ci-dessus
-    let transaction = db.transaction(['projects'], 'readwrite');
-    let objectStore = transaction.objectStore('projects');
-    let request = objectStore.delete(projectId);
+    let request = indexedDB.open('morphotools', 3);
+    request.onsuccess = function (f) {
+        db = f.target.result;
+        //Récupère l'id de l'entrée que l'on veut supprimer
+        let projectId = Number(e.target.parentNode.getAttribute('data-project-id'));
+    
+        //Ouvre une transaction et supprime la projet ayant l'id récupéré ci-dessus
+        let transaction = db.transaction(['projects'], 'readwrite');
+        let objectStore = transaction.objectStore('projects');
+        let request = objectStore.delete(projectId);
 
-    //Indique à l'utilisateur que l'entrée a été supprimée
-    transaction.oncomplete = function () {
-        //Supprime l'élément parent du bouton
-        e.target.parentNode.parentNode.removeChild(e.target.parentNode);
-        console.log('Project ' + projectId + ' deleted.');
+        //Indique à l'utilisateur que l'entrée a été supprimée
+        transaction.oncomplete = function () {
+            //Supprime l'élément parent du bouton
+            e.target.parentNode.parentNode.removeChild(e.target.parentNode);
+            deleteProjectStorage(projectId);
+            console.log('Project ' + projectId + ' deleted.');
 
-        if (!list.firstChild) {
-            let listItem = document.createElement('li');
-            listItem.textContent = 'No registered projects';
-            list.appendChild(listItem);
+            if (!list.firstChild) {
+                let listItem = document.createElement('li');
+                listItem.textContent = 'No registered projects';
+                list.appendChild(listItem);
+            };
         };
     };
 };
-  
-function deleteImport(project_id)
-{
-    console.log('id');
-    let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
-    let test = objectStore.openCursor();
-    objectStore.openCursor().onsuccess =function(e){
-        let cursor = e.target.result;
-        if (cursor) {
-            let id = cursor.value.project_id;
-            let key = cursor.key;
-            console.log(id);
-            console.log(key);
-            if (id == project_id) {
-                cursor.delete(key);
-            }
 
-            cursor.continue();
-        }
-        else {
-            console.log("No more key");
-        }
+function addProjectStorage(dbName){
+    let request = window.indexedDB.open(dbName, 3);
+    //the DB couldn't be opened
+    request.onerror = function (event) {
+        console.log('Database error : ' + event.target.errorCode);
+    };
+    //the DB is now open
+    request.onsuccess = function () {
+        console.log('Database opened successfully');
+        db = request.result;
+        //display projects currently in the DB
+    };
+    //on update or when DB is created : create the stores
+    request.onupgradeneeded = function (e) {
+        let db = e.target.result;
+        objectStore = db.createObjectStore('imports', { keyPath: 'id', autoIncrement: true });
+        objectStore.createIndex('data', 'data', { unique: false });
     }
 }
+    function deleteProjectStorage(dbName){
+    var aname=""
+    var DBOpenRequest =window.indexedDB.open(dbName);
+    DBOpenRequest.onsuccess = function (event) {
+        db = DBOpenRequest.result;
+        // This line will log the name of the database
+        aname=db.name;
+        db.close();
+        var request2 = indexedDB.deleteDatabase(aname);
+        request2.onsuccess = function () {
+            console.log('db deleted');
+            loadEnd();
+        }
+        request2.onblocked = function () {
+            console.log("blocked: ");
+            console.log("La valeur de readyState est " + request2.readyState)
+            loadStart('deleting database')
+
+        }
+        request2.onerror = function () {
+            console.log("error: ");
+        };
+    }
+};

@@ -1,0 +1,59 @@
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
+Gestion des styles d'erreur de chargement
+*/
+
+#loading_div_error{
+    display: none;
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    height: calc(100vh - 70px);
+    z-index: 49;
+    position: absolute;
+}
+
+svg {
+    display: block;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: calc(100vh - 70px);
+    z-index: 49;
+    position: absolute;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+}
+
+.path.circle {
+    -webkit-animation: dash 0.9s ease-in-out;
+    animation: dash 0.9s ease-in-out;
+}
+
+.path.line {
+    stroke-dashoffset: 1000;
+    -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+    animation: dash 0.9s 0.35s ease-in-out forwards;
+}
+
+
+@-webkit-keyframes dash {
+    0% {
+            stroke-dashoffset: 1000;
+    }
+    100% {
+            stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+

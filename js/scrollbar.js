@@ -84,38 +84,34 @@ function NumberImage()
 {
     let numberJson=0;
     let numberImage=0;
-    let connection = window.indexedDB.open('morphotools', 3);
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     connection.onerror = function (e) {
         console.error('Unable to open database.');
     }
     connection.onsuccess = (e) => {
         let db = e.target.result;
         console.log('DB opened');
-        let project_id = sessionStorage.getItem('selected_project');
         let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
         
         objectStore.openCursor().onsuccess =function(e){
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
                 let key = cursor.key;
                 let name= cursor.value.type_file;
-                if (id == project_id) {
-                    if (name.search('json') !=-1 ){
-                        numberJson++;
-                    }
-                    else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
-                        numberImage++;
-                    }
+                if (name.search('json') !=-1 ){
+                    numberJson++;
                 }
-
+                else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
+                    numberImage++;
+                }
                 cursor.continue();
             }
             else {
                 console.log("No more key");
                 document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + numberImage;
                 document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + numberJson;
-                sessionStorage.setItem('numberImage',numberImage)
+                sessionStorage.setItem('numberImage',numberImage);
+                sessionStorage.setItem('numberJson',numberJson);
             }
         }
     
@@ -142,8 +138,53 @@ function chooseImage() {
         return
     }
     loadStart('loading images')
+    if (document.getElementById('ii').files.length!=0){
+        var fileInput = document.getElementById('ii');
+        for(let i=0;i<fileInput.files.length;i++){
+            var reader = new FileReader();
+            reader.readAsDataURL(fileInput.files[i]);
+            reader.fileName = fileInput.files[i].name;
+            reader.onload = function (readerEvent) {
+                var url = readerEvent.target.result;
+                var name = readerEvent.target.fileName;
+                if (/\.(jpe?g|png|gif)$/i.test(name)) {
+                    let data = url;
+                    let table = document.getElementById('choose_image');
+                    let line = document.createElement('tr');
+                    let column = document.createElement('td');
+                    let checkbox = document.createElement('input');
+                    checkbox.setAttribute('type', 'checkbox');
+                    checkbox.setAttribute('id', name);
+                    checkbox.setAttribute('name', 'select[]');
+                    checkbox.setAttribute('value', 'image_' + name);
+                    let label = document.createElement('label');
+                    label.setAttribute('for', name);
+                    label.textContent = name;
+                    let column2 = document.createElement('td');
+                    let image = document.createElement('img');
+                    image.setAttribute('src', data);
+                    image.setAttribute('style', 'opacity:1')
+                    image.setAttribute('width', '100px')
+                    image.setAttribute('height', '100px')
+                    column.appendChild(checkbox);
+                    column.appendChild(label)
+                    column2.appendChild(image)
+                    line.appendChild(column);
+                    line.appendChild(column2)
+                    table.appendChild(line);
+                    count++
+                    if (count == sessionStorage.getItem('numberImage')) {
+                        loadEnd();
+                        document.querySelector('.choose-modal').style.display = 'flex';
+                    }
+                }
+            
+            }
+        }
+    }
+    else{
     // Open DB
-    let request = indexedDB.open('morphotools', 3);
+        let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     
     // if an error occur :
     request.onerror = function (e) {
@@ -165,14 +206,10 @@ function chooseImage() {
         }
         //cursor
         store.openCursor().onsuccess = function(e){
-            let project_id = sessionStorage.getItem("selected_project");
             let cursor = e.target.result;
             if (cursor) {
-                let id = cursor.value.project_id;
-                console.log("id ", id);
                 let name = cursor.value.type_file;
-                console.log("name ",name);
-                if ((id == project_id) &&  /\.(jpe?g|png|gif)$/i.test(name)) {
+                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                     let data = cursor.value.data;
                     let table=document.getElementById('choose_image');
                     let line=document.createElement('tr');
@@ -208,5 +245,6 @@ function chooseImage() {
             }
         }
         console.log(cy.json());
+    }
     }
 }

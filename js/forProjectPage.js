@@ -4,7 +4,6 @@ informations display on the project page
 */
 
 async function chargement(texte, nbr, multi) {
-    console.log(nbr * multi)
     loadStart(texte)
     await delay(nbr * multi)
     loadEnd()
@@ -34,11 +33,22 @@ function check_tool(){
 document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();
     if (tl == "VISU"){
+        if (sessionStorage.getItem('numberJson') == 0) 
+        {
+            displayerror();
+            return;
+        }
         document.getElementById("visu_titre").textContent = sessionStorage.getItem('name_project');
         document.querySelector('.visu').style.display ='flex';
         document.querySelector('#menu_general').style.display = 'none';
         document.querySelector('#menu_visu').style.display = 'block';
         document.querySelector('#display_window').style.display = 'block';
+    }
+    else{
+        {
+            displayerror();
+            return;
+        }
     }
 })
 
