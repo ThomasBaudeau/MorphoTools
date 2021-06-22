@@ -17,3 +17,25 @@ function choose_grp(cy) {
 
 //evt.target.renderedPosition("x")
 //console.log(elmt.id())
+
+class Node{
+    constructor(id,pos){
+        this.id=li_nodes;
+        this.pos=pos;
+        this.link=[];
+    }
+    static AddEdge(id,prob){
+        this.link.push({'id':id,'prob':prob});
+    }
+}
+
+class Assembly{
+    constructor(nodes){
+        this.nodes=nodes;
+    }
+    static makeJson(){
+        for (node in this.nodes){
+            //construire un JSON
+        }
+    }
+}
