@@ -33,11 +33,11 @@ function check_tool(){
 document.getElementById('btn_run').addEventListener('click',function(){
     let tl = check_tool();
     if (tl == "VISU"){
-        if (sessionStorage.getItem('numberJson') == 0) 
+        /*if (sessionStorage.getItem('numberJson') == 0) 
         {
             displayerror();
             return;
-        }
+        }*/
         document.getElementById("visu_titre").textContent = sessionStorage.getItem('name_project');
         document.querySelector('.visu').style.display ='flex';
         document.querySelector('#menu_general').style.display = 'none';
