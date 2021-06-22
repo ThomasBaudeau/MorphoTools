@@ -5,14 +5,13 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 var li_nodes=[];
 
 function choose_grp(cy) {
-
-
     cy.nodes().on('click', function(evt) {
-            li_nodes.push(evt.target);
-            console.log("position" + evt.target.renderedPosition("x"));
-            console.log("id : " + evt.target.id());$
-            evt.target.connectedEdges().forEach( elmt => console.log(elmt.data().proba));
-            console.log(evt.target);
+            var node=new Node(evt.target.id(),[evt.target.renderedPosition("x"),evt.target.renderedPosition("y")]);
+            evt.target.connectedEdges().forEach( elmt => function(){
+                if (elmt.data().source==evt.target.id()){
+                    node.AddEdge(elmt.data.target(),elmt.data().proba)};
+                } );
+            li_nodes.push(node);
             console.log(li_nodes);
     });
 }
@@ -32,8 +31,9 @@ class Node{
 }
 
 class Assembly{
-    constructor(nodes){
+    constructor(name,nodes){
         this.nodes=nodes;
+        this.name=name
     }
     static makeJson(){
         for (node in this.nodes){
