@@ -2,6 +2,7 @@
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
 
 */
+var group=[]
 var li_nodes=[];
 
 function choose_grp(cy) {
