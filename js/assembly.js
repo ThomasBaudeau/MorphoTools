@@ -6,6 +6,7 @@ var group=[]
 var li_nodes=[];
 
 function choose_grp(cy) {
+    document.querySelector('#check').style.display = 'block';
     cy.nodes().on('click', function(evt) {
             var node=new Node(evt.target.id(),[evt.target.renderedPosition("x"),evt.target.renderedPosition("y")]);
             evt.target.connectedEdges().forEach( elmt => function(){
@@ -46,7 +47,13 @@ class Assembly{
 ///////////////////////////////////////
 
 function check_grp(cy) {
-    document.querySelector('#check').style.display = 'block';
+    var id_grp= prompt("Name the group");
+    if (id_grp){
+        var grp = new Assembly(id_grp, li_nodes);
+        li_nodes=[];
+        group.push(grp);
+        document.querySelector('#check').style.display = 'none';
+    }
 }
 
 //evt.target.renderedPosition("x")
