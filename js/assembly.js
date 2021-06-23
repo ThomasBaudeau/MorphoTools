@@ -2,7 +2,7 @@
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
 
 */
-
+var groups=new Map();
 var li_nodes=[];
 
 function choose_grp(cy) {
@@ -14,7 +14,6 @@ function choose_grp(cy) {
                     node.AddEdge(elmt.data.target(),elmt.data().proba)};
                 } );
             li_nodes.push(node);
-            console.log(li_nodes);
     });
 }
 
@@ -151,13 +150,8 @@ function () {
 
 function chooseGroup() {
     var count=0;
-    // if(groups.length>1){
-    //     document.querySelector('.choose-group').style.display = 'flex';
-    //     return
-    // }
-    // loadStart('loading groups');
-    for (let i=0; i<groups.length; i++) {
-        var grp_name= groups[i].name;
+    for (const key of groups.keys()) {
+        let grp_name= key;
         let table = document.getElementById('choose_group');
         let line = document.createElement('tr');
         let column = document.createElement('td');
@@ -172,7 +166,7 @@ function chooseGroup() {
         line.appendChild(column);
         table.appendChild(line);
         count++;
-        if (count == groups.length) {
+        if (count == groups.size) {
             loadEnd();
             document.querySelector('.choose-group').style.display = 'flex';
         }
