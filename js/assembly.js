@@ -54,6 +54,7 @@ function check_grp(cy) {
         groups.push(grp);
         document.querySelector('#check').style.display = 'none';
     }
+    cy.nodes().off('click');
 }
 
 
@@ -76,7 +77,7 @@ function chooseGroup() {
     // loadStart('loading groups');
     for (let i=0; i<groups.length; i++) {
         var grp_name= groups[i].id;
-        let table = document.getElementById('choose_image');
+        let table = document.getElementById('choose_group');
         let line = document.createElement('tr');
         let column = document.createElement('td');
         let checkbox = document.createElement('input');
