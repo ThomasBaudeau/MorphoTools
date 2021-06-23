@@ -26,19 +26,19 @@ class Node{
         this.pos=pos;
         this.link=[];
     }
-    static AddEdge(id,prob){
+    AddEdge(id,prob){
         this.link.push({'id':id,'prob':prob});
     }
-    static Getid(){
+    Getid(){
         return this.id;
     }
-    static Getposx(){
+    Getposx(){
         return this.pos[0];
     }
-    static Getposy(){
+    Getposy(){
         return this.pos[1];
     }
-    static Getedges(){
+    Getedges(){
         return this.link;
     }
 }
@@ -48,7 +48,7 @@ class Assembly{
         this.nodes=nodes;
         this.name=name
     }
-    static makeJson(){
+    makeJson(){
         let json = 
     {"elements": {
       "nodes" : [],
@@ -70,23 +70,23 @@ class Assembly{
     "boxSelectionEnabled":false,
     "renderer":{"name":"canvas"}
     };
-    for (node in this.nodes){
-        let existent_node=[];
-        existent_node.push(node.Getid());
+    for (let i;i<this.nodes.length;i++){
+        var existent_node=[];
+        existent_node.push(this.nodes[i].Getid());
         let data = {
             "data":{
-                "id": node.Getid(),
-                "label": node-1
+                "id": this.nodes[i].Getid(),
+                "label": ''
             },
-            "position":{"x":node.Getposx(),"y":node.Getposy()},
+            "position":{"x":this.nodes[i].Getposx(),"y":this.nodes[i].Getposy()},
             "group":"nodes",
             "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
             };
             json.elements.nodes.push(data);
         }
     let cpt=0
-    for (node in this.nodes){
-        let link=node.Getedges();
+    for (let i;i<this.nodes.length;i++){
+        let link=this.nodes[i].Getedges();
         for(let i=0;i<link.length;i++){
             if (existent_node.includes(link[i].id)){
                 let id = 'E' + cpt;
@@ -110,11 +110,11 @@ class Assembly{
         }
         return JSON.stringify(json)
     }
-    static getNodes(){
+    getNodes(){
         return this.nodes;
     }
-    static addNodes(linodes){
-        for (node in linodes){
+    addNodes(linodes){
+        for (let node in linodes){
             this.nodes.push(node);
         }
     }
@@ -209,15 +209,11 @@ function select_grp() {
                     if(select[i].id!='box-1' && select[i].checked){
                         console.log('ok');
                         let lastgroup=groups.get(select[i].id);
-                        console.log(lastgroup.getNodes());
-                        console.log(lastgroup);
                         arrayselect.push(lastgroup);
-                        console.log(arrayselect);
                     }
                     
                 }
             }
-            console.log(2,arrayselect);
             assembly=new Assembly('multigroup',arrayselect[0].getNodes())
             if (arrayselect.length>1){
                 for (let i=1;i<arrayselect.length;i++){
