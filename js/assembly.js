@@ -36,7 +36,6 @@ class Assembly{
     constructor(name,nodes){
         this.nodes=nodes;
         this.name=name
-        cy.removeListener('click')
     }
     static makeJson(){
         for (node in this.nodes){
@@ -54,6 +53,7 @@ function check_grp(cy) {
         li_nodes=[];
         group.push(grp);
         document.querySelector('#check').style.display = 'none';
+        cy.nodes().off('click')
     }
 }
 
