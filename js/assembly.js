@@ -178,6 +178,36 @@ document.getElementById('choose-grp-close').addEventListener('click',
 
 document.getElementById('send_grp').addEventListener('click',
     function () {
-        //delimage(cy);
+        select_grp();
         document.querySelector('.choose-group').style.display = 'none';
     });
+
+
+function select_grp() {
+    var check_bool = sessionStorage.getItem('loading_check')
+    dies_verification(check_bool);
+    if (check_bool === 'true') {
+        if (document.getElementById("error_message") !== null) {
+            var error = document.getElementById("error_message");
+            error.parentNode.removeChild(error);
+        }
+        //vérif de chargement de cy
+        if (cy === undefined) {
+            let window = document.getElementById('choose-grp');
+            let error = document.createElement('p');
+            error.setAttribute('id', "error_message");
+            error.innerHTML = "Error, matrix must be imported";
+            window.appendChild(error);
+        }
+        else{
+            let select = document.getElementsByName('select[]');
+            var arrayselect = [];
+            for (let i = 0; i < select.length; i++) {
+                if (select[i].checked) {
+                    if (select[i]){
+                    }
+                }
+            }
+        }
+    }
+}
