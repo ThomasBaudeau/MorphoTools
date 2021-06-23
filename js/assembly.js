@@ -2,7 +2,7 @@
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
 
 */
-var groups=[]
+
 var li_nodes=[];
 
 function choose_grp(cy) {
@@ -111,6 +111,14 @@ class Assembly{
         }
         return JSON.stringify(json)
     }
+    static getNodes(){
+        return this.nodes;
+    }
+    static addNodes(linodes){
+        for (node in linodes){
+            this.nodes.push(node);
+        }
+    }
 }
 
 
@@ -123,7 +131,7 @@ function check_grp(cy) {
     if (id_grp){
         var grp = new Assembly(id_grp, li_nodes);
         li_nodes=[];
-        groups.push(grp);
+        groups.set(id_grp,grp);
         document.querySelector('#check').style.display = 'none';
         cy.nodes().off('click')
     }
@@ -201,13 +209,21 @@ function select_grp() {
         }
         else{
             let select = document.getElementsByName('select[]');
-            var arrayselect = [];
+            let arrayselect=[ ]
             for (let i = 0; i < select.length; i++) {
-                if (select[i].checked) {
-                    if (select[i]){
-                    }
+                    lastgroup=group(select[i])
+                    arrayselect.push(ok)
+                }
+            }
+            assembly=new Assembly('multigroup',arrayselect[0].getNodes())
+            if (arrayselect.length>1){
+                for (let i=1;i<arrayselect.length;i++){
+                    assembly.addNodes(arrayselect[i].getNodes())
+                    
                 }
             }
         }
+        cy.destroy()
+        data=assembly.makeJson();
+        cy.json(JSON.parse(data));
     }
-}
