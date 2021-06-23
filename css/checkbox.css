@@ -117,3 +117,34 @@ input[type="checkbox"]:checked + label:before {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+
+
+/* CHOOSE GRP */
+
+#choose-group{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.choose-group {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  z-index: 50;
+}
+
+.group-choose {
+  width: 600px;
+  height: auto;
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  position: relative;
+}
