@@ -158,6 +158,7 @@ function chooseGroup() {
         let checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
         checkbox.setAttribute('id', grp_name);
+        checkbox.setAttribute('name','select_grp[]')
         let label = document.createElement('label');
         label.setAttribute('for', grp_name);
         label.textContent = grp_name;
@@ -202,13 +203,21 @@ function select_grp() {
             window.appendChild(error);
         }
         else{
-            let select = document.getElementsByName('select[]');
-            let arrayselect=[ ]
+            let select = document.getElementsByName('select_grp[]');
+            var arrayselect=[];
             for (let i = 0; i < select.length; i++) {
-                    lastgroup=group(select[i])
-                    arrayselect.push(ok)
+                    if(select[i].id!='box-1' && select[i].checked){
+                        console.log('ok');
+                        let lastgroup=groups.get(select[i].id);
+                        console.log(lastgroup.getNodes());
+                        console.log(lastgroup);
+                        arrayselect.push(lastgroup);
+                        console.log(arrayselect);
+                    }
+                    
                 }
             }
+            console.log(2,arrayselect);
             assembly=new Assembly('multigroup',arrayselect[0].getNodes())
             if (arrayselect.length>1){
                 for (let i=1;i<arrayselect.length;i++){
