@@ -76,7 +76,7 @@ function chooseGroup() {
     // }
     // loadStart('loading groups');
     for (let i=0; i<groups.length; i++) {
-        var grp_name= groups[i].id;
+        var grp_name= groups[i].name;
         let table = document.getElementById('choose_group');
         let line = document.createElement('tr');
         let column = document.createElement('td');
@@ -97,3 +97,14 @@ function chooseGroup() {
         }
     }
 }
+
+document.getElementById('choose-grp-close').addEventListener('click',
+    function () {
+        document.querySelector('.choose-group').style.display = 'none';
+    });
+
+document.getElementById('send_grp').addEventListener('click',
+    function () {
+        //delimage(cy);
+        document.querySelector('.choose-group').style.display = 'none';
+    });

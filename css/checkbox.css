@@ -141,10 +141,10 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .group-choose {
-  width: 600px;
+  width: 300px;
   height: auto;
   background-color: white;
   border-radius: 4px;
-  padding: 20px;
+  padding: 5px;
   position: relative;
 }
