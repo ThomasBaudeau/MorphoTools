@@ -82,6 +82,27 @@
                 </div>
         </div>
     </div>
+
+    <!-- Fenetre choix groupe -->
+    <div class="choose-group">
+        <div class="group-choose" id="choose-grp">
+            <div class="close" id="choose-close">+</div>
+            <h2>Choose group</h2>
+                <div class = "boxes">
+                    <table id='choose_group'>
+                        <tr>
+                            <td>
+                                <input type="checkbox" id="box-1"  name="select[]" value="all_check" onclick="selectAll(this)"> 
+                                <label for = "box-1">All</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id = send_div>
+                    <button id="send_img">Send</button>
+                </div>
+        </div>
+    </div>
     
     <!-- Left-container -->
     <div class=sidebar id=sidebar>
@@ -164,6 +185,7 @@
                     <button class="btn3" id="btn-vg" onclick="Showhide_edges(cy)">Show/Hide edges</button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
                     <button class="btn3" id="btn-vg" onclick="choose_grp(cy)">Assembly</button>
+                    <button class="btn3" id="grp">Choose group</button>
                     <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Recovery</button>
                     
                     <!-- Sous menu load-->

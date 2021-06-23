@@ -137,7 +137,7 @@ function chooseImage() {
         document.querySelector('.choose-modal').style.display = 'flex';
         return
     }
-    loadStart('loading images')
+    loadStart('loading images');
     if (document.getElementById('ii').files.length!=0){
         var fileInput = document.getElementById('ii');
         for(let i=0;i<fileInput.files.length;i++){
@@ -172,7 +172,7 @@ function chooseImage() {
                     line.appendChild(column);
                     line.appendChild(column2)
                     table.appendChild(line);
-                    count++
+                    count++;
                     if (count == sessionStorage.getItem('numberImage')) {
                         loadEnd();
                         document.querySelector('.choose-modal').style.display = 'flex';
