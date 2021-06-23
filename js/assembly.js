@@ -35,6 +35,7 @@ class Assembly{
     constructor(name,nodes){
         this.nodes=nodes;
         this.name=name
+        cy.removeListener('click')
     }
     static makeJson(){
         for (node in this.nodes){
