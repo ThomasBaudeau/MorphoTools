@@ -33,6 +33,15 @@ class Node{
     static Getid(){
         return this.id;
     }
+    static Getposx(){
+        return this.pos[0];
+    }
+    static Getposy(){
+        return this.pos[1];
+    }
+    static Getedges(){
+        return this.link;
+    }
 }
 
 class Assembly{
@@ -61,21 +70,50 @@ class Assembly{
     "pan":{"x":-2357.7169811320755,"y":255},
     "boxSelectionEnabled":false,
     "renderer":{"name":"canvas"}
-  };
-        for (node in this.nodes){
-            let data = {
-                "data":{
-                  "id": node.Getid(),
-                  "label": node-1
-                },
-                "position":{"x":val_x,"y":val_y},
-                "group":"nodes",
-                "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
-              };
-              json.elements.nodes.push(data);
-            }
+    };
+    for (node in this.nodes){
+        let existent_node=[];
+        existent_node.push(node.Getid());
+        let data = {
+            "data":{
+                "id": node.Getid(),
+                "label": node-1
+            },
+            "position":{"x":node.Getposx(),"y":node.Getposy()},
+            "group":"nodes",
+            "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+            };
+            json.elements.nodes.push(data);
         }
+    let cpt=0
+    for (node in this.nodes){
+        let link=node.Getedges();
+        for(let i=0;i<link.length;i++){
+            if (existent_node.includes(link[i].id)){
+                let id = 'E' + cpt;
+                cpt++;
+                let data = {
+                    "data":{
+                      "id": id,
+                      "label":"",
+                      "proba":link[i].prob,
+                      "source":node.Getid(),
+                      "target":link[i].id
+                    },
+                    "position":{"x":0,"y":0},
+                    "group":"edges",
+                    "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
+                  };
+                  json.elements.edges.push(data);
+                }
+            }   
+
+        }
+        return JSON.stringify(json)
+    }
 }
+
+
 
 
 ///////////////////////////////////////
