@@ -235,4 +235,6 @@ function select_grp() {
         var data=assembly.makeJson();
         console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
+        layout.run();
+        cy.center();
     }
