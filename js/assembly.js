@@ -28,8 +28,6 @@ class Node{
     }
     AddEdge(id,prob){
         this.link.push({'id':id,'prob':prob});
-        console.log(id);
-        console.log(prob)
     }
     Getid(){
         return this.id;
@@ -72,14 +70,24 @@ class Assembly{
         "boxSelectionEnabled":false,
         "renderer":{"name":"canvas"}
         };
+        let data = {
+            "data":{
+                "id": this.name,
+                "label": this.name,
+            },
+            "position":{"x":0,"y":0},
+            "group":"nodes",
+            "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+            };
+            json.elements.nodes.push(data);
         var existent_node=[];
         for (let i=0;i<this.nodes.length;i++){
             existent_node.push(this.nodes[i].Getid());
-            console.log(existent_node)
             let data = {
                 "data":{
                     "id": this.nodes[i].Getid(),
-                    "label": ''
+                    "label": '',
+                    "parent":this.name
                 },
                 "position":{"x":this.nodes[i].Getposx(),"y":this.nodes[i].Getposy()},
                 "group":"nodes",
@@ -90,9 +98,7 @@ class Assembly{
         var cpt=0;
         for (let y=0;y<this.nodes.length;y++){
             var link=this.nodes[y].Getedges();
-            console.log(link);
             for(let j=0;j<link.length;j++){
-                console.log(link);
                 if (existent_node.includes(link[j].id)){
                     let id = 'E' + cpt;
                     cpt++;
@@ -212,7 +218,6 @@ function select_grp() {
             var arrayselect=[];
             for (let i = 0; i < select.length; i++) {
                     if(select[i].id!='box-1' && select[i].checked){
-                        console.log('ok');
                         let lastgroup=groups.get(select[i].id);
                         arrayselect.push(lastgroup);
                     }
@@ -222,13 +227,12 @@ function select_grp() {
             assembly=new Assembly('multigroup',arrayselect[0].getNodes())
             if (arrayselect.length>1){
                 for (let i=1;i<arrayselect.length;i++){
-                    assembly.addNodes(arrayselect[i].getNodes())
+                    assembly.addNodes(arrayselect[i].getNodes());
                     
                 }
             }
         }
-        cy.destroy()
-        data=assembly.makeJson();
-        console.log(data)
+        var data=assembly.makeJson();
+        console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
     }
