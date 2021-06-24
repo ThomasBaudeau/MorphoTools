@@ -180,14 +180,15 @@ class Assembly{
                 "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
                 };
                 json.elements.nodes.push(data);
-                let nodes=assemblies[i].getNodes()
+                let nodes=assemblies[i].getNodes();
+                var name= assemblies[i].getname();
                 for (let i=0;i<nodes.length;i++){
                     existent_node.push(nodes[i].Getid());
                     let data = {
                         "data":{
                             "id": nodes[i].Getid(),
                             "label": '',
-                            "parent":assemblies[i].getname()
+                            "parent":name
                         },
                         "position":{"x":nodes[i].Getposx(),"y":nodes[i].Getposy()},
                         "group":"nodes",
@@ -352,7 +353,8 @@ function select_grp() {
             }
             assembly=arrayselect[0];
             if (arrayselect.length>1){
-                    var data= assembly.makemultiJson(arrayselect.shift());
+                arrayselect.shift();
+                var data= assembly.makemultiJson(arrayselect);
                     
                 }
             else{
@@ -361,6 +363,7 @@ function select_grp() {
             
         console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
+        layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
         cy.center();
         }

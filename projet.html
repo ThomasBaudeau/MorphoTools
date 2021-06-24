@@ -184,8 +184,25 @@
                     <button class="btn3" id="choose">Choose image</button>
                     <button class="btn3" id="btn-vg" onclick="Showhide_edges(cy)">Show/Hide edges</button>
                     <button class="btn3" id="btn-vg" onclick="viewProbs(cy)">Show/Hide labels</button>
-                    <button class="btn3" id="btn-vg" onclick="choose_grp(cy)">Create group</button>
-                    <button class="btn3" id="grp">Choose group</button>
+
+
+
+                    <!-- Sous menu Group-->
+                    <div class="btn3">
+                        <div class="select-box__current" tabindex="0">
+                            <div class="select-box__value"><input class="select-box__input" id="assembly" type="radio" value=" " name="assembly" checked="checked" />
+                                <p class="select-box__input-text">Assembly</p>
+                            </div>
+                        </div>
+                        <ul class="select-box__list">
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" onclick="choose_grp(cy)">Create group</label></li>
+                                <li id = "tool_list" ><label class="select-box__option" aria-hidden="aria-hidden" id="grp">Choose group</label></li>
+                        </ul>
+                    </div>
+
+
+
+
                     <button class="btn3" id="btn-vg" onclick="nodePositions(cy)">Recovery</button>
                     
                     <!-- Sous menu load-->
