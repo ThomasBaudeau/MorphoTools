@@ -294,16 +294,19 @@ function chooseGroup() {
         let line = document.createElement('tr');
         let column = document.createElement('td');
         let checkbox = document.createElement('input');
-        checkbox.setAttribute('type', 'checkbox');
-        checkbox.setAttribute('id', grp_name);
-        checkbox.setAttribute('name','select_grp[]')
-        let label = document.createElement('label');
-        label.setAttribute('for', grp_name);
-        label.textContent = grp_name;
-        column.appendChild(checkbox);
-        column.appendChild(label)
-        line.appendChild(column);
-        table.appendChild(line);
+        let check=document.getElementById(grp_name)
+        if (check==null){
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('id', grp_name);
+            checkbox.setAttribute('name','select_grp[]')
+            let label = document.createElement('label');
+            label.setAttribute('for', grp_name);
+            label.textContent = grp_name;
+            column.appendChild(checkbox);
+            column.appendChild(label)
+            line.appendChild(column);
+            table.appendChild(line);
+        }
         count++;
         if (count == groups.size) {
             loadEnd();
