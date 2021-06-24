@@ -121,6 +121,129 @@ class Assembly{
             }
             return JSON.stringify(json)
         }
+    makemultiJson(assemblies){
+        var existent_node=[];
+        var cpt=0;
+        var json = 
+        {"elements": {
+        "nodes" : [],
+        "edges" : []
+        },
+        "style": [
+        {"selector":"node","style":{"height":"10px","width":"10px","shape":"rectangle","background-fit":"cover","border-color":"rgb(0,0,0)","border-width":"0px","border-opacity":"0.5"}},
+        {"selector":"edge","style":{"width":"0.1px","target-arrow-shape":"triangle","arrow-scale":"0.1","line-color":"rgb(0,0,0)","target-arrow-color":"rgb(0,0,0)"}}
+        ],
+        "data":{},
+        "zoomingEnabled":true,
+        "userZoomingEnabled":true,
+        "zoom":6.009433962264151,
+        "minZoom":1e-50,
+        "maxZoom":1e+50,
+        "panningEnabled":true,
+        "userPanningEnabled":true,
+        "pan":{"x":-2357.7169811320755,"y":255},
+        "boxSelectionEnabled":false,
+        "renderer":{"name":"canvas"}
+        };  
+        let data = {
+            "data":{
+                "id": this.name,
+                "label": this.name,
+            },
+            "position":{"x":0,"y":0},
+            "group":"nodes",
+            "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+            };
+            json.elements.nodes.push(data);
+        for (let i=0;i<this.nodes.length;i++){
+            existent_node.push(this.nodes[i].Getid());
+            let data = {
+                "data":{
+                    "id": this.nodes[i].Getid(),
+                    "label": '',
+                    "parent":this.name
+                },
+                "position":{"x":this.nodes[i].Getposx(),"y":this.nodes[i].Getposy()},
+                "group":"nodes",
+                "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+                };
+                json.elements.nodes.push(data);
+            }
+        for (let i=0;i<assemblies.length;i++){
+            let data = {
+                "data":{
+                    "id": assemblies[i].getname(),
+                    "label": assemblies[i].getname(),
+                },
+                "position":{"x":0,"y":0},
+                "group":"nodes",
+                "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+                };
+                json.elements.nodes.push(data);
+                let nodes=assemblies[i].getNodes()
+                for (let i=0;i<nodes.length;i++){
+                    existent_node.push(nodes[i].Getid());
+                    let data = {
+                        "data":{
+                            "id": nodes[i].Getid(),
+                            "label": '',
+                            "parent":assemblies[i].getname()
+                        },
+                        "position":{"x":nodes[i].Getposx(),"y":nodes[i].Getposy()},
+                        "group":"nodes",
+                        "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+                        };
+                        json.elements.nodes.push(data);
+                    }
+                for (let y=0;y<nodes.length;y++){
+                    var link=nodes[y].Getedges();
+                    for(let j=0;j<link.length;j++){
+                        if (existent_node.includes(link[j].id)){
+                            let id = 'E' + cpt;
+                            cpt++;
+                            let data = {
+                                "data":{
+                                "id": id,
+                                "label":"",
+                                "proba":link[j].prob,
+                                "source":nodes[y].Getid(),
+                                "target":link[j].id
+                                },
+                                "position":{"x":0,"y":0},
+                                "group":"edges",
+                                "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
+                            };
+                            json.elements.edges.push(data);
+                        }
+                    }
+                }
+            }
+            for (let y=0;y<this.nodes.length;y++){
+                var link=this.nodes[y].Getedges();
+                for(let j=0;j<link.length;j++){
+                    if (existent_node.includes(link[j].id)){
+                        let id = 'E' + cpt;
+                        cpt++;
+                        let data = {
+                            "data":{
+                            "id": id,
+                            "label":"",
+                            "proba":link[j].prob,
+                            "source":this.nodes[y].Getid(),
+                            "target":link[j].id
+                            },
+                            "position":{"x":0,"y":0},
+                            "group":"edges",
+                            "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
+                        };
+                        json.elements.edges.push(data);
+                        }
+                    }   
+    
+                }
+                return JSON.stringify(json)
+
+    }
     getNodes(){
         return this.nodes;
     }
@@ -128,6 +251,9 @@ class Assembly{
         for (let node in linodes){
             this.nodes.push(node);
         }
+    }
+    getname(){
+        return this.name;
     }
 }
 
@@ -224,15 +350,18 @@ function select_grp() {
                     
                 }
             }
-            assembly=new Assembly('multigroup',arrayselect[0].getNodes())
+            assembly=arrayselect[0];
             if (arrayselect.length>1){
-                for (let i=1;i<arrayselect.length;i++){
-                    assembly.addNodes(arrayselect[i].getNodes());
+                    var data= assembly.makemultiJson(arrayselect.shift());
                     
                 }
+            else{
+                var data=assembly.makeJson();
             }
-        }
-        var data=assembly.makeJson();
+            
         console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
+        layout.run();
+        cy.center();
+        }
     }
