@@ -9,10 +9,10 @@ function choose_grp(cy) {
     document.querySelector('#check').style.display = 'block';
     cy.nodes().on('click', function(evt) {
             var node=new Node(evt.target.id(),[evt.target.renderedPosition("x"),evt.target.renderedPosition("y")]);
-            evt.target.connectedEdges().forEach( elmt => function(){
+            evt.target.connectedEdges().forEach(function(elmt){
                 if (elmt.data().source==evt.target.id()){
-                    node.AddEdge(elmt.data.target(),elmt.data().proba)};
-                } );
+                    node.AddEdge(elmt.data().target,elmt.data().proba)};
+                });
             li_nodes.push(node);
     });
 }
@@ -28,6 +28,8 @@ class Node{
     }
     AddEdge(id,prob){
         this.link.push({'id':id,'prob':prob});
+        console.log(id);
+        console.log(prob)
     }
     Getid(){
         return this.id;
@@ -49,67 +51,70 @@ class Assembly{
         this.name=name
     }
     makeJson(){
-        let json = 
-    {"elements": {
-      "nodes" : [],
-      "edges" : []
-    },
-    "style": [
-      {"selector":"node","style":{"height":"10px","width":"10px","shape":"rectangle","background-fit":"cover","border-color":"rgb(0,0,0)","border-width":"0px","border-opacity":"0.5"}},
-      {"selector":"edge","style":{"width":"0.1px","target-arrow-shape":"triangle","arrow-scale":"0.1","line-color":"rgb(0,0,0)","target-arrow-color":"rgb(0,0,0)"}}
-    ],
-    "data":{},
-    "zoomingEnabled":true,
-    "userZoomingEnabled":true,
-    "zoom":6.009433962264151,
-    "minZoom":1e-50,
-    "maxZoom":1e+50,
-    "panningEnabled":true,
-    "userPanningEnabled":true,
-    "pan":{"x":-2357.7169811320755,"y":255},
-    "boxSelectionEnabled":false,
-    "renderer":{"name":"canvas"}
-    };
-    for (let i;i<this.nodes.length;i++){
+            var json = 
+        {"elements": {
+        "nodes" : [],
+        "edges" : []
+        },
+        "style": [
+        {"selector":"node","style":{"height":"10px","width":"10px","shape":"rectangle","background-fit":"cover","border-color":"rgb(0,0,0)","border-width":"0px","border-opacity":"0.5"}},
+        {"selector":"edge","style":{"width":"0.1px","target-arrow-shape":"triangle","arrow-scale":"0.1","line-color":"rgb(0,0,0)","target-arrow-color":"rgb(0,0,0)"}}
+        ],
+        "data":{},
+        "zoomingEnabled":true,
+        "userZoomingEnabled":true,
+        "zoom":6.009433962264151,
+        "minZoom":1e-50,
+        "maxZoom":1e+50,
+        "panningEnabled":true,
+        "userPanningEnabled":true,
+        "pan":{"x":-2357.7169811320755,"y":255},
+        "boxSelectionEnabled":false,
+        "renderer":{"name":"canvas"}
+        };
         var existent_node=[];
-        existent_node.push(this.nodes[i].Getid());
-        let data = {
-            "data":{
-                "id": this.nodes[i].Getid(),
-                "label": ''
-            },
-            "position":{"x":this.nodes[i].Getposx(),"y":this.nodes[i].Getposy()},
-            "group":"nodes",
-            "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
-            };
-            json.elements.nodes.push(data);
-        }
-    let cpt=0
-    for (let i;i<this.nodes.length;i++){
-        let link=this.nodes[i].Getedges();
-        for(let i=0;i<link.length;i++){
-            if (existent_node.includes(link[i].id)){
-                let id = 'E' + cpt;
-                cpt++;
-                let data = {
-                    "data":{
-                      "id": id,
-                      "label":"",
-                      "proba":link[i].prob,
-                      "source":node.Getid(),
-                      "target":link[i].id
-                    },
-                    "position":{"x":0,"y":0},
-                    "group":"edges",
-                    "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
-                  };
-                  json.elements.edges.push(data);
-                }
-            }   
+        for (let i=0;i<this.nodes.length;i++){
+            existent_node.push(this.nodes[i].Getid());
+            console.log(existent_node)
+            let data = {
+                "data":{
+                    "id": this.nodes[i].Getid(),
+                    "label": ''
+                },
+                "position":{"x":this.nodes[i].Getposx(),"y":this.nodes[i].Getposy()},
+                "group":"nodes",
+                "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":false,"classes":""
+                };
+                json.elements.nodes.push(data);
+            }
+        var cpt=0;
+        for (let y=0;y<this.nodes.length;y++){
+            var link=this.nodes[y].Getedges();
+            console.log(link);
+            for(let j=0;j<link.length;j++){
+                console.log(link);
+                if (existent_node.includes(link[j].id)){
+                    let id = 'E' + cpt;
+                    cpt++;
+                    let data = {
+                        "data":{
+                        "id": id,
+                        "label":"",
+                        "proba":link[j].prob,
+                        "source":this.nodes[y].Getid(),
+                        "target":link[j].id
+                        },
+                        "position":{"x":0,"y":0},
+                        "group":"edges",
+                        "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
+                    };
+                    json.elements.edges.push(data);
+                    }
+                }   
 
+            }
+            return JSON.stringify(json)
         }
-        return JSON.stringify(json)
-    }
     getNodes(){
         return this.nodes;
     }
@@ -224,5 +229,6 @@ function select_grp() {
         }
         cy.destroy()
         data=assembly.makeJson();
+        console.log(data)
         cy.json(JSON.parse(data));
     }
