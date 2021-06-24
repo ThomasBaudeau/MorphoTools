@@ -14,8 +14,6 @@ function choose_grp(cy) {
                     node.AddEdge(elmt.data().target,elmt.data().proba)};
                 });
             li_nodes.push(node);
-            evt.target.style('borderWidth',1.5);
-            evt.target.style('borderColor','red');
     });
 }
 
@@ -30,6 +28,13 @@ class Node{
     }
     AddEdge(id,prob){
         this.link.push({'id':id,'prob':prob});
+    }
+    SetLabel(e,id){
+        for(let l =0;l<this.link.length;l++){
+            if (l.id==id){
+                this.link[l]={'id':this.link[l].id,'prob':this.link[l].prob,'label':e}
+            }
+        }       
     }
     Getid(){
         return this.id;
@@ -107,7 +112,7 @@ class Assembly{
                     let data = {
                         "data":{
                         "id": id,
-                        "label":"",
+                        "label":link[j].label,
                         "proba":link[j].prob,
                         "source":this.nodes[y].Getid(),
                         "target":link[j].id
@@ -207,7 +212,7 @@ class Assembly{
                             let data = {
                                 "data":{
                                 "id": id,
-                                "label":"",
+                                "label":link[j].label,
                                 "proba":link[j].prob,
                                 "source":nodes[y].Getid(),
                                 "target":link[j].id
@@ -230,7 +235,7 @@ class Assembly{
                         let data = {
                             "data":{
                             "id": id,
-                            "label":"",
+                            "label":link[j].label,
                             "proba":link[j].prob,
                             "source":this.nodes[y].Getid(),
                             "target":link[j].id
@@ -258,7 +263,40 @@ class Assembly{
     getname(){
         return this.name;
     }
+    setlabelPosition(){
+        var array=this.nodes
+        for(let i=0; i<this.nodes.length;i++){
+            var slct_node= array.shift();
+            slct_node.Getedges().forEach(function(edge){
+                array.forEach(function(node){
+                    if (node.Getid()==edge.id){
+                        let tx=node.Getposx;
+                        let ty=node.Getposy;
+                        let sy=slct_node.Getposy;
+                        let sx=slct_node.Getposx;
+                        if(Math.abs(sx-tx)<Math.abs(sy-ty)){
+                            if(sy<ty){
+                                slct_node.SetLabel('H',edge.id);
+                            }
+                            else{
+                                slct_node.SetLabel('B',edge.id);
+                            }
+                        }
+                        else{
+                            if(sx<tx){
+                                slct_node.SetLabel('D',edge.id);
+                            }
+                            else{
+                                slct_node.SetLabel('G',edge.id);
+                            }
+                        }
+                    }
+                })
+            })
+        }
+    }
 }
+
 
 
 
@@ -275,7 +313,6 @@ function check_grp(cy) {
         cy.nodes().off('click')
     }
     cy.nodes().off('click');
-    cy.nodes().style('borderWidth',0);
 }
 
 
@@ -352,6 +389,7 @@ function select_grp() {
             for (let i = 0; i < select.length; i++) {
                     if(select[i].id!='box-1' && select[i].checked){
                         let lastgroup=groups.get(select[i].id);
+                        lastgroup.setlabelPosition();
                         arrayselect.push(lastgroup);
                     }
                     
