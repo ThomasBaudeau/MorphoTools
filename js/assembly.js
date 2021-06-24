@@ -267,32 +267,33 @@ class Assembly{
         var array=this.nodes
         for(let i=0; i<this.nodes.length;i++){
             var slct_node= array.shift();
-            slct_node.Getedges().forEach(function(edge){
-                array.forEach(function(node){
-                    if (node.Getid()==edge.id){
-                        let tx=node.Getposx;
-                        let ty=node.Getposy;
-                        let sy=slct_node.Getposy;
-                        let sx=slct_node.Getposx;
+            var edges=slct_node.Getedges()
+            for(let v=0;v<edges.length;v++){
+                for(let d=0;d<this.nodes[d];d++){
+                    if (this.nodes[d].Getid()==edges[v].id){
+                        let tx=nodes[d].Getid().Getposx();
+                        let ty=nodes[d].Getid().Getposy();
+                        let sy=slct_node.Getposy();
+                        let sx=slct_node.Getposx();
                         if(Math.abs(sx-tx)<Math.abs(sy-ty)){
                             if(sy<ty){
-                                slct_node.SetLabel('H',edge.id);
+                                slct_node.SetLabel('H',edges[v].id);
                             }
                             else{
-                                slct_node.SetLabel('B',edge.id);
+                                slct_node.SetLabel('B',edges[v].id);
                             }
                         }
                         else{
                             if(sx<tx){
-                                slct_node.SetLabel('D',edge.id);
+                                slct_node.SetLabel('D',edges[v].id);
                             }
                             else{
-                                slct_node.SetLabel('G',edge.id);
+                                slct_node.SetLabel('G',edges[v].id);
                             }
                         }
                     }
-                })
-            })
+                }
+            }
         }
     }
 }
