@@ -31,7 +31,7 @@ class Node{
     }
     SetLabel(e,id){
         for(let l =0;l<this.link.length;l++){
-            if (l.id==id){
+            if (this.link[l].id==id){
                 this.link[l]={'id':this.link[l].id,'prob':this.link[l].prob,'label':e}
             }
         }       
@@ -122,6 +122,8 @@ class Assembly{
                         "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
                     };
                     json.elements.edges.push(data);
+                    console.log('ok :',link[j].label)
+                    console.log('ok2 :',link)
                     }
                 }   
 
@@ -264,31 +266,30 @@ class Assembly{
         return this.name;
     }
     setlabelPosition(){
-        var array=this.nodes
         for(let i=0; i<this.nodes.length;i++){
-            var slct_node= array.shift();
+            var slct_node= this.nodes[i];
             var edges=slct_node.Getedges()
             for(let v=0;v<edges.length;v++){
-                for(let d=0;d<this.nodes[d];d++){
+                for(let d=0;d<this.nodes.length;d++){
                     if (this.nodes[d].Getid()==edges[v].id){
-                        let tx=nodes[d].Getid().Getposx();
-                        let ty=nodes[d].Getid().Getposy();
+                        let tx=this.nodes[d].Getposx();
+                        let ty=this.nodes[d].Getposy();
                         let sy=slct_node.Getposy();
                         let sx=slct_node.Getposx();
                         if(Math.abs(sx-tx)<Math.abs(sy-ty)){
                             if(sy<ty){
-                                slct_node.SetLabel('H',edges[v].id);
+                                this.nodes[i].SetLabel('H',edges[v].id);
                             }
                             else{
-                                slct_node.SetLabel('B',edges[v].id);
+                                this.nodes[i].SetLabel('B',edges[v].id);
                             }
                         }
                         else{
                             if(sx<tx){
-                                slct_node.SetLabel('D',edges[v].id);
+                                this.nodes[i].SetLabel('D',edges[v].id);
                             }
                             else{
-                                slct_node.SetLabel('G',edges[v].id);
+                                this.nodes[i].SetLabel('G',edges[v].id);
                             }
                         }
                     }
@@ -390,7 +391,9 @@ function select_grp() {
             for (let i = 0; i < select.length; i++) {
                     if(select[i].id!='box-1' && select[i].checked){
                         let lastgroup=groups.get(select[i].id);
+                        lastgroup.getNodes().length
                         lastgroup.setlabelPosition();
+                        lastgroup.getNodes().length
                         arrayselect.push(lastgroup);
                     }
                     
