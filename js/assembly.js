@@ -315,6 +315,7 @@ function check_grp(cy) {
         li_nodes=[];
         groups.set(id_grp,grp);
         document.querySelector('#check').style.display = 'none';
+        document.querySelector('#cancel').style.display = 'none';
         cy.nodes().off('click')
     }
     cy.nodes().off('click');
