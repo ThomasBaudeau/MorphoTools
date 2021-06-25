@@ -432,12 +432,14 @@ document.getElementById('choose-grp-close').addEventListener('click',
 
 document.getElementById('send_grp').addEventListener('click',
     function () {
-        select_grp();
+        let color = document.querySelector('#colorWell').value;
+        console.log(color);
+        select_grp(color);
         document.querySelector('.choose-group').style.display = 'none';
     });
 
 
-function select_grp() {
+function select_grp(color) {
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if (check_bool === 'true') {
@@ -478,23 +480,25 @@ function select_grp() {
             }
             
         cy.json(JSON.parse(data));
-        reloadStyle(cy)
+        reloadStyle(color)
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
         cy.center();
         }
     }
 
-function reloadStyle(cy){
+function reloadStyle(color){
     nodes=cy.nodes();
     for (let i=0;i<nodes.length;i++){
         if (nodes[i].style("background-image")=='none'&& nodes[i].data().label==''){
             let ungroupe=groups.get(nodes[i].data().parent);
             nodes[i].style("background-image",ungroupe.FindNodeStyle(nodes[i].data().id));
         }
+        else {
+            nodes[i].style("background-color",color);
+        }
     }
 }
-
 
 
 /*Choisir la couleur du groupe parent*/
