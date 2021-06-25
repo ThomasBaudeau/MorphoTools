@@ -356,12 +356,25 @@ function chooseGroup() {
         let grp_name= key;
         let table = document.getElementById('choose_group');
         let line = document.createElement('tr');
+        let column0 = document.createElement('td'); //closing cross
         let column1 = document.createElement('td');
         let column2 = document.createElement('td');
         let column3 = document.createElement('td');
         let column4 = document.createElement('td');
         let checkbox = document.createElement('input');
         let check=document.getElementById(grp_name)
+
+        //Closing_cross
+        let container = document.createElement('div');
+        container.setAttribute('class', 'close-container');
+        
+        let lr_div = document.createElement('div');
+        lr_div.setAttribute('class','leftright');
+        container.appendChild(lr_div);
+
+        let rl_div = document.createElement('div');
+        rl_div.setAttribute('class','rightleft');
+        container.appendChild(rl_div);
 
         if (check==null){
             checkbox.setAttribute('type', 'checkbox');
@@ -370,8 +383,14 @@ function chooseGroup() {
             let label = document.createElement('label');
             label.setAttribute('for', grp_name);
             label.textContent = grp_name;
+
+            column0.appendChild(container);
+
             column2.appendChild(checkbox);
             column2.appendChild(label);
+
+            line.appendChild(column0);
+
             line.appendChild(column1);
             line.appendChild(column2);
             line.appendChild(column3);
