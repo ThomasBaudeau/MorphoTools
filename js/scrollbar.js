@@ -61,6 +61,7 @@ document.getElementById('Validation').addEventListener('click',
             document.getElementById("nb_photo").innerHTML = "Number of imported photos : " + document.getElementById('ii').files.length;
             sessionStorage.setItem('numberImage', document.getElementById('ii').files.length);
             document.getElementById("nb_matrice").innerHTML = "Number of imported dies : " + document.getElementById('ij').files.length;
+            sessionStorage.setItem('numberJson',document.getElementById('ij').files.length);
             deleteImport();
             //addImport();
         }
@@ -98,8 +99,8 @@ function NumberImage()
             if (cursor) {
                 let key = cursor.key;
                 let name= cursor.value.type_file;
-                if (name.search('json') !=-1 ){
-                    numberJson++;
+                if (name.search('json') !=-1){
+                   numberJson++;
                 }
                 else if (name.search('jpg') != -1 || name.search('png') || name.search('jpeg') || name.search('gif')){
                     numberImage++;
@@ -115,9 +116,8 @@ function NumberImage()
             }
         }
     
-    }
-    
-} 
+    }  
+}
 
 
 
