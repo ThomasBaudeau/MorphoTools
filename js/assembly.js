@@ -9,7 +9,6 @@ function choose_grp(cy) {
     document.querySelector('#check').style.display = 'block';
     document.querySelector('#cancel').style.display = 'block';
     cy.nodes().on('click', function(evt) {
-        console.log(evt.target.style("background-image"))
         var node = new Node(evt.target.id(), [evt.target.renderedPosition("x"), evt.target.renderedPosition("y")], evt.target.style("background-image"));
             evt.target.connectedEdges().forEach(function(elmt){
                 if (elmt.data().source==evt.target.id()){
@@ -130,8 +129,6 @@ class Assembly{
                         "removed":false,"selected":false,"selectable":true,"locked":false,"grabbable":true,"pannable":true,"classes":""
                     };
                     json.elements.edges.push(data);
-                    console.log('ok :',link[j].label)
-                    console.log('ok2 :',link)
                     }
                 }   
 
@@ -308,7 +305,7 @@ class Assembly{
 
     FindNodeStyle(node){
         for (let i=0;i<this.nodes.length;i++){
-            if (this.nodes[i]==node){
+            if (this.nodes[i].Getid()==node){
                 return this.nodes[i].Getstyle();
             }
         }
@@ -434,7 +431,6 @@ function select_grp() {
                 var data=assembly.makeJson();
             }
             
-        console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
         reloadStyle(cy)
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
@@ -446,9 +442,9 @@ function select_grp() {
 function reloadStyle(cy){
     nodes=cy.nodes();
     for (let i=0;i<nodes.length;i++){
-        if (nodes[i].style("background-image")=='none'){
-            let assembly=groups.get(nodes[i].data().parent)
-            nodes[i].style("background-image",assembly.FindNodeStyle(node[i].data().id))
+        if (nodes[i].style("background-image")=='none'&& nodes[i].data().label==''){
+            let ungroupe=groups.get(nodes[i].data().parent);
+            nodes[i].style("background-image",ungroupe.FindNodeStyle(nodes[i].data().id));
         }
     }
 }
