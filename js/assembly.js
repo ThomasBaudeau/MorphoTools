@@ -361,12 +361,14 @@ function chooseGroup() {
         let column3 = document.createElement('td');
         let column4 = document.createElement('td');
         let checkbox = document.createElement('input');
-        let check=document.getElementById(grp_name)
+        let check=document.getElementById(grp_name);
 
         //Closing_cross
         let container = document.createElement('div');
         container.setAttribute('class', 'close-container');
-        
+        container.setAttribute('value', grp_name);
+        container.addEventListener('click',delete_group(this.value))
+
         let lr_div = document.createElement('div');
         lr_div.setAttribute('class','leftright');
         container.appendChild(lr_div);
@@ -409,6 +411,7 @@ function chooseGroup() {
             line.appendChild(column3);
             line.appendChild(column4);
             table.appendChild(line);
+
         }
         count++;
         if (count == groups.size) {
@@ -490,4 +493,9 @@ function reloadStyle(cy){
             nodes[i].style("background-image",ungroupe.FindNodeStyle(nodes[i].data().id));
         }
     }
+}
+
+function delete_group(value){
+    console.log(value + " deleted");
+    groups.delete(value);
 }
