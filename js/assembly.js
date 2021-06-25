@@ -376,6 +376,11 @@ function chooseGroup() {
         rl_div.setAttribute('class','rightleft');
         container.appendChild(rl_div);
 
+        let del_label = document.createElement('label');
+        del_label.setAttribute('class','delet_group');
+        del_label.innerHTML = "Delete"
+        container.appendChild(del_label);
+
         if (check==null){
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('id', grp_name);

@@ -1,0 +1,63 @@
+/* 
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
+gestion de la fenetre de gestion de groupe
+*/
+
+.close-container {
+    position: relative;
+    margin: auto;
+    height: 50px;
+    cursor: pointer;
+}
+
+.leftright {
+    height: 4px;
+    width: 25px;
+    position: absolute;
+    margin-top: 22px;
+    background-color: #000;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    transition: all 0.3s ease-in;
+}
+
+.rightleft {
+    height: 4px;
+    width: 25px;
+    position: absolute;
+    margin-top: 22px;
+    background-color: #000;
+    border-radius: 2px;
+    transform: rotate(-45deg);
+    transition: all 0.3s ease-in;
+}
+
+.delet_group {
+    margin: 35px 0 0 0;
+    left: -12px;
+    position: absolute;
+}
+
+.close-container:hover .leftright {
+    transform: rotate(-45deg);
+    background-color: #ff0011;
+}
+
+.close-container:hover .rightleft {
+    transform: rotate(45deg);
+    background-color: #ff0011;
+}
+
+.delet_group {
+    color: rgb(255, 0, 0);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease-in;
+    opacity: 0;
+}
+
+.close-container:hover label {
+    opacity: 1;
+}
