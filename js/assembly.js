@@ -391,7 +391,8 @@ function chooseGroup() {
         //Dots
         let container2 = document.createElement('div');
         container2.setAttribute('class', 'wave');
-        container2.setAttribute('onclick','display_node_list()')
+        container2.setAttribute('onclick','display_node_list(this)')
+        container2.setAttribute('value',grp_name)
 
         let lr_div2 = document.createElement('span');
         lr_div2.setAttribute('class', 'dot');
@@ -562,6 +563,18 @@ document.getElementById('disp-nodes-close').addEventListener('click',
         document.querySelector('.display_nodes').style.display = 'none';
     });
 
-function display_node_list(){
+function display_node_list(container){
+    nodes=groups.get(container.attributes.getNamedItem('value').value).getNodes();
+    let table = document.getElementById('list_nodes');
+    while(table.lastChild){
+        table.removeChild(table.lastChild);
+    }
+    console.log('il y a ',nodes.length,' noeud(s)')
+    for(let i=0;i<nodes.length;i++){
+        let line='';
+        line = document.createElement('tr');
+        line.innerHTML=nodes[i].Getid();
+        table.appendChild(line);
+    }
     document.querySelector('.display_nodes').style.display = 'flex';
 }
