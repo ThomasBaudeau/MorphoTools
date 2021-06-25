@@ -7,6 +7,7 @@ var li_nodes=[];
 
 function choose_grp(cy) {
     document.querySelector('#check').style.display = 'block';
+    document.querySelector('#cancel').style.display = 'block';
     cy.nodes().on('click', function(evt) {
         console.log(evt.target.style("background-image"))
         var node = new Node(evt.target.id(), [evt.target.renderedPosition("x"), evt.target.renderedPosition("y")], evt.target.style("background-image"));
@@ -15,6 +16,8 @@ function choose_grp(cy) {
                     node.AddEdge(elmt.data().target,elmt.data().proba)};
                 });
             li_nodes.push(node);
+            evt.target.style('borderWidth',1);
+            evt.target.style('borderColor','red');
     });
 }
 
@@ -325,9 +328,18 @@ function check_grp(cy) {
         li_nodes=[];
         groups.set(id_grp,grp);
         document.querySelector('#check').style.display = 'none';
+        document.querySelector('#cancel').style.display = 'none';
         cy.nodes().off('click')
     }
     cy.nodes().off('click');
+    cy.nodes().style('borderWidth',0);
+}
+
+function cancel_grp(cy) {
+    document.querySelector('#check').style.display = 'none';
+    cy.nodes().off('click');
+    cy.nodes().style('borderWidth',0);
+    document.querySelector('#cancel').style.display = 'none';
 }
 
 
