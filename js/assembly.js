@@ -9,7 +9,8 @@ function choose_grp(cy) {
     document.querySelector('#check').style.display = 'block';
     document.querySelector('#cancel').style.display = 'block';
     cy.nodes().on('click', function(evt) {
-            var node=new Node(evt.target.id(),[evt.target.renderedPosition("x"),evt.target.renderedPosition("y")]);
+        console.log(evt.target.style("background-image"))
+        var node = new Node(evt.target.id(), [evt.target.renderedPosition("x"), evt.target.renderedPosition("y")], evt.target.style("background-image"));
             evt.target.connectedEdges().forEach(function(elmt){
                 if (elmt.data().source==evt.target.id()){
                     node.AddEdge(elmt.data().target,elmt.data().proba)};
@@ -24,10 +25,11 @@ function choose_grp(cy) {
 //console.log(elmt.id())
 
 class Node{
-    constructor(id,pos){
+    constructor(id,pos,style){
         this.id=id;
         this.pos=pos;
         this.link=[];
+        this.style=style
     }
     AddEdge(id,prob){
         this.link.push({'id':id,'prob':prob});
@@ -50,6 +52,9 @@ class Node{
     }
     Getedges(){
         return this.link;
+    }
+    Getstyle() {
+        return this.style;
     }
 }
 
@@ -300,6 +305,14 @@ class Assembly{
             }
         }
     }
+
+    FindNodeStyle(node){
+        for (let i=0;i<this.nodes.length;i++){
+            if (this.nodes[i]==node){
+                return this.nodes[i].Getstyle();
+            }
+        }
+    }
 }
 
 
@@ -423,8 +436,19 @@ function select_grp() {
             
         console.log(JSON.parse(data));
         cy.json(JSON.parse(data));
+        reloadStyle(cy)
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
         cy.center();
         }
     }
+
+function reloadStyle(cy){
+    nodes=cy.nodes();
+    for (let i=0;i<nodes.length;i++){
+        if (nodes[i].style("background-image")=='none'){
+            let assembly=groups.get(nodes[i].data().parent)
+            nodes[i].style("background-image",assembly.FindNodeStyle(node[i].data().id))
+        }
+    }
+}
