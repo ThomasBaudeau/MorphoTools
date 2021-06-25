@@ -518,12 +518,10 @@ function reloadStyle(color){
     }
 }
 
-<<<<<<< HEAD
 function delete_group(value){
     console.log(value + " deleted");
     groups.delete(value);
 }
-=======
 
 /*Choisir la couleur du groupe parent*/
 
@@ -553,4 +551,3 @@ document.querySelectorAll("p").forEach(function(p) {
 });
 }
   
->>>>>>> 02e875d2b9186bdb46b75111fd2277327f9417f4
