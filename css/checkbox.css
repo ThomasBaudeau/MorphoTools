@@ -141,7 +141,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .group-choose {
-  width: 300px;
+  width: 400px;
   height: auto;
   background-color: white;
   border-radius: 4px;
@@ -154,4 +154,8 @@ input[type="checkbox"]:checked + label:before {
   height: 300px;
 	margin: auto;
   overflow-y: scroll;
+}
+
+#colorWell {
+  width: 40px;
 }

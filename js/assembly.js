@@ -380,15 +380,14 @@ function chooseGroup() {
         del_label.innerHTML = "Delete"
         container.appendChild(del_label);
 
-        if (check==null){
-            let image = document.createElement('img');
-            image.setAttribute('id','choice-color');
-            image.setAttribute('onclick','color_grp()');
-            image.setAttribute('src', 'images/droplet.png');
-            image.setAttribute('style', 'opacity:1')
-            image.setAttribute('width', '20px')
-            image.setAttribute('height', '20px')
+        //Observation couleur sélectionnée
+        let colorWell = document.createElement('input');
+        colorWell.setAttribute('type','color');
+        colorWell.setAttribute('value','#ff0000');
+        colorWell.setAttribute('id','colorWell');
 
+
+        if (check==null){
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('id', grp_name);
             checkbox.setAttribute('name','select_grp[]');
@@ -402,7 +401,7 @@ function chooseGroup() {
             column2.appendChild(checkbox);
             column2.appendChild(label);
 
-            column4.appendChild(image);
+            column4.appendChild(colorWell);
 
             line.appendChild(column1);
             line.appendChild(column2);
@@ -416,10 +415,6 @@ function chooseGroup() {
             document.querySelector('.choose-group').style.display = 'flex';
         }
     }
-}
-
-function color_grp() {
-    console.log('NICE !');
 }
 
 document.getElementById('choose-grp-close').addEventListener('click',
@@ -491,3 +486,34 @@ function reloadStyle(cy){
         }
     }
 }
+
+
+
+/*Choisir la couleur du groupe parent*/
+
+function startup() {
+    var colorWell;
+    var defaultColor = "#0000ff";
+    window.addEventListener("load", startup, false);
+
+    colorWell = document.querySelector("#colorWell");
+    colorWell.value = defaultColor;
+    colorWell.addEventListener("input", updateFirst, false);
+    colorWell.addEventListener("change", updateAll, false);
+    colorWell.select();
+}
+
+function updateFirst(event) {
+    var p = document.querySelector("p");
+  
+    if (p) {
+      p.style.color = event.target.value;
+    }
+  }
+
+function updateAll(event) {
+document.querySelectorAll("p").forEach(function(p) {
+    p.style.color = event.target.value;
+});
+}
+  
