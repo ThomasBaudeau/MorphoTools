@@ -73,6 +73,7 @@ gestion de la fenetre de gestion de groupe
     height: 50px;
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 .wave .dot{
     display: inline-block;

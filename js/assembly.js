@@ -385,6 +385,7 @@ function chooseGroup() {
         //Dots
         let container2 = document.createElement('div');
         container2.setAttribute('class', 'wave');
+        container2.setAttribute('onclick','display_node_list()')
 
         let lr_div2 = document.createElement('span');
         lr_div2.setAttribute('class', 'dot');
@@ -551,7 +552,13 @@ document.querySelectorAll("p").forEach(function(p) {
 });
 }
   
+// -------------- Node List --------------
+
+document.getElementById('disp-nodes-close').addEventListener('click',
+    function () {
+        document.querySelector('.display_nodes').style.display = 'none';
+    });
 
 function display_node_list(){
-    
+    document.querySelector('.display_nodes').style.display = 'flex';
 }
