@@ -387,8 +387,12 @@ function chooseGroup() {
         let lr_div2 = document.createElement('span');
         lr_div2.setAttribute('class', 'dot');
         container2.appendChild(lr_div2);
-        container2.appendChild(lr_div2);
-        container2.appendChild(lr_div2);
+        let lr_div3 = document.createElement('span');
+        lr_div3.setAttribute('class', 'dot');
+        container2.appendChild(lr_div3);
+        let lr_div4 = document.createElement('span');
+        lr_div4.setAttribute('class', 'dot');
+        container2.appendChild(lr_div4);
         
 
         if (check==null){
@@ -412,6 +416,7 @@ function chooseGroup() {
 
             column2.appendChild(checkbox);
             column2.appendChild(label);
+            column3.appendChild(container2)
 
             column4.appendChild(image);
 
