@@ -5,6 +5,12 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 var groups=new Map();
 var li_nodes=[];
 
+function delete_group(container) {
+    groups.delete(container.attributes.getNamedItem('value').value)
+    container.parentNode.parentNode.parentNode.removeChild(container.parentNode.parentNode)
+    
+}
+
 function choose_grp(cy) {
     document.querySelector('#check').style.display = 'block';
     document.querySelector('#cancel').style.display = 'block';
@@ -367,7 +373,7 @@ function chooseGroup() {
         let container = document.createElement('div');
         container.setAttribute('class', 'close-container');
         container.setAttribute('value', grp_name);
-        container.addEventListener('click',delete_group(this.value))
+        container.setAttribute('onclick', "delete_group(this)");
 
         let lr_div = document.createElement('div');
         lr_div.setAttribute('class','leftright');
@@ -518,10 +524,7 @@ function reloadStyle(color){
     }
 }
 
-function delete_group(value){
-    console.log(value + " deleted");
-    groups.delete(value);
-}
+
 
 /*Choisir la couleur du groupe parent*/
 
