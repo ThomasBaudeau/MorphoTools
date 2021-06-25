@@ -355,9 +355,8 @@ function chooseGroup() {
     for (const key of groups.keys()) {
         let grp_name= key;
         let table = document.getElementById('choose_group');
-        let line = document.createElement('tr');
-        let column0 = document.createElement('td'); //closing cross
-        let column1 = document.createElement('td');
+        let line = document.createElement('tr'); 
+        let column1 = document.createElement('td'); //closing cross
         let column2 = document.createElement('td');
         let column3 = document.createElement('td');
         let column4 = document.createElement('td');
@@ -382,19 +381,28 @@ function chooseGroup() {
         container.appendChild(del_label);
 
         if (check==null){
+            let image = document.createElement('img');
+            image.setAttribute('id','choice-color');
+            image.setAttribute('onclick','color_grp()');
+            image.setAttribute('src', 'images/droplet.png');
+            image.setAttribute('style', 'opacity:1')
+            image.setAttribute('width', '20px')
+            image.setAttribute('height', '20px')
+
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('id', grp_name);
-            checkbox.setAttribute('name','select_grp[]')
+            checkbox.setAttribute('name','select_grp[]');
+            
             let label = document.createElement('label');
             label.setAttribute('for', grp_name);
             label.textContent = grp_name;
 
-            column0.appendChild(container);
+            column1.appendChild(container);
 
             column2.appendChild(checkbox);
             column2.appendChild(label);
 
-            line.appendChild(column0);
+            column4.appendChild(image);
 
             line.appendChild(column1);
             line.appendChild(column2);
@@ -408,6 +416,10 @@ function chooseGroup() {
             document.querySelector('.choose-group').style.display = 'flex';
         }
     }
+}
+
+function color_grp() {
+    console.log('NICE !');
 }
 
 document.getElementById('choose-grp-close').addEventListener('click',
