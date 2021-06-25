@@ -380,6 +380,20 @@ function chooseGroup() {
         del_label.innerHTML = "Delete"
         container.appendChild(del_label);
 
+        //Dots
+        let container2 = document.createElement('div');
+        container2.setAttribute('class', 'wave');
+
+        let lr_div2 = document.createElement('span');
+        lr_div2.setAttribute('class', 'dot');
+        container2.appendChild(lr_div2);
+        let lr_div3 = document.createElement('span');
+        lr_div3.setAttribute('class', 'dot');
+        container2.appendChild(lr_div3);
+        let lr_div4 = document.createElement('span');
+        lr_div4.setAttribute('class', 'dot');
+        container2.appendChild(lr_div4);
+        
         //Observation couleur sélectionnée
         let colorWell = document.createElement('input');
         colorWell.setAttribute('type','color');
@@ -408,6 +422,7 @@ function chooseGroup() {
 
             column2.appendChild(checkbox);
             column2.appendChild(label);
+            column3.appendChild(container2)
 
             column4.appendChild(colorWell);
 
