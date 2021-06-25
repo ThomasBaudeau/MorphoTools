@@ -380,6 +380,17 @@ function chooseGroup() {
         del_label.innerHTML = "Delete"
         container.appendChild(del_label);
 
+        //Dots
+        let container2 = document.createElement('div');
+        container2.setAttribute('class', 'wave');
+
+        let lr_div2 = document.createElement('span');
+        lr_div2.setAttribute('class', 'dot');
+        container2.appendChild(lr_div2);
+        container2.appendChild(lr_div2);
+        container2.appendChild(lr_div2);
+        
+
         if (check==null){
             let image = document.createElement('img');
             image.setAttribute('id','choice-color');
