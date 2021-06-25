@@ -382,6 +382,27 @@ function chooseGroup() {
         del_label.innerHTML = "Delete"
         container.appendChild(del_label);
 
+        //Dots
+        let container2 = document.createElement('div');
+        container2.setAttribute('class', 'wave');
+
+        let lr_div2 = document.createElement('span');
+        lr_div2.setAttribute('class', 'dot');
+        container2.appendChild(lr_div2);
+        let lr_div3 = document.createElement('span');
+        lr_div3.setAttribute('class', 'dot');
+        container2.appendChild(lr_div3);
+        let lr_div4 = document.createElement('span');
+        lr_div4.setAttribute('class', 'dot');
+        container2.appendChild(lr_div4);
+        
+        //Observation couleur sélectionnée
+        let colorWell = document.createElement('input');
+        colorWell.setAttribute('type','color');
+        colorWell.setAttribute('value','#ff0000');
+        colorWell.setAttribute('id','colorWell');
+
+
         if (check==null){
             let image = document.createElement('img');
             image.setAttribute('id','choice-color');
@@ -403,8 +424,9 @@ function chooseGroup() {
 
             column2.appendChild(checkbox);
             column2.appendChild(label);
+            column3.appendChild(container2)
 
-            column4.appendChild(image);
+            column4.appendChild(colorWell);
 
             line.appendChild(column1);
             line.appendChild(column2);
@@ -421,10 +443,6 @@ function chooseGroup() {
     }
 }
 
-function color_grp() {
-    console.log('NICE !');
-}
-
 document.getElementById('choose-grp-close').addEventListener('click',
     function () {
         document.querySelector('.choose-group').style.display = 'none';
@@ -432,12 +450,14 @@ document.getElementById('choose-grp-close').addEventListener('click',
 
 document.getElementById('send_grp').addEventListener('click',
     function () {
-        select_grp();
+        let color = document.querySelector('#colorWell').value;
+        console.log(color);
+        select_grp(color);
         document.querySelector('.choose-group').style.display = 'none';
     });
 
 
-function select_grp() {
+function select_grp(color) {
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if (check_bool === 'true') {
@@ -478,24 +498,59 @@ function select_grp() {
             }
             
         cy.json(JSON.parse(data));
-        reloadStyle(cy)
+        reloadStyle(color)
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
         layout.run();
         cy.center();
         }
     }
 
-function reloadStyle(cy){
+function reloadStyle(color){
     nodes=cy.nodes();
     for (let i=0;i<nodes.length;i++){
         if (nodes[i].style("background-image")=='none'&& nodes[i].data().label==''){
             let ungroupe=groups.get(nodes[i].data().parent);
             nodes[i].style("background-image",ungroupe.FindNodeStyle(nodes[i].data().id));
         }
+        else {
+            nodes[i].style("background-color",color);
+        }
     }
 }
 
+<<<<<<< HEAD
 function delete_group(value){
     console.log(value + " deleted");
     groups.delete(value);
 }
+=======
+
+/*Choisir la couleur du groupe parent*/
+
+function startup() {
+    var colorWell;
+    var defaultColor = "#0000ff";
+    window.addEventListener("load", startup, false);
+
+    colorWell = document.querySelector("#colorWell");
+    colorWell.value = defaultColor;
+    colorWell.addEventListener("input", updateFirst, false);
+    colorWell.addEventListener("change", updateAll, false);
+    colorWell.select();
+}
+
+function updateFirst(event) {
+    var p = document.querySelector("p");
+  
+    if (p) {
+      p.style.color = event.target.value;
+    }
+  }
+
+function updateAll(event) {
+document.querySelectorAll("p").forEach(function(p) {
+    p.style.color = event.target.value;
+});
+}
+  
+>>>>>>> 02e875d2b9186bdb46b75111fd2277327f9417f4
