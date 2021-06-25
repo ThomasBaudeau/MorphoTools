@@ -132,9 +132,8 @@ input[type="checkbox"]:checked + label:before {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
-  top:0;
-  display: flex;
-  justify-content: center;
+  top: 0;
+  justify-content: flex-start;
   align-items: center;
   display: none;
   z-index: 50;
@@ -147,6 +146,7 @@ input[type="checkbox"]:checked + label:before {
   border-radius: 4px;
   padding: 5px;
   position: relative;
+  margin-left: 260px;
 }
 
 .boxes_grp{

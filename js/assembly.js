@@ -554,3 +554,7 @@ document.querySelectorAll("p").forEach(function(p) {
 });
 }
   
+
+function display_node_list(){
+    
+}
