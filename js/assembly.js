@@ -388,6 +388,14 @@ function chooseGroup() {
 
 
         if (check==null){
+            let image = document.createElement('img');
+            image.setAttribute('id','choice-color');
+            image.setAttribute('onclick','color_grp()');
+            image.setAttribute('src', 'images/droplet.png');
+            image.setAttribute('style', 'opacity:1')
+            image.setAttribute('width', '20px')
+            image.setAttribute('height', '20px')
+
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('id', grp_name);
             checkbox.setAttribute('name','select_grp[]');
