@@ -36,8 +36,6 @@ function exportJPG(cy){
     a.download = `${new Date().getTime()}.jpg`;;
     a.click();
     window.URL.revokeObjectURL(dataURL);
-    console.log("image placée");
-
 }
 
 function max(nodes){

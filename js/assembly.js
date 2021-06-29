@@ -556,7 +556,6 @@ function startup(elmt) {
     // Choice and saving of the group color
     let color = elmt.value;
     let id = elmt.parentNode.attributes.getNamedItem('value').value;
-    console.log(id + ' ' + color);
     li_color.set(id,color);
 }
 
@@ -574,7 +573,6 @@ function display_node_list(container){
     while(table.lastChild){
         table.removeChild(table.lastChild);
     }
-    console.log('il y a ',nodes.length,' noeud(s)')
     for(let i=0;i<nodes.length;i++){
         let line='';
         line = document.createElement('tr');
