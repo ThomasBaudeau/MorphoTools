@@ -12,7 +12,7 @@ function shortSave(cy){
 }
     
 function loadShortSave(cy){
-//load the graph kept in the sessionStorage
+//Load the graph kept in the sessionStorage
     loadStart("Loading quick save...");
     cy.elements().remove();
     cy.json({ elements: JSON.parse( window.sessionStorage.getItem("elements") ).elements }).layout({ name: 'preset', directed: true, padding: 10 }).run();
