@@ -474,10 +474,16 @@ function zm_out() {
 }
 
 
-document.getElementById('send_div').addEventListener('click',
+document.getElementById('send_img').addEventListener('click',
     function () {
+    if (sessionStorage.getItem('choix') == 'CH') {
         delimage(cy);
         document.querySelector('.choose-modal').style.display = 'none';
+        }
+    else{
+        checkedgroup()
+        document.querySelector('.choose-modal').style.display = 'none';
+    }
     });
 
 
