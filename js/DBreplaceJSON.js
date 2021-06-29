@@ -1,7 +1,8 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-add JSON to Indexed DB
+Add JSON to Indexed DB
 */
+
 function addJSONtoDB(cy) {
     loadStart('converting CSV to JSON')
     // Open DB
