@@ -77,7 +77,6 @@ function ImportImage(files) {
 }
 
 function ImportJson(arr,name){// add json file in the bdd
-    console.log(arr);
     let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);//open the db
 
     request.onerror = function (e) {
@@ -112,7 +111,6 @@ function addImport() {// add all file imported in the db
     var photo = document.getElementById("ii").files;
     var files = [photo];
     const fileInput = $('#ij')[0].files[0];
-    console.log("FILE INPUT" + fileInput);
     var reader = new FileReader();
     reader.fileName = fileInput.name;
     // le fichier importé est un JSON

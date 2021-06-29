@@ -16,7 +16,6 @@ function singleImportJSON(cy){
   sessionStorage.setItem('stop', true)//just in case 
   document.getElementById('cy').style.visibility = 'hidden';//hide cytoscape graph
   loadStart("retrieving dies");// start loading
-  console.log("retieve Json files");
   const fileInput = $('#ij')[0].files[0];
   var data;
   if (fileInput!=undefined){//check if json is in the import menu
@@ -52,7 +51,6 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.one('render', function (e) {
           if(sessionStorage.getItem('stop')){
-            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
             loadEnd();
             showFile(cy)
@@ -103,7 +101,6 @@ function singleImportJSON(cy){
     }
   }
   // dies is loaded, setting check var to true
-  console.log("loading_check devient true");
   sessionStorage.setItem('loading_check',true);
 }
 
@@ -160,9 +157,6 @@ function CSV_to_JSON(array){
     "renderer":{"name":"canvas"}
   };
 
-  //console.log("Width :" + window.screen.width);
-  //console.log("Height :" + window.screen.height);
-
   //filling nodes
   for(let node = 1 ; node < array[0].length ; node++){
     let val_x = getRandomArbitrary(0, window.screen.width) - 250;
@@ -216,7 +210,6 @@ function exportGraphJSON(cy){
     a.download = "Graph.json";
     a.click();
     window.URL.revokeObjectURL(fileURL);
-    console.log("save json ok");
 }
 
 
@@ -241,8 +234,6 @@ function findMinMax(data){
       min = value;
     }
   }
-  console.log("max proba = " + max);
-  console.log("min proba = " + min);
   sessionStorage.setItem('max_similitude', max);
   sessionStorage.setItem('min_similitude', min);
 }
