@@ -527,7 +527,7 @@ function delimage(cy) {
                 cy.remove(removedN);
             }
             catch {
-                consol.log('error')
+                console.log('error')
             }
             
         console.log("refreshing position...")
