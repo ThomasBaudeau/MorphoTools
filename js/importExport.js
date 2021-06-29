@@ -11,15 +11,15 @@ function checkimport(fileName){
   return fileName.includes(".json")
 }
 
-
+//load json in cytoscape
 function singleImportJSON(cy){
-  sessionStorage.setItem('stop', true)
-  document.getElementById('cy').style.visibility = 'hidden';
-  loadStart("retrieving dies");
-  console.log("everything start");
+  sessionStorage.setItem('stop', true)//just in case 
+  document.getElementById('cy').style.visibility = 'hidden';//hide cytoscape graph
+  loadStart("retrieving dies");// start loading
+  console.log("retieve Json files");
   const fileInput = $('#ij')[0].files[0];
   var data;
-  if (fileInput!=undefined){
+  if (fileInput!=undefined){//check if json is in the import menu
     var reader = new FileReader();
     reader.fileName = fileInput.name;
     // if JSON
@@ -31,7 +31,6 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.one('render',function(e){
           if (sessionStorage.getItem('stop')){
-            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
             loadEnd();
             showFile(cy)
@@ -65,8 +64,8 @@ function singleImportJSON(cy){
     
 
   }
-  else{
-    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
+  else{//if json not in the import window check in the bd
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);//open the db
     connection.onerror = function (e) {
       console.error('Unable to open database.');
       }
@@ -75,11 +74,11 @@ function singleImportJSON(cy){
       let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
       objectStore.openCursor().onsuccess = function (e) {
         let cursor = e.target.result;
-        if (cursor) {
+        if (cursor) {//browse the db
           let name = cursor.value.type_file;
-          if (name.search('json') != -1) {
+          if (name.search('json') != -1) {// if Json is find so it's parse
             let file = JSON.parse(cursor.value.data);
-            try{
+            try{// for an unknow reason some json file must be parsed two time so we did it 
               file=JSON.parse(file);
               if (file.length < 16) {
                 file=JSON.parse(cursor.value.data)
@@ -91,7 +90,6 @@ function singleImportJSON(cy){
             cy.json(file);
             cy.one('render', function (e) {
               if (sessionStorage.getItem('stop')){
-                console.log('PROBLEMAS')
                 sessionStorage.setItem('stop', false)
                 loadEnd();
                 showFile(cy)
