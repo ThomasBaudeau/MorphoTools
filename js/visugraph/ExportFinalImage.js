@@ -6,7 +6,7 @@ Exportation of the graph as a jpg
 'use strict'
 
 function exportJPG(cy){
-    // draw and export the picture
+    // Draw and export the picture
     const canvas = document.getElementById("export_canvas");
     const racine = document.createElement('canvas');
     const ctx = racine.getContext('2d');

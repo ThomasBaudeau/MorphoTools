@@ -1,6 +1,6 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-avoid or reveal superposition of pictures
+Avoid or reveal superposition of pictures
 */
 
 function show_superposition(cy){
