@@ -11,15 +11,14 @@ function checkimport(fileName){
   return fileName.includes(".json")
 }
 
-
+//load json in cytoscape
 function singleImportJSON(cy){
-  sessionStorage.setItem('stop', true)
-  document.getElementById('cy').style.visibility = 'hidden';
-  loadStart("retrieving dies");
-  console.log("everything start");
+  sessionStorage.setItem('stop', true)//just in case 
+  document.getElementById('cy').style.visibility = 'hidden';//hide cytoscape graph
+  loadStart("retrieving dies");// start loading
   const fileInput = $('#ij')[0].files[0];
   var data;
-  if (fileInput!=undefined){
+  if (fileInput!=undefined){//check if json is in the import menu
     var reader = new FileReader();
     reader.fileName = fileInput.name;
     // if JSON
@@ -31,7 +30,6 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.one('render',function(e){
           if (sessionStorage.getItem('stop')){
-            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
             loadEnd();
             showFile(cy)
@@ -53,7 +51,6 @@ function singleImportJSON(cy){
         cy.json(data);
         cy.one('render', function (e) {
           if(sessionStorage.getItem('stop')){
-            console.log('PROBLEMAS')
             sessionStorage.setItem('stop', false)
             loadEnd();
             showFile(cy)
@@ -65,8 +62,8 @@ function singleImportJSON(cy){
     
 
   }
-  else{
-    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
+  else{//if json not in the import window check in the bd
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);//open the db
     connection.onerror = function (e) {
       console.error('Unable to open database.');
       }
@@ -75,11 +72,11 @@ function singleImportJSON(cy){
       let objectStore = db.transaction(['imports'], 'readwrite').objectStore('imports');
       objectStore.openCursor().onsuccess = function (e) {
         let cursor = e.target.result;
-        if (cursor) {
+        if (cursor) {//browse the db
           let name = cursor.value.type_file;
-          if (name.search('json') != -1) {
+          if (name.search('json') != -1) {// if Json is find so it's parse
             let file = JSON.parse(cursor.value.data);
-            try{
+            try{// for an unknow reason some json file must be parsed two time so we did it 
               file=JSON.parse(file);
               if (file.length < 16) {
                 file=JSON.parse(cursor.value.data)
@@ -91,7 +88,6 @@ function singleImportJSON(cy){
             cy.json(file);
             cy.one('render', function (e) {
               if (sessionStorage.getItem('stop')){
-                console.log('PROBLEMAS')
                 sessionStorage.setItem('stop', false)
                 loadEnd();
                 showFile(cy)
@@ -105,7 +101,6 @@ function singleImportJSON(cy){
     }
   }
   // dies is loaded, setting check var to true
-  console.log("loading_check devient true");
   sessionStorage.setItem('loading_check',true);
 }
 
@@ -162,9 +157,6 @@ function CSV_to_JSON(array){
     "renderer":{"name":"canvas"}
   };
 
-  //console.log("Width :" + window.screen.width);
-  //console.log("Height :" + window.screen.height);
-
   //filling nodes
   for(let node = 1 ; node < array[0].length ; node++){
     let val_x = getRandomArbitrary(0, window.screen.width) - 250;
@@ -218,7 +210,6 @@ function exportGraphJSON(cy){
     a.download = "Graph.json";
     a.click();
     window.URL.revokeObjectURL(fileURL);
-    console.log("save json ok");
 }
 
 
@@ -243,8 +234,6 @@ function findMinMax(data){
       min = value;
     }
   }
-  console.log("max proba = " + max);
-  console.log("min proba = " + min);
   sessionStorage.setItem('max_similitude', max);
   sessionStorage.setItem('min_similitude', min);
 }

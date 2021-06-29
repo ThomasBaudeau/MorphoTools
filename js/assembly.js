@@ -1,18 +1,19 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
-
+    Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
+    Creating groups of images
 */
-var groups=new Map();
-var li_nodes=[];
-var li_color=new Map();
+var groups=new Map(); // Dictionary to record the different groups
+var li_nodes=[]; // Array to save selected images
+var li_color=new Map(); // Dictionary to record the selected color for each group
 
 function delete_group(container) {
+    // Function to delete a group
     groups.delete(container.attributes.getNamedItem('value').value)
     container.parentNode.parentNode.parentNode.removeChild(container.parentNode.parentNode)
-    
 }
 
 function choose_grp(cy) {
+    // Selection and recording of images to create a group 
     document.querySelector('#check').style.display = 'block';
     document.querySelector('#cancel').style.display = 'block';
     cy.nodes().on('click', function(evt) {
@@ -22,11 +23,13 @@ function choose_grp(cy) {
                     node.AddEdge(elmt.data().target,elmt.data().proba)};
                 });
             li_nodes.push(node);
+            // Selected image will be circled in red
             evt.target.style('borderWidth',1);
             evt.target.style('borderColor','red');
     });
 }
 
+// -------------- Class --------------
 
 class Node{
     constructor(id,pos,style){
@@ -317,13 +320,10 @@ class Assembly{
     }
 }
 
-
-
-
-
-///////////////////////////////////////
+// -------------- Choice of images to create a group --------------
 
 function check_grp(cy) {
+    // Registration of the group (with its name and images)
     var id_grp= prompt("Name the group");
     if (id_grp){
         var grp = new Assembly(id_grp, li_nodes);
@@ -338,14 +338,14 @@ function check_grp(cy) {
 }
 
 function cancel_grp(cy) {
+    // Remove a group
     document.querySelector('#check').style.display = 'none';
     cy.nodes().off('click');
     cy.nodes().style('borderWidth',0);
     document.querySelector('#cancel').style.display = 'none';
 }
 
-
-/* Choix du groupe à afficher */
+// -------------- Choice of the group(s) to be displayed --------------
 
 document.getElementById('grp').addEventListener('click',
 function () {
@@ -353,6 +353,7 @@ function () {
 });
 
 function chooseGroup() {
+    // Creation of the checkbox for the choice of the group or groups to display
     var count=0;
     for (const key of groups.keys()) {
         let grp_name= key;
@@ -400,7 +401,7 @@ function chooseGroup() {
         lr_div4.setAttribute('class', 'dot');
         container2.appendChild(lr_div4);
         
-        //Observation couleur sélectionnée
+        //Selected color
         let colorWell = document.createElement('input');
         colorWell.setAttribute('type','color');
         colorWell.setAttribute('value','#C1C1C1');
@@ -452,6 +453,7 @@ document.getElementById('send_grp').addEventListener('click',
     });
 
 function select_grp() {
+    // Retrieval and display of selected groups
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if (check_bool === 'true') {
@@ -459,7 +461,6 @@ function select_grp() {
             var error = document.getElementById("error_message");
             error.parentNode.removeChild(error);
         }
-        //vérif de chargement de cy
         if (cy === undefined) {
             let window = document.getElementById('choose-grp');
             let error = document.createElement('p');
@@ -478,7 +479,6 @@ function select_grp() {
                         lastgroup.getNodes().length
                         arrayselect.push(lastgroup);
                     }
-                    
                 }
             }
             assembly=arrayselect[0];
@@ -490,7 +490,6 @@ function select_grp() {
             else{
                 var data=assembly.makeJson();
             }
-            
         cy.json(JSON.parse(data));
         reloadStyle()
         layout = cy.layout({ name: 'preset', directed: true, padding: 10 });
@@ -512,14 +511,12 @@ function reloadStyle(){
     }
 }
 
-
-
-/*Choisir la couleur du groupe parent*/
+// -------------- Group color --------------
 
 function startup(elmt) {
+    // Choice and saving of the group color
     let color = elmt.value;
     let id = elmt.parentNode.attributes.getNamedItem('value').value;
-    console.log(id + ' ' + color);
     li_color.set(id,color);
 }
 
@@ -531,12 +528,12 @@ document.getElementById('disp-nodes-close').addEventListener('click',
     });
 
 function display_node_list(container){
+    // Display of the list of images contained in the group
     nodes=groups.get(container.attributes.getNamedItem('value').value).getNodes();
     let table = document.getElementById('list_nodes');
     while(table.lastChild){
         table.removeChild(table.lastChild);
     }
-    console.log('il y a ',nodes.length,' noeud(s)')
     for(let i=0;i<nodes.length;i++){
         let line='';
         line = document.createElement('tr');

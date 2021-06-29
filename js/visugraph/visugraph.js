@@ -3,16 +3,21 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Main functions of Visugraph
 */
 
-
-
-var allGraph;
-var removedE;
-var removedN;
-var deleted_nodes = [];
-var constante = 0;
-var constante2 = 0;
-var fileURIs = new Map();
+/*
+The following five variables are used to simplify the restoration process after filtering
+*/
+var allGraph; // Var to stock all the original elements of the graph
+var removedE; // Var to stock all the edges removed by thesholding
+var removedN; // Var to stock all the nodes removed through filtering
+var deleted_nodes = []; // List of deleted nodes
 var restoredE;
+
+var const_labels = 0; // Constant for the 'Show/Hide labels' button
+var const_edges = 0; // Constant for the 'Show/Hide edges' button
+
+var fileURIs = new Map(); // Stock names and ref of pictures given by the user
+
+// Initialisation of the cytoscape graph
 var cy = cytoscape({
     container: document.getElementById('cy'),
     boxSelectionEnabled: false,
@@ -67,7 +72,7 @@ async function showFile(cy) {
     }
     else {
         var count=0;
-        // connection to the database
+        // Connection to the database
         let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
         // in case of error
         connection.onerror = function (e) {
@@ -103,8 +108,8 @@ async function showFile(cy) {
 
 
 function initGraph(cy, lyt){
-    //var de verification d'importation de matrice
-    var check_bool = sessionStorage.getItem('loading_check')
+    // Initialization of the graph visualization with the choice of the layout
+    var check_bool = sessionStorage.getItem('loading_check') // Var of matrix import verification
     dies_verification(check_bool);
     if(check_bool !== 'false'){
         document.getElementById('cy').style.visibility = 'visible';
@@ -120,16 +125,18 @@ function initGraph(cy, lyt){
         if (lyt === '4') {
             layout = cy.layout({ name: 'circle', directed: true, padding: 10 });
         };
+
+        // Possible to add more layouts
+
         layout.run();
         cy.minZoom(0.5);
         cy.maxZoom(1e-50);
         cy.center();
-        console.log("init ok");
     }
 }
 
 function imageinit(cy){
-    //var de verification d'importation de matrice
+    // Initialization of the graph according to the chosen images
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){
@@ -150,24 +157,23 @@ function imageinit(cy){
 
 
 function Showhide_edges(cy) {
-    //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
-        if (constante2 == 0) {
+        if (const_edges == 0) {
             expandGraph(cy);
-            constante2++;
+            const_edges++;
         }
         else {
             retractGraph(cy);
-            constante2--;
+            const_edges--;
         }
     }
 }
 
 
 function retn(cy){
-    //var de verification d'importation de matrice
+    // Function to undelete an edge
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
@@ -181,7 +187,7 @@ function retn(cy){
 
 
 function expandGraph(cy) {
-    //var de verification d'importation de matrice
+    // Function to observe edges and their information
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
@@ -192,13 +198,13 @@ function expandGraph(cy) {
         shift_superposition(cy);
         console.log("expanded");
 
-        cy.edges().on('click', function(evt) {
+        cy.edges().on('click', function(evt) { // Function to delete an edge
             cy.remove(evt.target);
             deleted_nodes.unshift(evt.target);
             document.querySelector('#backward').style.display = 'block';
         });
 
-        if(constante==0){
+        if(const_labels==0){
             cy.edges().on('mouseover', function(event) {
                 let edge = event.target;
                 edge.style('text-opacity', 0.5);
@@ -219,17 +225,17 @@ function expandGraph(cy) {
 
 
 function viewProbs(cy){
-    //var de verification d'importation de matrice
+    // Observation of the probabilities of each edge
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
         edges = cy.edges();
         nodes = cy.nodes();
-        if (constante==0){
+        if (const_labels==0){
             display_labels();
             edges.style('text-opacity',0.5);
             nodes.style('text-opacity',1);
-            constante++;
+            const_labels++;
         } else {
             edges.style('text-opacity',0);
             nodes.style('text-opacity',0);
@@ -237,7 +243,7 @@ function viewProbs(cy){
             edges.style('color', 'black');
             nodes.style('target-arrow-color','black');
             nodes.style('color', 'black');
-            constante--;
+            const_labels--;
         }
     }
 }
@@ -320,7 +326,7 @@ function display_labels() {
 
 
 function retractGraph(cy) {
-    //var de verification d'importation de matrice
+    // Function to remove all edges
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
@@ -344,7 +350,7 @@ function retractGraph(cy) {
 }
 
 function filterEdges(cy) {
-    //var de verification d'importation de matrice
+    // Function to filter edges and display some of them according to a threshold
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
@@ -352,7 +358,7 @@ function filterEdges(cy) {
         const max = sessionStorage.getItem("max_similitude")
         var thr = prompt("Threshold for edge filtering? (" + min + " to " + max + ")");
         
-        //recharge du json et réimportation des images
+        // Reloading the json and reimporting the images
         if (thr===null)
             {return}
         try{
@@ -400,7 +406,6 @@ function filterEdges(cy) {
 }
 
 function nodePositions(cy) {
-    //var de verification d'importation de matrice
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if(check_bool === 'true'){ 
@@ -448,9 +453,6 @@ function nodePositions(cy) {
                 directed: false
             });
         }
-
-        //layout = cy.layout({name: 'preset', directed: true, padding: 10});
-        //layout.run();
         dismiss_borderColor(cy);
         show_superposition(cy);
         cy.center();
@@ -480,7 +482,7 @@ document.getElementById('send_div').addEventListener('click',
 
 
 function delimage(cy) {
-    //var de verification d'importation de matrice
+    // Removal of images not selected by the user
     var check_bool = sessionStorage.getItem('loading_check')
     dies_verification(check_bool);
     if (check_bool === 'true') {
@@ -488,7 +490,7 @@ function delimage(cy) {
             var error = document.getElementById("error_message");
             error.parentNode.removeChild(error);
         }
-        //vérif de chargement de cy
+        // Verification of cy loading
         if (cy === undefined) {
             let window = document.getElementById('choose-mc');
             let error = document.createElement('p');

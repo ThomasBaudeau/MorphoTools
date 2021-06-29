@@ -1,14 +1,11 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-functionalities for the homepage
+Functionalities for the homepage
 */
 
 'use strict'
 
-//Responsive menu
-
-
-//project creation window
+//Project creation window
 document.getElementById('create').addEventListener('click',
 function() {
   document.querySelector('.bg-modal').style.display = 'flex';
@@ -18,7 +15,7 @@ function() {
   document.querySelector('.bg-modal').style.display = 'none';
 });
 
-//selection and stockage of the working project. Link to projet.html
+//Selection and stockage of the working project. Link to projet.html
 document.addEventListener("DOMContentLoaded", () => {
     var ul = document.querySelector('ul');
     
@@ -42,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-//get the id and the abstract for the projet.html
+//Get the id and the abstract for the projet.html
 function obtainValues(key) {
     //DB successfully opened
     let request = indexedDB.open('morphotools', 3);
