@@ -4,6 +4,7 @@ Avoid or reveal superposition of pictures
 */
 
 function show_superposition(cy){
+// Add a small orange outline to stacked nodes
   let nodes = cy.nodes();
     for (var i = 0; i < nodes.length; i++) {
       for (var j = 0; j < nodes.length; j++) {
@@ -18,6 +19,7 @@ function show_superposition(cy){
 }
   
 function shift_superposition(cy){
+// slightly move away from each others nodes within a stack
   let nodes = cy.nodes();
   for (var i = 0; i < nodes.length; i++) {
     for (var j = 0; j < nodes.length; j++) {
@@ -34,6 +36,7 @@ function shift_superposition(cy){
 }
 
 function dismiss_borderColor(cy){
+// remove the colored outline
   let nodes = cy.nodes();
   for (var i = 0; i < nodes.length; i++){
     if (!(nodes[i].style('border-color','#000'))){
@@ -44,6 +47,7 @@ function dismiss_borderColor(cy){
 }
 
 function check_position(node_1,node_2){
+// take the rendered position of two nodes and check that they are not superposed
   var x_1 = Math.round(node_1.renderedPosition().x);
   var y_1 = Math.round(node_1.renderedPosition().y);
   var x_2 = Math.round(node_2.renderedPosition().x);
