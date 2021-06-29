@@ -13,6 +13,7 @@ function delete_group(container) {
 }
 
 function choose_grp(cy) {
+    if (document.getElementById('cy').style.visibility!="hidden"){
     // Selection and recording of images to create a group 
     document.querySelector('#check').style.display = 'block';
     document.querySelector('#cancel').style.display = 'block';
@@ -27,8 +28,46 @@ function choose_grp(cy) {
             evt.target.style('borderWidth',1);
             evt.target.style('borderColor','red');
     });
+    }
+    else{
+        chooseImage();
+    }
+    
 }
 
+function checkedgroup(){
+        if (document.getElementById("error_message") !== null) {
+            var error = document.getElementById("error_message");
+            error.parentNode.removeChild(error);
+        }
+        // Verification of cy loading
+        if (cy === undefined) {
+            let window = document.getElementById('choose-mc');
+            let error = document.createElement('p');
+            error.setAttribute('id', "error_message");
+            error.innerHTML = "Error, matrix must be imported";
+            window.appendChild(error);
+        }
+        let select = document.getElementsByName('select[]');
+        var nodes=cy.nodes()
+        for (let i = 0; i < select.length; i++) {
+            if (select[i].checked) {
+                var node = new Node(nodes.getElementById(select[i].id.slice(0, -4)).id(), [nodes.getElementById(select[i].id.slice(0, -4)).renderedPosition("x"), nodes.getElementById(select[i].id.slice(0, -4)).renderedPosition("y")], nodes.getElementById(select[i].id.slice(0, -4)).style("background-image"));
+                nodes.getElementById(select[i].id.slice(0, -4)).connectedEdges().forEach(function (elmt) {
+                    if (elmt.data().source == nodes.getElementById(select[i].id.slice(0, -4)).id()) {
+                        node.AddEdge(elmt.data().target, elmt.data().proba)
+                    };
+                });
+                li_nodes.push(node);
+            }
+        }
+    var id_grp = prompt("Name the group");
+    if (id_grp) {
+        var grp = new Assembly(id_grp, li_nodes);
+        li_nodes = [];
+        groups.set(id_grp, grp);
+    }
+}
 // -------------- Class --------------
 
 class Node{

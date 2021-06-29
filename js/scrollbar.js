@@ -27,6 +27,7 @@ document.getElementById('import-close').addEventListener('click',
 
 document.getElementById('choose').addEventListener('click',
 function () {
+    sessionStorage.setItem('choix','CH');
     chooseImage();
 });
 
