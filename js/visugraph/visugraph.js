@@ -3,17 +3,21 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick
 Main functions of Visugraph
 */
 
-var allGraph;
-var removedE;
-var removedN;
-var deleted_nodes = []; //List of deleted nodes
+/*
+The following five variables are used to simplify the restoration process after filtering
+*/
+var allGraph; // Var to stock all the original elements of the graph
+var removedE; // Var to stock all the edges removed by thesholding
+var removedN; // Var to stock all the nodes removed through filtering
+var deleted_nodes = []; // List of deleted nodes
+var restoredE;
 
 var const_labels = 0; // Constant for the 'Show/Hide labels' button
 var const_edges = 0; // Constant for the 'Show/Hide edges' button
 
-var fileURIs = new Map();
-var restoredE;
+var fileURIs = new Map(); // Stock names and ref of pictures given by the user
 
+// Initialisation of the cytoscape graph
 var cy = cytoscape({
     container: document.getElementById('cy'),
     boxSelectionEnabled: false,
