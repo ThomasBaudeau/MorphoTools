@@ -1,5 +1,5 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
 
 */
 var groups=new Map();
