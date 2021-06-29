@@ -4,17 +4,16 @@ scrollbar in projet.html
 */
 'use strict'
 
+//Show abstract when mouse hover the title
 $('#titre').mouseover(
     function(){
         document.querySelector('.infobulle').style.display='flex';
-        //document.getElementById('bulle').style.display='flex';
     })
 $('#titre').mouseout(
     function(){
         document.querySelector('.infobulle').style.display='none';
-        //document.getElementById('bulle').style.display='none';
     })
-
+//-----------------------------------------------------------//
 //file import window
 document.getElementById('import').addEventListener('click',
     function () {
@@ -30,7 +29,6 @@ document.getElementById('choose').addEventListener('click',
 function () {
     chooseImage();
 });
-
 
 document.getElementById('choose-close').addEventListener('click',
     function () {
@@ -66,13 +64,8 @@ document.getElementById('Validation').addEventListener('click',
             //addImport();
         }
     });
-
-document.addEventListener("DOMContentLoaded",function(){
-    document.getElementById("titre").textContent = sessionStorage.getItem('name_project');
-    document.getElementById("ok").textContent = sessionStorage.getItem('abstract_project');
-});
-
-
+//-----------------------------------------------------------//
+//load title and abstract
 document.addEventListener("DOMContentLoaded",function(){
     NumberImage()
     document.getElementById("titre").textContent = sessionStorage.getItem('name_project');
@@ -80,12 +73,12 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 
 
-
+//Calculated numbers of images 
 function NumberImage()
 {
     let numberJson=0;
     let numberImage=0;
-    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);
+    let connection = window.indexedDB.open(sessionStorage.getItem('selected_project'), 3);//conection to the database:
     connection.onerror = function (e) {
         console.error('Unable to open database.');
     }
@@ -121,7 +114,7 @@ function NumberImage()
 
 
 
-
+//Select all checkbox when all is checked.
 function selectAll(ch) {
 	var tab = document.getElementsByTagName("input"); 
 	for (var i = 0; i < tab.length; i++) { 
@@ -130,15 +123,17 @@ function selectAll(ch) {
 	}
 }
 
+//Load the window for selecting images to display
 function chooseImage() {
     let select = document.getElementsByName('select[]');
     var count=0;
+    //check if the window have been previously loaded if yes stop the function
     if(select.length>1){
         document.querySelector('.choose-modal').style.display = 'flex';
         return
     }
-    loadStart('loading images');
-    if (document.getElementById('ii').files.length!=0){
+    loadStart('loading images');//start loading function
+    if (document.getElementById('ii').files.length!=0){//check if images is localy loaded if not check in the database
         var fileInput = document.getElementById('ii');
         for(let i=0;i<fileInput.files.length;i++){
             var reader = new FileReader();
@@ -147,7 +142,7 @@ function chooseImage() {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
-                if (/\.(jpe?g|png|gif)$/i.test(name)) {
+                if (/\.(jpe?g|png|gif)$/i.test(name)) {//creating line and checkboxe for each image
                     let data = url;
                     let table = document.getElementById('choose_image');
                     let line = document.createElement('tr');
@@ -174,7 +169,7 @@ function chooseImage() {
                     table.appendChild(line);
                     count++;
                     if (count == sessionStorage.getItem('numberImage')) {
-                        loadEnd();
+                        loadEnd();//stop loading function if all images have been process
                         document.querySelector('.choose-modal').style.display = 'flex';
                     }
                 }
@@ -182,7 +177,7 @@ function chooseImage() {
             }
         }
     }
-    else{
+    else{// check images in the database
     // Open DB
         let request = indexedDB.open(sessionStorage.getItem('selected_project'), 3);
     
@@ -209,7 +204,7 @@ function chooseImage() {
             let cursor = e.target.result;
             if (cursor) {
                 let name = cursor.value.type_file;
-                if ( /\.(jpe?g|png|gif)$/i.test(name)) {
+                if (/\.(jpe?g|png|gif)$/i.test(name)) {//creating line and checkboxe for each image
                     let data = cursor.value.data;
                     let table=document.getElementById('choose_image');
                     let line=document.createElement('tr');
@@ -237,14 +232,13 @@ function chooseImage() {
                     count++;
                     if (count==sessionStorage.getItem('numberImage'))
                     {
-                        loadEnd()
+                        loadEnd()//stop loading function if all images have been process
                         document.querySelector('.choose-modal').style.display = 'flex';
                     }
                 }
                 cursor.continue();
             }
         }
-        console.log(cy.json());
     }
     }
 }
