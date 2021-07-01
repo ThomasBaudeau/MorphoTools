@@ -1,10 +1,10 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
-gestion de la fenetre de gestion de groupe
+Management of the group management window
 */
 
 
-/* Croix de deletion de groupe */
+/* Cross of Group Delegation */
 .close-container {
     position: relative;
     margin-right: 20px;
@@ -64,7 +64,10 @@ gestion de la fenetre de gestion de groupe
     opacity: 1;
 }
 
-/* Affichage des nodes du groupe */
+
+
+/* Display of the group's nodes */
+
 .wave {
     position: relative;
     margin-top: 5vh;

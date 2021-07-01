@@ -1,6 +1,6 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Définit le style général du site ainsi que celui de chaque plugin
+Defines the general style of the site as well as that of each plugin
 */
 
 body, html { 
@@ -40,7 +40,7 @@ body, html {
   opacity: 0;
 }
 
-/*checkbox*/
+/* Checkbox */
 h2 {text-align: center;}
 
 td { text-align: center; /* center checkbox horizontally */ 
@@ -51,7 +51,7 @@ table {
   text-align: center;
   vertical-align: middle;
 }
-/*projet*/
+/* Projet */
 h1 {
 color: #4A342C;
 font-weight: bold;
