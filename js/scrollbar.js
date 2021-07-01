@@ -70,7 +70,7 @@ document.getElementById('Validation').addEventListener('click',
 document.addEventListener("DOMContentLoaded",function(){
     NumberImage()
     document.getElementById("titre").textContent = sessionStorage.getItem('name_project');
-    document.getElementById("ok").textContent = sessionStorage.getItem('abstract_project');
+    document.getElementById("info_bulle").textContent = sessionStorage.getItem('abstract_project');
 });
 
 
