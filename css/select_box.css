@@ -1,9 +1,10 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-gestion des bouttons d'outils
+Tool button management
 */
 
-/*  Selection de l'outil  */
+
+/*  Tool selection  */
 #tool_list{
     z-index: 6;
     display:block;
@@ -129,6 +130,7 @@ gestion des bouttons d'outils
     color: #000000;
     background-color: #fbfbfb8c;
 }
+
 @keyframes HideList {
     from {
         transform: scaleY(1);
