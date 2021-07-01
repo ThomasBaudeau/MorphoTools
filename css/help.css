@@ -1,9 +1,9 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
-Gestion des styles de la page help.html
+Managing the styles of the help.html page
 */
 
-/* Zone de texte et scroll bar */
+/* Text box and scroll bar */
 #help_content {
     top: 70px;
     left: 250px;
@@ -12,6 +12,7 @@ Gestion des styles de la page help.html
     position: absolute;
     overflow-y: scroll;
 }
+
 #help_content::-webkit-scrollbar {
     width: 14px;
     height: 18px;
@@ -36,7 +37,7 @@ Gestion des styles de la page help.html
 }
 
 
-/* style de texte */
+/* Text style */
 #title_summary{
     padding-top: 15px;
     padding-bottom: 15px;

@@ -1,9 +1,9 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Styles de notre barre de menu 
+Menu bar styles 
 */
 
-/*Importation des polices*/
+/* Fonts import */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
@@ -93,7 +93,7 @@ Styles de notre barre de menu
     height: 35px;
 }
 
-/*Menu adaptée à la taille de l'écran*/
+/* Menu adapted to the screen size */
 @media only screen and (max-width: 900px) {
     .container {
         width: 100%;
@@ -130,7 +130,6 @@ Styles de notre barre de menu
         width: 50px;
         height: 50px;
     }
-
 }
 
 .save-msg {

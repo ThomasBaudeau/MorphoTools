@@ -1,14 +1,12 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Styles du slider d'information
+Information slider styles
 */
-
 
 
 .display-toolbox h1{
     margin-left: 20px;
 }
-
 
 .display-tools {
     box-sizing: border-box;
@@ -92,8 +90,6 @@ Styles du slider d'information
     margin: 10px;
     border-radius: 50%;
     cursor: pointer;
-
-
 }
 
 .img-slider .navigation .nav-btn.active{

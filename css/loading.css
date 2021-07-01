@@ -1,9 +1,9 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Définit le style général des phases de chargements
+Defines the general style of the loading phases
 */
 
-/* - Chargement en cours - */
+/* Loading in progress */
 #loading_div{
     display: none;
     margin-left: 250px;
@@ -83,7 +83,7 @@ Définit le style général des phases de chargements
   }
 
 
-/* - Chargement terminé - */
+/* Loading completed */
 #end-loading_div{
     margin-left: 250px;
     height: calc(100vh - 70px);

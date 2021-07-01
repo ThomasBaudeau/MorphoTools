@@ -1,9 +1,10 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-liste de tout les bouttons
+List of buttons
 */
 
-/*bouton help*/
+
+/* Help Button */
 .help-btn {
     font-size: 17px;
     height: 35px;
@@ -64,7 +65,8 @@ liste de tout les bouttons
 
 .btn:hover::after {right: 80%;}
 
-/* Bouton selection outils */
+
+/* Tool selection button */
 .btn2 {
     font-size: 14px;
     height: 35px;
@@ -107,7 +109,8 @@ liste de tout les bouttons
 
 .btn2:hover::after {right: 80%;}
 
-/* Bouton selection de l'action */
+
+/* Action selector button */
 .btn3 {
     font-size: 14px;
     height: 35px;
@@ -156,7 +159,8 @@ liste de tout les bouttons
 
 .btn3:hover::after {right: 80%;}
 
-/* Bouton de retour a l'index */
+
+/* Back to index button */
 #back_to_index {
     color: #fff;
     font-size: 34px;
@@ -167,7 +171,7 @@ liste de tout les bouttons
     cursor: pointer;
 }
 
-/* Bouton validation */
+/* Validation Button */
 #Validation{
     width: 100px;
     height: 30px;
@@ -180,7 +184,7 @@ liste de tout les bouttons
     font-size: small;
 }
 
-/*Style de visugraph*/
+/* Style of visugraph */
 #bouton_visu{
     top: 250px;
     height: 100%;
@@ -190,7 +194,7 @@ liste de tout les bouttons
     z-index: 5;
 }
 
-/*style de btn-vg(?)*/
+/* Style of btn-vg(?) */
 #btn-vg {margin-top: 5px;}
 
 .button {margin-left: .5em;}

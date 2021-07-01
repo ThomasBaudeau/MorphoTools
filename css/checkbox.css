@@ -1,8 +1,9 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-gestion de la fenetre choose image et des styles de checkboxes
+Management of the choose image window and checkbox styles
 */
 
+/* Choose images */
 #send_img{
   width: 100px;
   height: 30px;
@@ -12,7 +13,6 @@ gestion de la fenetre choose image et des styles de checkboxes
 #send_div{
   text-align: center;
   margin-top: 10px;
-
 }
 
 #choose-mc {
@@ -120,8 +120,7 @@ input[type="checkbox"]:checked + label:before {
 
 
 
-/* CHOOSE GRP */
-
+/* Choose group */
 #choose_group{
   margin-left: auto;
   margin-right: auto;
