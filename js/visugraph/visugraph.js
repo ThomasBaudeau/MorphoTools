@@ -65,6 +65,7 @@ async function showFile(cy) {
                 count2++
                 if (count2 == sessionStorage.getItem('numberImage')){
                     let dicImg = checknames(nameList);
+                    console.log(dicImg);
                     loadEnd();
                     imageinit(cy); 
                 }
