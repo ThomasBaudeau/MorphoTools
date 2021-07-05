@@ -49,6 +49,7 @@ function savegraphelement(){
 
 async function showFile(cy) {
     loadStart('retrieving images')
+    var nameList = [];
     var fileInput = document.getElementById('ii');
     if (fileInput.files.length!=0)
     {
@@ -59,9 +60,11 @@ async function showFile(cy) {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
+                nameList.add(name);
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
                 if (count2 == sessionStorage.getItem('numberImage')){
+                    let dicImg = checknames(nameList);
                     loadEnd();
                     imageinit(cy); 
                 }
@@ -89,10 +92,12 @@ async function showFile(cy) {
                 if (cursor) {
                     image=[]
                     let name = cursor.value.type_file;
+                    nameList.add(name);
                     if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                         fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
                         count++;
                         if(count==sessionStorage.getItem('numberImage')){
+                            let dicImg = checknames(nameList);
                             loadEnd()
                             imageinit(cy)}
                         }
@@ -106,6 +111,37 @@ async function showFile(cy) {
     }
 }
 
+async function checknames(list){
+    /* Group together all the names that share the same common elements, assuming that
+    they would be the recto, verso, and IR images of the same fragment*/
+    var finMat = {};
+    for (let y=0; y<list.length; y++) {
+        var nameImg = list[y];
+        var smolArr = [nameImg];
+        /* names length are variables but the fragment' ID is always found 
+        before the first "_", so look for this char position*/
+        var idx = nameImg.indexOf("_");
+        var ID = nameImg.slice(idx);
+        if (idx != -1) {
+            // if there was no error, look for other names in the list with the same ID
+            for (let i=0; i<list.length; i++) {
+                // careful not to compare the name with itself
+                if (i != y) {
+                    let IDmaybe = list[i].slice(idx);
+                    let n = ID.localeCompare(IDmaybe);
+                    if (n == 0) {
+                        // if n = 0, it means both strings are identical
+                        smolArr.add(list[i]);
+                        list.splice(i);
+                    }
+                }
+            }
+        }
+        finMat.push(smolArr);
+        list.splice(y);
+    }
+    return finMat;
+}
 
 function initGraph(cy, lyt){
     // Initialization of the graph visualization with the choice of the layout
