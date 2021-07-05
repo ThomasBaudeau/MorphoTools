@@ -60,7 +60,7 @@ async function showFile(cy) {
             reader.onload = function (readerEvent) {
                 var url = readerEvent.target.result;
                 var name = readerEvent.target.fileName;
-                nameList.add(name);
+                nameList.push(name);
                 fileURIs.set(name.slice(0, -4), url);
                 count2++
                 if (count2 == sessionStorage.getItem('numberImage')){
@@ -93,7 +93,7 @@ async function showFile(cy) {
                 if (cursor) {
                     image=[]
                     let name = cursor.value.type_file;
-                    nameList.add(name);
+                    nameList.push(name);
                     if ( /\.(jpe?g|png|gif)$/i.test(name)) {
                         fileURIs.set(name.slice(0, -4),'data:image/jpeg;base64,'+btoa(cursor.value.data) )
                         count++;
@@ -112,10 +112,10 @@ async function showFile(cy) {
     }
 }
 
-async function checknames(list){
+function checknames(list){
     /* Group together all the names that share the same common elements, assuming that
     they would be the recto, verso, and IR images of the same fragment*/
-    var finMat = {};
+    var finMat = [];
     for (let y=0; y<list.length; y++) {
         var nameImg = list[y];
         var smolArr = [nameImg];
@@ -132,7 +132,7 @@ async function checknames(list){
                     let n = ID.localeCompare(IDmaybe);
                     if (n == 0) {
                         // if n = 0, it means both strings are identical
-                        smolArr.add(list[i]);
+                        smolArr.push(list[i]);
                         list.splice(i);
                     }
                 }
@@ -140,6 +140,7 @@ async function checknames(list){
         }
         finMat.push(smolArr);
         list.splice(y);
+        console.log("finMat",finMat);
     }
     return finMat;
 }
