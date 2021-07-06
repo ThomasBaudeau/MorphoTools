@@ -52,34 +52,37 @@
         <div class="modal-content" id="import-mc">
             <div class="close" id="import-close">+</div>
             <h2>Files importation</h2>
+            <img src="images/add_input.png" id= add_input_type onclick="choice_input_type()">
             <form>
                 <div id= "upload" class= "upload">
-                    <div id= "import_div">
+                    <!-- <div id= "import_div">
                         <h3>Import recto (color)</h3>
                         <input type="file" multiple accept="image/*" id=ii>
-                        <img src="images/add_input.png" id= add_input_type onclick="choice_input_type()">
+                        <img src="images/minus_input.png" id= minus_input_type onclick="delete_input_img(0,this)">
+                    </div>
+
+                    <div id= "import_div">
+                        <h3>Import verso (color)</h3>
+                        <input type="file" multiple accept="image/*" id=iv>
                         <img src="images/minus_input.png" id= minus_input_type>
                     </div>
 
-                    <div id= "import002">
-                        <h3>Import verso (color)</h3>
-                        <input type="file" multiple accept="image/*" id=iv>
-                    </div>
-
-                    <div id= "import003">
+                    <div id= "import_div">
                         <h3>Import recto (Infrared)</h3>
                         <input type="file" multiple accept="image/*" id=ir>
+                        <img src="images/minus_input.png" id= minus_input_type>
                     </div>
 
-                    <div id= "import004">
+                    <div id= "import_div">
                         <h3>Import recto (Infrared)</h3>
                         <input type="file" multiple accept="image/*" id=is>
-                    </div>
+                        <img src="images/minus_input.png" id= minus_input_type>
+                    </div> -->
 
-                    <div id= "import001">
+                    <div id= "import_div">
                         <h3>Import json/csv</h3>
                         <input type="file" accept=".json,.csv" id=ij>
-                    </div>
+                    </div> 
                 </div>
             </form>
             <button id="Validation">Send</button>

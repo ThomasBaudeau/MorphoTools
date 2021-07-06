@@ -28,7 +28,7 @@ File import form styles
 
 #import-mc {
     width: 680px;
-    height: 350px;
+    height: 500px;
     overflow-y: scroll;
 }
 
@@ -44,9 +44,7 @@ File import form styles
 }
 
 #add_input_type {
-    max-width: 60px;
-    right: -250px;
-    top: -60px;
+    max-width: 100px;
     position: relative;
     cursor: pointer;
 }
