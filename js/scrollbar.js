@@ -32,9 +32,14 @@ function () {
 });
 
 document.getElementById('choose-close').addEventListener('click',
-    function () {
-        document.querySelector('.choose-modal').style.display = 'none';
-    });
+function () {
+    document.querySelector('.choose-modal').style.display = 'none';
+});
+
+document.getElementById('input_type-close').addEventListener('click',
+function () {
+    document.querySelector('.type_choice-modal').style.display = 'none';
+});
 
 
 document.getElementById('Validation').addEventListener('click',

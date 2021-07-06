@@ -2,6 +2,10 @@
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 informations display on the project page
 */
+
+// list of created image input
+var input_type_list = []
+
 // function for loading screen
 async function chargement(texte, nbr, multi) {
     loadStart(texte)
@@ -59,3 +63,48 @@ document.getElementById('back_visu').addEventListener('click',function(){
     document.querySelector('#display_window').style.display = 'none';
 })
 
+function choice_input_type(){
+    document.querySelector('.type_choice-modal').style.display = 'flex'
+}
+
+function create_input_img(type){
+    //type: int (0 to 3)
+    let find_type = input_type_list.indexOf(type)
+
+    if (type === 0 && find_type === -1){
+        //recto (color)
+        console.log("input type : "+type);
+        input_type_list.push(type);
+        document.querySelector('.type_choice-modal').style.display = 'none';
+    }
+
+    else if (type === 1 && find_type === -1){
+        //verso (color)
+        console.log("input type : "+type);
+        input_type_list.push(type);
+        document.querySelector('.type_choice-modal').style.display = 'none';
+
+    }
+
+    else if (type === 2 && find_type === -1){
+        //recto (infrared)
+        console.log("input type : "+type);
+        input_type_list.push(type);
+        document.querySelector('.type_choice-modal').style.display = 'none';
+
+    }   
+
+    else if (type === 3 && find_type === -1){
+        //verso (infrared)
+        console.log("input type : "+type);
+        input_type_list.push(type);
+        document.querySelector('.type_choice-modal').style.display = 'none';
+
+    }
+
+    else {
+        console.log("error type CHEH")
+    }
+    
+    
+}

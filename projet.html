@@ -53,22 +53,51 @@
             <div class="close" id="import-close">+</div>
             <h2>Files importation</h2>
             <form>
-                <div id="upload" class="upload">
-                    <h3>Import recto (color)</h3>
-                    <input type="file" multiple accept="image/*" id=ii>
-                    <h3>Import verso (color)</h3>
-                    <input type="file" multiple accept="image/*" id=iv>
-                    <h3>Import recto (Infrared)</h3>
-                    <input type="file" multiple accept="image/*" id=ir>
-                    <h3>Import recto (Infrared)</h3>
-                    <input type="file" multiple accept="image/*" id=is>
-                    <h3>Import json/csv</h3>
-                    <input type="file" accept=".json,.csv" id=ij>
+                <div id= "upload" class= "upload">
+                    <div id= "import_div">
+                        <h3>Import recto (color)</h3>
+                        <input type="file" multiple accept="image/*" id=ii>
+                        <img src="images/add_input.png" id= add_input_type onclick="choice_input_type()">
+                        <img src="images/minus_input.png" id= minus_input_type>
+                    </div>
+
+                    <div id= "import002">
+                        <h3>Import verso (color)</h3>
+                        <input type="file" multiple accept="image/*" id=iv>
+                    </div>
+
+                    <div id= "import003">
+                        <h3>Import recto (Infrared)</h3>
+                        <input type="file" multiple accept="image/*" id=ir>
+                    </div>
+
+                    <div id= "import004">
+                        <h3>Import recto (Infrared)</h3>
+                        <input type="file" multiple accept="image/*" id=is>
+                    </div>
+
+                    <div id= "import001">
+                        <h3>Import json/csv</h3>
+                        <input type="file" accept=".json,.csv" id=ij>
+                    </div>
                 </div>
             </form>
             <button id="Validation">Send</button>
         </div>
     </div>
+
+    <!-- Fenetre choix type input image -->
+    <div class="type_choice-modal">
+        <div class="modal-content" id="input-mc">
+            <div class="close" id="input_type-close">+</div>
+            <h2>Input type</h2>
+            <button class = button_input_type id="colored_recto" onclick="create_input_img(0)">recto (color)</button>
+            <button class = button_input_type id="colored_verso" onclick="create_input_img(1)">verso (color)</button>
+            <button class = button_input_type id="infrared_recto" onclick="create_input_img(2)">recto (infrared)</button>
+            <button class = button_input_type id="infrared_recto" onclick="create_input_img(3)">verso (infrared)</button>
+        </div>
+    </div>
+
 
     <!-- Fenetre choix image -->
     <div class="choose-modal">
