@@ -163,5 +163,5 @@ function create_input_img(type){
 function delete_input_img(type,self){
     let find_type = input_type_list.indexOf(type);
     input_type_list.splice(find_type,1);
-    self.parentNode.parentNode.removeChild(self.parentNode)
+    self.parentNode.parentNode.removeChild(self.parentNode);
 }

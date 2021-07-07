@@ -18,9 +18,11 @@ function resizing_left_container(){
 
         //pop-up window background
         $(".import-modal").css('height','770px');
+        $(".type_choice-modal").css('height','770px');
+        $(".choose-modal").css('height','770px');
     }
 }
 
-window.addEventListener('load', resizing_left_container)
+window.addEventListener('load', resizing_left_container);
 
 
