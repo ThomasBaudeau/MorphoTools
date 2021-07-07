@@ -122,7 +122,6 @@ function create_input_img(type){
 
         input_type_list.push(type);
         document.querySelector('.type_choice-modal').style.display = 'none';
-
     }
 
     else if (type === 2 && find_type === -1){
@@ -138,7 +137,6 @@ function create_input_img(type){
 
         input_type_list.push(type);
         document.querySelector('.type_choice-modal').style.display = 'none';
-
     }   
 
     else if (type === 3 && find_type === -1){
@@ -154,16 +152,12 @@ function create_input_img(type){
 
         input_type_list.push(type);
         document.querySelector('.type_choice-modal').style.display = 'none';
-
     }
 
     else if (error !== 1) {
         document.getElementById('error_type_input').innerHTML = "Error, you can't add the same type of input 2 times";
         error = 1;
     }
-
-    
-    
 }
 
 function delete_input_img(type,self){
