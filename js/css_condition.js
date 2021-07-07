@@ -12,6 +12,12 @@ function resizing_left_container(){
 
         //cy display window gestion
         $("#cy").css('height','700px');
+
+        //loading display
+        $("#loading_div").css('height','700px');
+
+        //pop-up window background
+        $(".import-modal").css('height','770px');
     }
 }
 
