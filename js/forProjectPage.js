@@ -6,6 +6,8 @@ informations display on the project page
 // list of created image input
 var input_type_list = []
 
+var error = 0;
+
 // function for loading screen
 async function chargement(texte, nbr, multi) {
     loadStart(texte)
@@ -66,6 +68,8 @@ document.getElementById('back_visu').addEventListener('click',function(){
 
 
 function choice_input_type(){
+    document.getElementById('error_type_input').innerHTML = "";
+    error = 0;
     document.querySelector('.type_choice-modal').style.display = 'flex';
 }
 
@@ -75,26 +79,26 @@ function create_input_img(type){
     let find_type = input_type_list.indexOf(type);
     let parent_div = document.getElementById('upload');
 
+    let div = document.createElement('div');
+    div.setAttribute('id','import_div');
+    
+    let label = document.createElement('h3');
+
+    let input = document.createElement('input');
+    input.setAttribute('type','file');
+    input.setAttribute('multiple','true')
+    input.setAttribute('accept','image/*');
+
+    let img = document.createElement('img');
+    img.setAttribute('src','images/minus_input.png');
+    img.setAttribute('id','minus_input_type');
+    img.setAttribute('onclick','delete_input_img(0,this)');
+
     if (type === 0 && find_type === -1){
         //recto (color)
-        console.log("input type : "+type);
-
-        let div = document.createElement('div');
-        div.setAttribute('id','import_div');
-        
-        let label = document.createElement('h3');
         label.innerHTML = "Import recto (color)";
-        
-        let input = document.createElement('input');
-        input.setAttribute('type','file');
-        input.setAttribute('multiple','true')
-        input.setAttribute('accept','image/*');
-        input.setAttribute('id','ii');
 
-        let img = document.createElement('img');
-        img.setAttribute('src','images/minus_input.png');
-        img.setAttribute('id','minus_input_type');
-        img.setAttribute('onclick','delete_input_img(0,this)')
+        input.setAttribute('id','ii');
 
         div.appendChild(label);
         div.appendChild(input);
@@ -107,24 +111,9 @@ function create_input_img(type){
 
     else if (type === 1 && find_type === -1){
         //verso (color)
-        console.log("input type : "+type);
-
-        let div = document.createElement('div');
-        div.setAttribute('id','import_div');
-        
-        let label = document.createElement('h3');
         label.innerHTML = "Import verso (color)";
         
-        let input = document.createElement('input');
-        input.setAttribute('type','file');
-        input.setAttribute('multiple','true')
-        input.setAttribute('accept','image/*');
         input.setAttribute('id','iv');
-
-        let img = document.createElement('img');
-        img.setAttribute('src','images/minus_input.png');
-        img.setAttribute('id','minus_input_type');
-        img.setAttribute('onclick','delete_input_img(1,this)')
 
         div.appendChild(label);
         div.appendChild(input);
@@ -138,24 +127,9 @@ function create_input_img(type){
 
     else if (type === 2 && find_type === -1){
         //recto (infrared)
-        console.log("input type : "+type);
-
-        let div = document.createElement('div');
-        div.setAttribute('id','import_div');
-        
-        let label = document.createElement('h3');
         label.innerHTML = "Import recto (Infrared)";
         
-        let input = document.createElement('input');
-        input.setAttribute('type','file');
-        input.setAttribute('multiple','true')
-        input.setAttribute('accept','image/*');
         input.setAttribute('id','ir');
-
-        let img = document.createElement('img');
-        img.setAttribute('src','images/minus_input.png');
-        img.setAttribute('id','minus_input_type');
-        img.setAttribute('onclick','delete_input_img(2,this)')
 
         div.appendChild(label);
         div.appendChild(input);
@@ -169,24 +143,9 @@ function create_input_img(type){
 
     else if (type === 3 && find_type === -1){
         //verso (infrared)
-        console.log("input type : "+type);
-
-        let div = document.createElement('div');
-        div.setAttribute('id','import_div');
-        
-        let label = document.createElement('h3');
         label.innerHTML = "Import recto (Infrared)";
         
-        let input = document.createElement('input');
-        input.setAttribute('type','file');
-        input.setAttribute('multiple','true')
-        input.setAttribute('accept','image/*');
         input.setAttribute('id','is');
-
-        let img = document.createElement('img');
-        img.setAttribute('src','images/minus_input.png');
-        img.setAttribute('id','minus_input_type');
-        img.setAttribute('onclick','delete_input_img(3,this)');
 
         div.appendChild(label);
         div.appendChild(input);
@@ -198,9 +157,11 @@ function create_input_img(type){
 
     }
 
-    else {
-        console.log("error type CHEH")
+    else if (error !== 1) {
+        document.getElementById('error_type_input').innerHTML = "Error, you can't add the same type of input 2 times";
+        error = 1;
     }
+
     
     
 }
@@ -209,5 +170,4 @@ function delete_input_img(type,self){
     let find_type = input_type_list.indexOf(type);
     input_type_list.splice(find_type,1);
     self.parentNode.parentNode.removeChild(self.parentNode)
-
 }
