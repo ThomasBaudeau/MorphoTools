@@ -92,13 +92,14 @@ function create_input_img(type){
     let img = document.createElement('img');
     img.setAttribute('src','images/minus_input.png');
     img.setAttribute('id','minus_input_type');
-    img.setAttribute('onclick','delete_input_img(0,this)');
 
     if (type === 0 && find_type === -1){
         //recto (color)
         label.innerHTML = "Import recto (color)";
 
         input.setAttribute('id','ii');
+
+        img.setAttribute('onclick','delete_input_img(0,this)');
 
         div.appendChild(label);
         div.appendChild(input);
@@ -115,6 +116,8 @@ function create_input_img(type){
         
         input.setAttribute('id','iv');
 
+        img.setAttribute('onclick','delete_input_img(1,this)');
+
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(img);
@@ -130,6 +133,8 @@ function create_input_img(type){
         
         input.setAttribute('id','ir');
 
+        img.setAttribute('onclick','delete_input_img(2,this)');
+
         div.appendChild(label);
         div.appendChild(input);
         div.appendChild(img);
@@ -141,9 +146,11 @@ function create_input_img(type){
 
     else if (type === 3 && find_type === -1){
         //verso (infrared)
-        label.innerHTML = "Import recto (Infrared)";
+        label.innerHTML = "Import verso (Infrared)";
         
         input.setAttribute('id','is');
+
+        img.setAttribute('onclick','delete_input_img(3,this)');
 
         div.appendChild(label);
         div.appendChild(input);

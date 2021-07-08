@@ -54,7 +54,7 @@ document.getElementById('Validation').addEventListener('click',
         if ((document.getElementById('ii').files.length == 0 && document.getElementById('ij').files.length == 0)){ //||+
         // (document.getElementById('iv').files.length == 0 && document.getElementById('ij').files.length == 0)||+
         // (document.getElementById('ir').files.length == 0 && document.getElementById('ij').files.length == 0)||+
-        // (document.getElementById('is').files.length == 0 && document.getElementById('ij').files.length == 0)
+        // (document.getElementById('is').files.length == 0 && document.getElementById('ij').files.length == 0)){
             let window = document.getElementById('import-mc');
             let error = document.createElement('p');
             error.setAttribute('id',"error_message");
