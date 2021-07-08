@@ -27,8 +27,8 @@ File import form styles
 }
 
 #import-mc {
-    width: 680px;
-    height: 500px;
+    width: 400px;
+    height: 220px;
     overflow-y: scroll;
 }
 
@@ -56,9 +56,4 @@ File import form styles
     position: relative;
     cursor: pointer;
 }
-
-.button_input_type {
-    margin: 10px;
-}
-
 

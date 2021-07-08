@@ -198,3 +198,11 @@ List of buttons
 #btn-vg {margin-top: 5px;}
 
 .button {margin-left: .5em;}
+
+/* Style of input choice button */
+.button_input_type{
+    margin: 10px;
+    height: 25px;
+    width: 150px;
+    cursor: pointer;
+}
