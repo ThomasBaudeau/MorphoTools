@@ -22,7 +22,7 @@ In order to use Visugraph, you will need 2 type of files :
 
 
 # Version :
-Curent version : 1.5.0
+Curent version : 1.5.1
 
 Version list: [Click here](https://github.com/ThomasBaudeau/MorphoTools/releases)
 
