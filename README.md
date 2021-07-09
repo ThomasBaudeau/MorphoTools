@@ -34,7 +34,7 @@ Version list: [Click here](https://github.com/ThomasBaudeau/MorphoTools/releases
 * **Gregory Bordier** _alias_ [@GregoryBordier](https://github.com/GregoryBordier)
 * **Patrick Jacques** _alias_ [@jacqpat](https://github.com/jacqpat)
 * **Valentin Gonay** _alias_ [@Valentin-gonay](https://github.com/Valentin-Gonay)
-* **Enzo GOMES**
+* **Enzo Gomes**
 
 
 # License
