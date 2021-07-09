@@ -10,6 +10,8 @@ Version 1.5.0
     width: 700px;
     height: 522px;
     margin: auto;
+    display: block;
+
 }
 
 /* Text box and scroll bar */
