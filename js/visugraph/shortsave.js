@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 Shortsave.js : Save graph in session storage as a checkpoint
+July 9 2021
 Version 1.5.0
 */
 

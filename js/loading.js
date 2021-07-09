@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / JACQUES Patrick
 loading.js : fonctions de chargement et blockage des bouttons
+July 9 2021
 Version 1.5.0
 */
 

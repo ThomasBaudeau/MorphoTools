@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / JACQUES Patrick
 css_condition.js : Screen size gestion 
+July 9 2021
 Version 1.5.0
 */
 

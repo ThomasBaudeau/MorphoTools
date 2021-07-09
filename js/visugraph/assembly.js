@@ -1,6 +1,7 @@
 /*
     Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
     assembly.js : Creating groups of images
+    July 9 2021
     Version 1.5.0
 */
 var groups=new Map(); // Dictionary to record the different groups

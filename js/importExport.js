@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 importExport.js : Import/export of the graph in JSON format
+July 9 2021
 Version 1.5.0
 */
 

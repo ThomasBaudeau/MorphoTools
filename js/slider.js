@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 slider.js : display a slider with informations for each plugin within Morphotools
+July 9 2021
 Version 1.5.0
 */
 

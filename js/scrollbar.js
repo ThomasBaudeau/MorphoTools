@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 scrollbar.js : scrollbar in projet.html
+July 9 2021
 Version 1.5.0
 */
 'use strict'

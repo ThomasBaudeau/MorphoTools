@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
 DBreplaceJSON.js : Add JSON to Indexed DB
+July 9 2021
 Version 1.5.0
 */
 

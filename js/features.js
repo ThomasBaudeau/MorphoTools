@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 features.js : Functionalities for the homepage
+July 9 2021
 Version 1.5.0
 */
 
