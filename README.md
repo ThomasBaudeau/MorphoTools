@@ -1,6 +1,6 @@
 # Morphotools
 Morphotools is an online tool-box use for ancient documents manipulation. An inside help is available with the "?" on the top right of the window.
-
+You can create multiple project, import files and manipulate them with tools like Visugraph.
 
 ## How to start with Morphotools :
 To run Morphotools you only need a Web browser. If you want to have access to the functionality relating to the Data base (indexDB), you will need a local server.
@@ -24,7 +24,7 @@ In order to use Visugraph, you will need 2 type of files :
 # Version :
 Curent version : 1.5.0
 
-Version list: [Click here](https://github.com/ThomasBaudeau/MorphoTools/releases/tag/1.5.0)
+Version list: [Click here](https://github.com/ThomasBaudeau/MorphoTools/releases)
 
 
 # Autors
@@ -37,11 +37,7 @@ Version list: [Click here](https://github.com/ThomasBaudeau/MorphoTools/releases
 * **Enzo GOMES**
 
 
-
-Fonctionnement de la boite à outils :
-  1. Créer un ou plusieurs projets
-  2. Sélectionner le projet sur lequel l'utilisateur souhaite travailler en cliquant sur celui-ci
-  3. Importer les fichiers pour ce projet
-  4. Lancer une application. Pour l'instant la boite à outils permet de lancer uniquement le plugin nommé Visugraph
+# License
+This project is under GPL-3.0 License - see [LICENSE.md](LICENSE) file for more information
 
 
