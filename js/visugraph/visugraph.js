@@ -51,10 +51,11 @@ function savegraphelement(){
 
 async function showFile(cy) {
     loadStart('retrieving images')
+    var inputLength = 0;
     var nameList = [];
     var fileInput = document.getElementById('ii');
-    if (fileInput.files.length!=0)
-    {
+    if (typeof fileInput != "undefined" && fileInput != null) {inputLength = fileInput.files.length;}
+    if (inputLength!=0){
         var count2=0;
         for (var i = 0; i < fileInput.files.length; i++) {
             var reader = new FileReader();
@@ -71,7 +72,6 @@ async function showFile(cy) {
                     loadEnd();
                     imageinit(cy); 
                 }
-
             }
             reader.readAsDataURL(fileInput.files[i]);
         }
