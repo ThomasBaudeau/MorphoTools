@@ -3,6 +3,14 @@ Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
 Managing the styles of the help.html page
 */
 
+
+/* Video */
+#demo_video {
+    width: 400px;
+    height: 222px;
+    margin: auto;
+}
+
 /* Text box and scroll bar */
 #help_content {
     top: 70px;

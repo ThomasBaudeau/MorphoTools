@@ -27,15 +27,14 @@ File import form styles
 }
 
 #import-mc {
-    width: 400px;
-    height: 220px;
+    width: 600px;
+    height: 400px;
     overflow-y: scroll;
 }
 
 #input-mc {
-    width: 340px;
+    width: 420px;
     height: 200px;
-    overflow-y: scroll;
 }
 
 #import_div {
