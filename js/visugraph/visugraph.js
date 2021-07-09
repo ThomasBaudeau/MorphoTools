@@ -1,5 +1,5 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément / Cecilia Ostertag
+Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément / Cecilia Ostertag
 visugraph.js : Main functions of Visugraph
 Version 1.5.0
 */

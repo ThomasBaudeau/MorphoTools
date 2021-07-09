@@ -1,5 +1,5 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 Shortsave.js : Save graph in session storage as a checkpoint
 Version 1.5.0
 */

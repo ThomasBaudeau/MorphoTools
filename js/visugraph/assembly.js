@@ -1,5 +1,5 @@
 /*
-    Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+    Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
     assembly.js : Creating groups of images
     Version 1.5.0
 */

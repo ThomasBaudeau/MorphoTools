@@ -1,5 +1,5 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 slider.js : display a slider with informations for each plugin within Morphotools
 Version 1.5.0
 */

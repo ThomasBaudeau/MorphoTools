@@ -1,5 +1,5 @@
 /* 
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+Thomas Baudeau / Gregory Bordier / Valentin Gonay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
 forProjectPage.js : Informations display on the project page
 Version 1.5.0
 */

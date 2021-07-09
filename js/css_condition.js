@@ -1,5 +1,5 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
+Thomas Baudeau / Gregory Bordier / Valentin Gonay / JACQUES Patrick
 css_condition.js : Screen size gestion 
 Version 1.5.0
 */
