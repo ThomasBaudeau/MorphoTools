@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-informations display on the project page
+forProjectPage.js : Informations display on the project page
+Version 1.5.0
 */
 
 // list of created image input

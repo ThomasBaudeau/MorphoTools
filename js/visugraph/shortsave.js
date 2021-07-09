@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Save graph in session storage as a checkpoint
+Shortsave.js : Save graph in session storage as a checkpoint
+Version 1.5.0
 */
 
 function shortSave(cy){

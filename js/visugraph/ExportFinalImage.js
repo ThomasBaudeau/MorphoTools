@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Exportation of the graph as a jpg
+ExportFinalImage.js : Exportation of the graph as a jpg
+Version 1.5.0
 */
 
 'use strict'

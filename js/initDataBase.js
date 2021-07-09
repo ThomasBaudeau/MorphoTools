@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-project creation and init of the DB
+initDataBase.js : project creation and init of the DB
+Version 1.5.0
 */
 
 'use strict'

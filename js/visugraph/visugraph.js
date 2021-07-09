@@ -1,6 +1,7 @@
 /*
-Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Main functions of Visugraph
+Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément / Cecilia Ostertag
+visugraph.js : Main functions of Visugraph
+Version 1.5.0
 */
 
 /*

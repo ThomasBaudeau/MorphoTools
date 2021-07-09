@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Avoid or reveal superposition of pictures
+superposition.js : Avoid or reveal superposition of pictures
+Version 1.5.0
 */
 
 function show_superposition(cy){

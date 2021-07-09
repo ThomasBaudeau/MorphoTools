@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Import/export of the graph in JSON format
+importExport.js : Import/export of the graph in JSON format
+Version 1.5.0
 */
 
 // variable de verif, false si pas de matrice load, true si matrice load

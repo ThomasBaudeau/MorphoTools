@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-display a slider with informations for each plugin within Morphotools
+slider.js : display a slider with informations for each plugin within Morphotools
+Version 1.5.0
 */
 
 'use strict'

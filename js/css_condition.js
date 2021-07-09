@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
-Gestion des problème d'affichage en cas d'écran au dimention trop petites
+css_condition.js : Screen size gestion 
+Version 1.5.0
 */
 
 

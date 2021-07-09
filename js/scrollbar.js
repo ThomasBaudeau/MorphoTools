@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-scrollbar in projet.html
+scrollbar.js : scrollbar in projet.html
+Version 1.5.0
 */
 'use strict'
 

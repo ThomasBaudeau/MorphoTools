@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-Add JSON to Indexed DB
+DBreplaceJSON.js : Add JSON to Indexed DB
+Version 1.5.0
 */
 
 function addJSONtoDB(cy) {

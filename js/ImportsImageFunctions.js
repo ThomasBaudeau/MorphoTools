@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-functionalities for handling files for Indexed DB
+ImportsImageFunctions.js : functionalities for handling files for Indexed DB
+Version 1.5.0
 */
 //init the database this function is uselless for now.
 function initDb(){

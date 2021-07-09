@@ -1,6 +1,7 @@
 /*
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-handle display of projects within the DB
+projectwindows.js : handle display of projects within the DB
+Version 1.5.0
 */
 
 //call addData() whenever a formulary is submited.

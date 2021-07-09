@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
-Functionalities for the homepage
+features.js : Functionalities for the homepage
+Version 1.5.0
 */
 
 'use strict'

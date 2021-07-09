@@ -1,6 +1,7 @@
 /*
-    Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-    Creating groups of images
+    Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément
+    assembly.js : Creating groups of images
+    Version 1.5.0
 */
 var groups=new Map(); // Dictionary to record the different groups
 var li_nodes=[]; // Array to save selected images

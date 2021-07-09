@@ -1,6 +1,7 @@
 /* 
 Thomas Baudeau / Gregory Bordier / Valentin Gomay / JACQUES Patrick
-fonctions de chargement et blockage des bouttons
+loading.js : fonctions de chargement et blockage des bouttons
+Version 1.5.0
 */
 
 function loadStart(function_name){

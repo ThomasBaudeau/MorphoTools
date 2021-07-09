@@ -1,6 +1,7 @@
 /*
   Thomas Baudeau / Gregory Bordier / Valentin Gomay / GOMES Enzo / JACQUES Patrick / SAUVESTRE Clément*
-  Classes
+  class.js : Classes
+  Version 1.5.0
 */
 
 class Node{
